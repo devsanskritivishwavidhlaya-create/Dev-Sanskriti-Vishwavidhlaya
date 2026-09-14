@@ -1,28 +1,30 @@
 import React from 'react';
+import { calculateSemesterDetails } from './MarksheetTemplate';
 
-function getExamDate(issueDateStr, index, session) {
+function getExamDate(examMonth, examYear, index) {
   try {
-    if (!issueDateStr) {
-      // Default auto-generated exam dates for June 2026
-      const baseDate = new Date(2026, 5, 10);
-      baseDate.setDate(baseDate.getDate() + (index * 2));
-      return `${String(baseDate.getDate()).padStart(2, '0')}-06-2026`;
-    }
-    const parts = issueDateStr.split(/[-/]/).map(Number);
-    let dd = parts[0], mm = parts[1], yyyy = parts[2];
-    if (parts[0] > 1000) { yyyy = parts[0]; mm = parts[1]; dd = parts[2]; }
-    const date = new Date(yyyy || 2026, (mm || 6) - 1, dd || 1);
-    date.setDate(date.getDate() - 15 + (index * 2));
-    return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+    const monthMap = { 'JUNE': 5, 'DEC': 11 };
+    const monthIdx = monthMap[examMonth] ?? 5;
+    const baseDate = new Date(examYear, monthIdx, 10);
+    baseDate.setDate(baseDate.getDate() + (index * 2));
+    return `${String(baseDate.getDate()).padStart(2, '0')}-${String(baseDate.getMonth() + 1).padStart(2, '0')}-${baseDate.getFullYear()}`;
   } catch {
-    return '15-06-2026';
+    return '10-06-2026';
   }
 }
 
 export default function AdmitCardTemplate({ student, course, termName }) {
   if (!student || !course || !termName) return null;
-  const marksheet = student.marksheets?.[termName] || { issueDate: '20-08-2026' };
+  const marksheet = student.marksheets?.[termName] || { issueDate: '' };
   const subjects = course.terms?.[termName] || [];
+  const terms = Object.keys(course.terms || {});
+  const termIndex = Math.max(0, terms.indexOf(termName));
+  const totalTerms = terms.length > 0 ? terms.length : 1;
+  const { examSessionText, displayIssueDate } = calculateSemesterDetails(
+    student.session, course.type, termName, termIndex, totalTerms, marksheet.issueDate
+  );
+  const examMonth = examSessionText.includes('DEC') ? 'DEC' : 'JUNE';
+  const examYear = parseInt(examSessionText.match(/\d{4}/)?.[0] || '2026');
 
   return (
     <div className="print-container admit-card-layout">
@@ -113,7 +115,7 @@ export default function AdmitCardTemplate({ student, course, termName }) {
                 <tr key={sub.code || idx}>
                   <td style={{ whiteSpace: 'nowrap' }}>{sub.code}</td>
                   <td style={{ textAlign: 'left', fontWeight: '500' }}>{sub.name}</td>
-                  <td style={{ whiteSpace: 'nowrap' }}>{getExamDate(marksheet.issueDate, idx, student.session)}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{getExamDate(examMonth, examYear, idx)}</td>
                   <td style={{ whiteSpace: 'nowrap', fontSize: '7.5pt' }}>10:00 AM - 01:00 PM</td>
                 </tr>
               ))
