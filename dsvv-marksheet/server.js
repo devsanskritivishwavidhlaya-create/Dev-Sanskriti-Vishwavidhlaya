@@ -67,35 +67,49 @@ function parseCSV(text) {
   return records;
 }
 
-function getSundayInMonth(year, monthIndex) {
-  let date = new Date(year, monthIndex, 1);
-  while (date.getDay() !== 0) date.setDate(date.getDate() + 1);
-  date.setDate(date.getDate() + 7);
-  return date;
-}
-
-function formatDate(date) {
-  return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+function getRandomNonSundayDate(year, monthIndex, termIndex = 0) {
+  const candidateDays = [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+  const day = candidateDays[(year * 7 + monthIndex * 13 + (termIndex + 1) * 17) % candidateDays.length];
+  const d = new Date(year, monthIndex, day);
+  if (d.getDay() === 0) {
+    d.setDate(d.getDate() + 1);
+  }
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  return `${dd}/${mm}/${yyyy}`;
 }
 
 function calculateIssueDate(session, termType, termName, termIndex, totalTerms) {
-  const years = session.match(/\b(20\d{2})\b/g);
-  let startYear = new Date().getFullYear(), finalYear = new Date().getFullYear();
+  const years = (session || '').match(/\b(20\d{2})\b/g);
+  let startYear = 2024, finalYear = 2026;
   if (years) {
     if (years.length >= 2) { startYear = parseInt(years[0]); finalYear = parseInt(years[years.length - 1]); }
-    else if (years.length === 1) { startYear = parseInt(years[0]); finalYear = parseInt(years[0]); }
+    else if (years.length === 1) { startYear = parseInt(years[0]); finalYear = startYear + 2; }
   }
-  let issueYear = finalYear, monthIndex = 7;
-  if (termType === 'semester') {
-    const semNum = termIndex + 1;
-    issueYear = finalYear - Math.floor((totalTerms - semNum) / 2);
-    monthIndex = semNum % 2 !== 0 ? 1 : 7;
+  const isSemester = termType !== 'year';
+  let issueMonthIndex = 7; // August
+  let issueYear = finalYear;
+
+  if (isSemester) {
+    if (termIndex % 2 === 0) {
+      // 1st, 3rd, 5th sem: exam in Dec, marksheet in Feb next year
+      const examYear = startYear + Math.floor(termIndex / 2);
+      issueMonthIndex = 1; // February
+      issueYear = examYear + 1;
+    } else {
+      // 2nd, 4th, 6th sem: exam in June, marksheet in Aug
+      const examYear = startYear + Math.floor(termIndex / 2) + 1;
+      issueMonthIndex = 7; // August
+      issueYear = examYear;
+    }
   } else {
-    issueYear = finalYear - (totalTerms - (termIndex + 1));
-    monthIndex = 7;
+    // Year courses: exam in June, marksheet in Aug
+    issueMonthIndex = 7; // August
+    issueYear = startYear + termIndex + 1;
   }
-  issueYear = Math.max(startYear, issueYear);
-  return formatDate(getSundayInMonth(issueYear, monthIndex));
+
+  return getRandomNonSundayDate(issueYear, issueMonthIndex, termIndex);
 }
 
 function generateRollNumber(db) {
