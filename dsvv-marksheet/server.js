@@ -349,15 +349,18 @@ app.get('/api/public/student', (req, res) => {
     const { name, searchVal } = req.query;
     if (!name || !searchVal) return res.status(400).json({ error: 'Name and Roll/Enrollment required' });
     const db = readDB();
+    const cleanName = String(name).trim().toLowerCase();
+    const cleanSearch = String(searchVal).trim().toLowerCase();
     const student = db.students.find(s =>
       s.isPublished &&
-      s.name.trim().toLowerCase() === name.trim().toLowerCase() &&
-      (s.rollNo.trim() === searchVal.trim() || s.enrollmentNo.trim() === searchVal.trim())
+      String(s.name || '').trim().toLowerCase() === cleanName &&
+      (String(s.rollNo || '').trim().toLowerCase() === cleanSearch || String(s.enrollmentNo || '').trim().toLowerCase() === cleanSearch)
     );
     if (!student) return res.status(404).json({ error: 'No matching published records found.' });
-    const course = db.courses.find(c => c.name.toLowerCase() === student.course.toLowerCase());
+    const course = db.courses.find(c => String(c.name || '').toLowerCase() === String(student.course || '').toLowerCase());
     res.json({ student, course });
   } catch (err) {
+    console.error('Public search error:', err);
     res.status(500).json({ error: 'Search failed' });
   }
 });
