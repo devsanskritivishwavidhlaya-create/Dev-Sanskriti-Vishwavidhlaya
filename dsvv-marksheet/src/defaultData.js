@@ -7,156 +7,156 @@ export const DEFAULT_COURSES = [
         {
           "code": "BAGEN-101",
           "name": "English Literature- I",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-102",
           "name": "Environmental Studies",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-103",
           "name": "Public Administration-I (Element of Public Administartion)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-104",
           "name": "Economics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BAGEN-201",
           "name": "Introduction to Mass Media",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-202",
           "name": "Political Science-I(Indian Govt. and Politics)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-203",
           "name": "History-I (History of Indian form Earliest to 1256 Ad 361)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-204",
           "name": "Sociology-I (Introduction to Sociology)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BAGEN-301",
           "name": "English - II",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-302",
           "name": "Hindi General",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-303",
           "name": "Public Administration-II (Constitutional & Administrative Aspect of HP)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-304",
           "name": "Economics-II",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BAGEN-401",
           "name": "Communication Tools",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-402",
           "name": "Political Science-II (Political Theory)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-403",
           "name": "History-II History of India(1526-1857 A.D.)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-404",
           "name": "Sociology-II (Research Mythology)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "5th Semester": [
         {
           "code": "BAGEN-501",
           "name": "English - III",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-502",
           "name": "Public Administration-III (Local Government)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-503",
           "name": "Economics-III",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-504",
           "name": "Mathematics (Analysis)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "6th Semester": [
         {
           "code": "BAGEN-601",
           "name": "Media Writing",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-602",
           "name": "Political Science-III (Comparative Govt. & Policies)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-603",
           "name": "History-III (Modern World)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BAGEN-604",
           "name": "Sociology-III (Population and Society)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }
@@ -169,170 +169,170 @@ export const DEFAULT_COURSES = [
         {
           "code": "BED-101",
           "name": "CHILDHOOD & GROWING UP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-102",
           "name": "EDUCATION IN CONTEMPORARY INDIA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-103",
           "name": "LANGUAGE ACROSS THE CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-104",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-105",
           "name": "PEDAGOGY OF CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-106",
           "name": "UNDERSTANDING ICT AND ITS APPLICATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-107",
           "name": "SCHOOL EXPOSURE",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-108",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BED-201",
           "name": "LEARNING AND TEACHING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-202",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-203",
           "name": "PEDAGOGY OF CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-204",
           "name": "KNOWLEDGE AND CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-205",
           "name": "ASSESSMENT FOR LEARNING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-206",
           "name": "SCHOOL ATACHMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-207",
           "name": "COMMUNITY LIVING CAMP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-208",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BED-301",
           "name": "PRE INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-302",
           "name": "INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-303",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BED-401",
           "name": "POST INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-402",
           "name": "GENDER, SCHOOL AND SOCIETY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-403",
           "name": "READING AND REFLECTING ON TEXTS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-404",
           "name": "ARTS IN EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-405",
           "name": "UNDERSTANDING THE SELF",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-406",
           "name": "CREATING AND INCLUSIVE SCHOOL",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-407",
           "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-408",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }
@@ -345,170 +345,170 @@ export const DEFAULT_COURSES = [
         {
           "code": "BED-101",
           "name": "CHILDHOOD & GROWING UP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-102",
           "name": "EDUCATION IN CONTEMPORARY INDIA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-103",
           "name": "LANGUAGE ACROSS THE CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-104",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - MATH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-105",
           "name": "PEDAGOGY OF COMMERCE",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-106",
           "name": "UNDERSTANDING ICT AND ITS APPLICATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-107",
           "name": "SCHOOL EXPOSURE",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-108",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BED-201",
           "name": "LEARNING AND TEACHING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-202",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - MATH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-203",
           "name": "PEDAGOGY OF COMMERCE",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-204",
           "name": "KNOWLEDGE AND CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-205",
           "name": "ASSESSMENT FOR LEARNING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-206",
           "name": "SCHOOL ATACHMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-207",
           "name": "COMMUNITY LIVING CAMP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-208",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BED-301",
           "name": "PRE INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-302",
           "name": "INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-303",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BED-401",
           "name": "POST INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-402",
           "name": "GENDER, SCHOOL AND SOCIETY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-403",
           "name": "READING AND REFLECTING ON TEXTS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-404",
           "name": "ARTS IN EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-405",
           "name": "UNDERSTANDING THE SELF",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-406",
           "name": "CREATING AND INCLUSIVE SCHOOL",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-407",
           "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-408",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }
@@ -521,170 +521,170 @@ export const DEFAULT_COURSES = [
         {
           "code": "BED-101",
           "name": "CHILDHOOD & GROWING UP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-102",
           "name": "EDUCATION IN CONTEMPORARY INDIA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-103",
           "name": "LANGUAGE ACROSS THE CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-104",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-105",
           "name": "PEDAGOGY OF HISTORY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-106",
           "name": "UNDERSTANDING ICT AND ITS APPLICATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-107",
           "name": "SCHOOL EXPOSURE",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-108",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BED-201",
           "name": "LEARNING AND TEACHING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-202",
           "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-203",
           "name": "PEDAGOGY OF HISTORY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-204",
           "name": "KNOWLEDGE AND CURRICULUM",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-205",
           "name": "ASSESSMENT FOR LEARNING",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-206",
           "name": "SCHOOL ATACHMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-207",
           "name": "COMMUNITY LIVING CAMP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-208",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BED-301",
           "name": "PRE INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-302",
           "name": "INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-303",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BED-401",
           "name": "POST INTERNSHIP",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-402",
           "name": "GENDER, SCHOOL AND SOCIETY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-403",
           "name": "READING AND REFLECTING ON TEXTS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-404",
           "name": "ARTS IN EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-405",
           "name": "UNDERSTANDING THE SELF",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-406",
           "name": "CREATING AND INCLUSIVE SCHOOL",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-407",
           "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BED-408",
           "name": "FIELD ENGAGEMENT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }
@@ -697,340 +697,340 @@ export const DEFAULT_COURSES = [
         {
           "code": "BTEM101",
           "name": "Engineering Ethics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM102",
           "name": "Communication & Writing Skills",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM103",
           "name": "Calculus for Engineers",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM104",
           "name": "Computer Programming using C",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM105",
           "name": "Basic Electrical & Electronics Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM106",
           "name": "Elements of Mechanical Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM107",
           "name": "Design Thinking - The Way to Joy of Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BTEM201",
           "name": "Energy Harvesting and Storage",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM202",
           "name": "Materials Science",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM203",
           "name": "Python Programming",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM204",
           "name": "Probability and Statistics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM205",
           "name": "Computational Materials Science",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM206",
           "name": "Surface Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM207",
           "name": "Environmental Science and Sustainability",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM208",
           "name": "Joy of Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BTEM301",
           "name": "Innovation & Entrepreneurship",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM302",
           "name": "Linear Algebra and Differential Equations",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM303",
           "name": "Introduction to Robotics & loT",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM304",
           "name": "Data Analytics using Python",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM305",
           "name": "Engineering Thermodynamics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM306",
           "name": "Student to pick any 1 course from corresponding basket",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM307",
           "name": "Engineering Materials",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BTEM401",
           "name": "Entrepreneurship",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM402",
           "name": "Computational Mathematics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM403",
           "name": "Casting and welding of Metals",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM404",
           "name": "Computer Aided Design & Manufacturing",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM405",
           "name": "Fluid Mechanics and Hydraulic Machines",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM406",
           "name": "Applied Engineering Thermodynamics",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM407",
           "name": "Mechanics of Solids",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "5th Semester": [
         {
           "code": "BTEM501",
           "name": "Materials Science and Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM502",
           "name": "Metal Cutting and Forming",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM503",
           "name": "Quality Control Assurance & Reliability",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM504",
           "name": "Kinematic & Dynamics of Machine",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM505",
           "name": "IC Engines & Automobile Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM506",
           "name": "Core Elective-1 (Specialisation specific)",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM507",
           "name": "Project -1",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM508",
           "name": "Mechanics of Solids",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "6th Semester": [
         {
           "code": "BTEM601",
           "name": "Logical Reasoning & Quantitative Analysis",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM602",
           "name": "Project -2",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM603",
           "name": "Heat & Mass Transfer",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM604",
           "name": "Machine Design",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM605",
           "name": "Micro and Nano Systems",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM606",
           "name": "Applications of Nanotechnology",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM607",
           "name": "Computational Materials Science",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "7th Semester": [
         {
           "code": "BTEM701",
           "name": "Metrology and Measurements",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM702",
           "name": "Industrial Engineering",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM703",
           "name": "Advanced Manufacturing Processes",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM704",
           "name": "Refrigeration and Air conditioning",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM705",
           "name": "Core Elective 4(Specialisation specifi",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM706",
           "name": "Nanometrology",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM707",
           "name": "Nanomaterial Characterization",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "8th Semester": [
         {
           "code": "BTEM801",
           "name": "Synthesis and Fabrication of Nano Materials",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM802",
           "name": "Minor Thesis in Nanotechnology",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BTEM803",
           "name": "Practice School",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }
@@ -1043,156 +1043,156 @@ export const DEFAULT_COURSES = [
         {
           "code": "BSC 101",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 102",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 103",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 104",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "2nd Semester": [
         {
           "code": "BSC 201",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 202",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 203",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 204",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "3rd Semester": [
         {
           "code": "BSC 301",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 302",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 303",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 304",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "4th Semester": [
         {
           "code": "BSC 401",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 402",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 403",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 404",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "5th Semester": [
         {
           "code": "BSC 501",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 502",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 503",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 504",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ],
       "6th Semester": [
         {
           "code": "BSC 601",
           "name": "YOGA",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 602",
           "name": "PHYSICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 603",
           "name": "CHEMISTRY",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         },
         {
           "code": "BSC 604",
           "name": "MATHEMATICS",
-          "maxMarks": 110,
-          "minMarks": 44
+          "maxMarks": 100,
+          "minMarks": 40
         }
       ]
     }

@@ -28,16 +28,18 @@ export default function OnlineResultTemplate({ student, course, termName }) {
   let allEntered = true, hasFailed = false;
   subjects.forEach(sub => {
     const ob = marks[sub.code];
-    totalMax += (sub.maxMarks || 100);
+    const sMax = 100;
+    const sMin = 40;
+    totalMax += sMax;
     if (ob !== undefined && ob !== '') {
-      const v = parseInt(ob) || 0;
+      const v = Math.min(100, parseInt(ob) || 0);
       totalObtained += v;
-      if (v < (sub.minMarks || 40)) hasFailed = true;
+      if (v < sMin) hasFailed = true;
     } else { allEntered = false; }
   });
 
   const percentage = totalMax > 0 ? ((totalObtained / totalMax) * 100).toFixed(2) : '0.00';
-  const cgpa = subjects.length > 0 ? (subjects.reduce((sum, sub) => sum + getGP(parseInt(marks[sub.code]) || 0, sub.maxMarks || 100), 0) / subjects.length).toFixed(2) : '0.00';
+  const cgpa = subjects.length > 0 ? (subjects.reduce((sum, sub) => sum + getGP(Math.min(100, parseInt(marks[sub.code]) || 0), 100), 0) / subjects.length).toFixed(2) : '0.00';
   let result = 'PENDING';
   if (allEntered && subjects.length > 0) result = hasFailed || parseFloat(percentage) < 33 ? 'FAIL' : 'PASS';
   let division = '—';
@@ -95,12 +97,13 @@ export default function OnlineResultTemplate({ student, course, termName }) {
           <tbody>
             {subjects.map((sub, i) => {
               const ob = marks[sub.code];
-              const gp = ob !== undefined && ob !== '' ? getGP(parseInt(ob) || 0, sub.maxMarks || 100) : '—';
+              const sMax = 100;
+              const gp = ob !== undefined && ob !== '' ? getGP(Math.min(100, parseInt(ob) || 0), sMax) : '—';
               return (
                 <tr key={i} style={{ background: i % 2 === 0 ? '#f8fafc' : '#ffffff' }}>
                   <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '600', color: '#475569' }}>{sub.code}</td>
                   <td style={{ padding: '8px 12px', border: '1px solid #e2e8f0', color: '#0f172a', fontWeight: '500' }}>{sub.name}</td>
-                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', color: '#475569' }}>{sub.maxMarks || 100}</td>
+                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', color: '#475569' }}>{sMax}</td>
                   <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '700', color: '#0d2149' }}>{ob !== undefined ? ob : '—'}</td>
                   <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '600', color: '#334155' }}>{gp}</td>
                 </tr>
