@@ -323,6 +323,57 @@ export default function App() {
     }
   }, [centers, dbLoaded]);
 
+  // Auto-sync any state changes to Railway Cloud Database
+  useEffect(() => {
+    if (!dbLoaded) return;
+    const timeout = setTimeout(() => {
+      api.importData({ students, courses, centers }).catch(err => {
+        console.warn('Live Cloud auto-sync notice:', err);
+      });
+    }, 600);
+    return () => clearTimeout(timeout);
+  }, [students, courses, centers, dbLoaded]);
+
+  // Live real-time background sync across all devices
+  useEffect(() => {
+    if (!dbLoaded) return;
+    const fetchLatestFromServer = () => {
+      api.getDb().then(db => {
+        if (db.students && Array.isArray(db.students) && db.students.length > 0) {
+          setStudents(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(db.students)) {
+              return db.students;
+            }
+            return prev;
+          });
+        }
+        if (db.courses && Array.isArray(db.courses) && db.courses.length > 0) {
+          setCourses(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(db.courses)) {
+              return db.courses;
+            }
+            return prev;
+          });
+        }
+        if (db.centers && Array.isArray(db.centers) && db.centers.length > 0) {
+          setCenters(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(db.centers)) {
+              return db.centers;
+            }
+            return prev;
+          });
+        }
+      }).catch(() => {});
+    };
+
+    const interval = setInterval(fetchLatestFromServer, 10000);
+    window.addEventListener('focus', fetchLatestFromServer);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', fetchLatestFromServer);
+    };
+  }, [dbLoaded]);
+
   const getNextSequentialNumbers = (sessionStr) => {
     const lastRoll = students.reduce((max, s) => Math.max(max, parseInt(s.rollNo) || 230000), 232150);
     const nextRoll = lastRoll + 1;
@@ -1056,8 +1107,9 @@ export default function App() {
                 >
                   <LogOut size={16} /> Sign Out
                 </button>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '10px' }}>
-                  DB status: Connected
+                <div style={{ fontSize: '11px', color: '#10b981', marginTop: '10px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 6px #10b981' }}></span>
+                  Cloud Live Sync Active
                 </div>
               </div>
             </aside>

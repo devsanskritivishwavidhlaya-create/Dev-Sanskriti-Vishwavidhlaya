@@ -179,45 +179,55 @@ app.post('/api/upload-photo', upload.single('photo'), (req, res) => {
 // Register student
 app.post('/api/students', (req, res) => {
   try {
-    const { name, fatherName, motherName, dob, courseName, session, marksheetsData } = req.body;
-    if (!name || !fatherName || !motherName || !dob || !courseName || !session) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
+    const data = req.body;
     const db = readDB();
-    const course = db.courses.find(c => c.name.toLowerCase() === courseName.toLowerCase());
-    if (!course) return res.status(404).json({ error: 'Course not found. Upload CSV first.' });
 
-    const yearMatch = session.match(/\b(20\d{2})\b/g);
-    if (!yearMatch) return res.status(400).json({ error: 'Invalid session format' });
-    const finalYear = parseInt(yearMatch[yearMatch.length - 1]);
+    if (data.name && (data.rollNo || data.courseName || data.course)) {
+      const courseName = data.course || data.courseName || '';
+      const yearMatch = (data.session || '').match(/\b(20\d{2})\b/g);
+      const finalYear = yearMatch ? parseInt(yearMatch[yearMatch.length - 1]) : new Date().getFullYear();
+      const rollNo = (data.rollNo || generateRollNumber(db)).toString();
+      const enrollmentNo = (data.enrollmentNo || generateEnrollmentNumber(db, finalYear)).toString();
+      const marksheets = data.marksheets || data.marksheetsData || {};
+      const publishedDocs = data.publishedDocs || {
+        idCard: true,
+        marksheets: {},
+        admitCards: {},
+        results: {},
+        idCards: {}
+      };
 
-    const rollNo = generateRollNumber(db).toString();
-    const enrollmentNo = generateEnrollmentNumber(db, finalYear).toString();
+      const student = {
+        id: data.id || `std-${Date.now()}`,
+        name: data.name,
+        fatherName: data.fatherName || '',
+        motherName: data.motherName || '',
+        dob: data.dob || '',
+        rollNo,
+        enrollmentNo,
+        course: courseName,
+        session: data.session || '',
+        email: data.email || '',
+        photo: data.photo || '',
+        schoolCollege: data.schoolCollege || '',
+        centerCode: data.centerCode || 'DSVV-MAIN',
+        marksheets,
+        publishedDocs,
+        isPublished: data.isPublished !== undefined ? data.isPublished : true,
+        createdAt: data.createdAt || new Date().toISOString()
+      };
 
-    const terms = Object.keys(course.terms);
-    const marksheets = {};
-    const publishedDocs = { idCard: false, marksheets: {}, admitCards: {}, results: {} };
+      const existingIdx = db.students.findIndex(s => s.id === student.id || (student.rollNo && s.rollNo == student.rollNo));
+      if (existingIdx >= 0) {
+        db.students[existingIdx] = { ...db.students[existingIdx], ...student };
+      } else {
+        db.students.unshift(student);
+      }
+      writeDB(db);
+      return res.json({ message: 'Student registered successfully', student });
+    }
 
-    terms.forEach((t, idx) => {
-      const dmcNo = generateDmcNumber(db).toString();
-      const issueDate = calculateIssueDate(session, course.type, t, idx, terms.length);
-      const termMarks = marksheetsData?.[t]?.marks || {};
-      marksheets[t] = { dmcNo, issueDate, marks: termMarks, isPublished: false };
-      publishedDocs.marksheets[t] = false;
-      publishedDocs.admitCards[t] = false;
-      publishedDocs.results[t] = false;
-    });
-
-    const student = {
-      id: Date.now().toString(), name, fatherName, motherName, dob,
-      rollNo, enrollmentNo, course: courseName, session,
-      photo: req.body.photo || '', marksheets, publishedDocs,
-      isPublished: false, createdAt: new Date().toISOString()
-    };
-
-    db.students.push(student);
-    writeDB(db);
-    res.json({ message: 'Student registered successfully', student });
+    return res.status(400).json({ error: 'Missing required fields' });
   } catch (err) {
     console.error('Register error:', err);
     res.status(500).json({ error: 'Failed to register student' });
