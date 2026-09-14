@@ -42,4 +42,6 @@ export const api = {
   },
 
   searchPublic: (name, searchVal) => request(`/api/public/student?name=${encodeURIComponent(name)}&searchVal=${encodeURIComponent(searchVal)}`),
+
+  importData: (data) => request('/api/import', { method: 'POST', body: JSON.stringify(data) }),
 };

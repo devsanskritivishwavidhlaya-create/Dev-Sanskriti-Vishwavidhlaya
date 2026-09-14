@@ -43,9 +43,27 @@ export default function App() {
   // Load data from backend API on mount
   useEffect(() => {
     api.getDb().then(db => {
-      setStudents(db.students && db.students.length > 0 ? db.students : DEFAULT_STUDENTS);
-      setCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES);
-      setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      const serverStudents = db.students || [];
+      if (serverStudents.length > 0) {
+        setStudents(serverStudents);
+        setCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES);
+        setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      } else {
+        // Server empty — try localStorage, then sync to server
+        const localStudents = JSON.parse(localStorage.getItem('dsvv_students') || '[]');
+        const localCourses = JSON.parse(localStorage.getItem('dsvv_courses') || '[]');
+        const localCenters = JSON.parse(localStorage.getItem('dsvv_centers') || '[]');
+        const studentsToUse = localStudents.length > 0 ? localStudents : DEFAULT_STUDENTS;
+        const coursesToUse = localCourses.length > 0 ? localCourses : DEFAULT_COURSES;
+        const centersToUse = localCenters.length > 0 ? localCenters : DEFAULT_CENTERS;
+        setStudents(studentsToUse);
+        setCourses(coursesToUse);
+        setCenters(centersToUse);
+        // Sync to server in background
+        api.importData({ students: studentsToUse, courses: coursesToUse, centers: centersToUse })
+          .then(() => console.log('Local data synced to server'))
+          .catch(err => console.error('Sync to server failed:', err));
+      }
       setDbLoaded(true);
     }).catch(() => {
       // Fallback to localStorage if API unavailable
@@ -518,7 +536,7 @@ export default function App() {
       return s;
     }));
 
-    api.publishStudent(publishingStudent.id, localPublishDocs).catch(err => console.error('API publish failed:', err));
+    api.publishStudent(publishingStudent.id, localPublishDocs).catch(() => {});
     setPublishingStudent(null);
     confetti({ particleCount: 50, spread: 40 });
   };
@@ -795,7 +813,7 @@ export default function App() {
   const handleDeleteStudent = (id) => {
     if (!confirm('Delete this candidate record?')) return;
     setStudents(prev => prev.filter(s => s.id !== id));
-    api.deleteStudent(id).catch(err => console.error('API delete failed:', err));
+    api.deleteStudent(id).catch(() => {});
   };
 
   const handleCsvUpload = (e) => {
