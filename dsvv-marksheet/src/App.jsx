@@ -24,43 +24,37 @@ import {
   APPS_SCRIPT_TEMPLATE 
 } from './utils/cloudSync';
 import { DEFAULT_COURSES, DEFAULT_STUDENTS, DEFAULT_CENTERS, parseCSVClient } from './defaultData';
+import { api } from './api';
 
 export default function App() {
+  const [dbLoaded, setDbLoaded] = useState(false);
+
   const [currentView, setCurrentView] = useState(() => {
     const params = new URLSearchParams(window.location.search);
     const v = params.get('view');
     return v === 'admin' || v === 'center' || v === 'portal' ? v : 'portal';
   });
 
-  // Persistent Databases
-  const [courses, setCourses] = useState(() => {
-    const saved = localStorage.getItem('dsvv_courses');
-    return saved ? JSON.parse(saved) : DEFAULT_COURSES;
-  });
+  // Persistent Databases - start empty, load from API
+  const [courses, setCourses] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [centers, setCenters] = useState([]);
 
-  const [students, setStudents] = useState(() => {
-    const saved = localStorage.getItem('dsvv_students');
-    if (!saved) return DEFAULT_STUDENTS;
-    try {
-      const parsed = JSON.parse(saved);
-      const existingIds = new Set(parsed.map(s => s.id));
-      const existingRolls = new Set(parsed.map(s => String(s.rollNo)));
-      const merged = [...parsed];
-      DEFAULT_STUDENTS.forEach(ds => {
-        if (!existingIds.has(ds.id) && !existingRolls.has(String(ds.rollNo))) {
-          merged.push(ds);
-        }
-      });
-      return merged;
-    } catch {
-      return DEFAULT_STUDENTS;
-    }
-  });
-
-  const [centers, setCenters] = useState(() => {
-    const saved = localStorage.getItem('dsvv_centers');
-    return saved ? JSON.parse(saved) : DEFAULT_CENTERS;
-  });
+  // Load data from backend API on mount
+  useEffect(() => {
+    api.getDb().then(db => {
+      setStudents(db.students && db.students.length > 0 ? db.students : DEFAULT_STUDENTS);
+      setCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES);
+      setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      setDbLoaded(true);
+    }).catch(() => {
+      // Fallback to localStorage if API unavailable
+      setStudents(JSON.parse(localStorage.getItem('dsvv_students')) || DEFAULT_STUDENTS);
+      setCourses(JSON.parse(localStorage.getItem('dsvv_courses')) || DEFAULT_COURSES);
+      setCenters(JSON.parse(localStorage.getItem('dsvv_centers')) || DEFAULT_CENTERS);
+      setDbLoaded(true);
+    });
+  }, []);
 
   // Admin Auth State
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
@@ -290,14 +284,17 @@ export default function App() {
   const [portalActiveTerm, setPortalActiveTerm] = useState('');
 
   useEffect(() => {
+    if (!dbLoaded) return;
     localStorage.setItem('dsvv_courses', JSON.stringify(courses));
-  }, [courses]);
+  }, [courses, dbLoaded]);
 
   useEffect(() => {
+    if (!dbLoaded) return;
     localStorage.setItem('dsvv_students', JSON.stringify(students));
-  }, [students]);
+  }, [students, dbLoaded]);
 
   useEffect(() => {
+    if (!dbLoaded) return;
     localStorage.setItem('dsvv_centers', JSON.stringify(centers));
     if (loggedCenter) {
       const refreshed = centers.find(c => c.id === loggedCenter.id);
@@ -306,7 +303,7 @@ export default function App() {
         sessionStorage.setItem('dsvv_center_logged_in', JSON.stringify(refreshed));
       }
     }
-  }, [centers]);
+  }, [centers, dbLoaded]);
 
   const getNextSequentialNumbers = (sessionStr) => {
     const lastRoll = students.reduce((max, s) => Math.max(max, parseInt(s.rollNo) || 230000), 232150);
@@ -521,6 +518,7 @@ export default function App() {
       return s;
     }));
 
+    api.publishStudent(publishingStudent.id, localPublishDocs).catch(err => console.error('API publish failed:', err));
     setPublishingStudent(null);
     confetti({ particleCount: 50, spread: 40 });
   };
@@ -730,6 +728,7 @@ export default function App() {
         publishedDocs: existing?.publishedDocs || publishedDocs
       };
       setStudents(prev => prev.map(s => s.id === editingStudentId ? updated : s));
+      api.updateStudent(editingStudentId, { ...formData, marksheetsData, isCompleteEdit }).catch(err => console.error('API update failed:', err));
     } else {
       const newStudent = {
         id: `std-${Date.now()}`,
@@ -751,6 +750,7 @@ export default function App() {
       };
 
       setStudents(prev => [newStudent, ...prev]);
+      api.createStudent({ ...formData, marksheetsData }).catch(err => console.error('API create failed:', err));
 
       if (isCenterAction) {
         const newBal = (loggedCenter.walletBalance || 0) - admissionFee;
@@ -795,6 +795,7 @@ export default function App() {
   const handleDeleteStudent = (id) => {
     if (!confirm('Delete this candidate record?')) return;
     setStudents(prev => prev.filter(s => s.id !== id));
+    api.deleteStudent(id).catch(err => console.error('API delete failed:', err));
   };
 
   const handleCsvUpload = (e) => {
@@ -802,49 +803,51 @@ export default function App() {
     if (!csvFile) { setCsvMessage('Please select a CSV file first.'); return; }
     setCsvMessage('Processing CSV...');
 
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      try {
-        const text = evt.target.result;
-        const rows = parseCSVClient(text);
-        const coursesMap = {};
-
-        rows.forEach(row => {
-          const name = row['Course'];
-          if (!name) return;
-          const termName = row['Semester'] || row['Year'] || 'General';
-          const termType = row['Semester'] ? 'semester' : (row['Year'] ? 'year' : 'general');
-          if (!coursesMap[name]) coursesMap[name] = { name, type: termType, terms: {} };
-          if (!coursesMap[name].terms[termName]) coursesMap[name].terms[termName] = [];
-          coursesMap[name].terms[termName].push({
-            code: row['Course Code'] || '',
-            name: row['Subject'] || '',
-            maxMarks: parseInt(row['Max Marks']) || 100,
-            minMarks: parseInt(row['Min Marks']) || 40
-          });
-        });
-
-        const newCourses = Object.values(coursesMap);
-        if (newCourses.length > 0) {
-          setCourses(prev => {
-            const updated = [...prev];
-            newCourses.forEach(nc => {
-              const idx = updated.findIndex(c => c.name.toLowerCase() === nc.name.toLowerCase());
-              if (idx >= 0) updated[idx] = nc;
-              else updated.push(nc);
+    api.uploadCsv(csvFile).then(result => {
+      if (result.courses) setCourses(result.courses);
+      setCsvMessage(`Successfully imported ${result.courses?.length || 0} course(s)!`);
+      setCsvFile(null);
+    }).catch(err => {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const text = evt.target.result;
+          const rows = parseCSVClient(text);
+          const coursesMap = {};
+          rows.forEach(row => {
+            const name = row['Course'];
+            if (!name) return;
+            const termName = row['Semester'] || row['Year'] || 'General';
+            const termType = row['Semester'] ? 'semester' : (row['Year'] ? 'year' : 'general');
+            if (!coursesMap[name]) coursesMap[name] = { name, type: termType, terms: {} };
+            if (!coursesMap[name].terms[termName]) coursesMap[name].terms[termName] = [];
+            coursesMap[name].terms[termName].push({
+              code: row['Course Code'] || '',
+              name: row['Subject'] || '',
+              maxMarks: parseInt(row['Max Marks']) || 100,
+              minMarks: parseInt(row['Min Marks']) || 40
             });
-            return updated;
           });
-          setCsvMessage(`Successfully imported ${newCourses.length} course(s)!`);
-          setCsvFile(null);
-        } else {
-          setCsvMessage('Could not parse any courses from CSV.');
+          const newCourses = Object.values(coursesMap);
+          if (newCourses.length > 0) {
+            setCourses(prev => {
+              const updated = [...prev];
+              newCourses.forEach(nc => {
+                const idx = updated.findIndex(c => c.name.toLowerCase() === nc.name.toLowerCase());
+                if (idx >= 0) updated[idx] = nc; else updated.push(nc);
+              });
+              return updated;
+            });
+            setCsvMessage(`Successfully imported ${newCourses.length} course(s) (local only)!`);
+          } else {
+            setCsvMessage('Could not parse any courses from CSV.');
+          }
+        } catch (err2) {
+          setCsvMessage('Error parsing CSV file: ' + err2.message);
         }
-      } catch (err) {
-        setCsvMessage('Error parsing CSV file: ' + err.message);
-      }
-    };
-    reader.readAsText(csvFile);
+      };
+      reader.readAsText(csvFile);
+    });
   };
 
   // ============================================================
@@ -862,48 +865,60 @@ export default function App() {
     const n = portalName.trim().toLowerCase();
     const q = portalSearchVal.trim().toLowerCase();
 
-    const found = students.find(s => {
-      const sName = (s.name || '').toLowerCase().trim();
-      const sRoll = String(s.rollNo || '').toLowerCase().trim();
-      const sEnroll = String(s.enrollmentNo || '').toLowerCase().trim();
-
-      // If both name and roll/enroll are provided
-      if (n && q) {
-        const nameMatch = sName.includes(n) || n.includes(sName) || sName.split(' ').some(part => n.includes(part));
-        const rollMatch = sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
-        return nameMatch && rollMatch;
+    // Try API first, fallback to local search
+    api.searchPublic(portalName.trim(), portalSearchVal.trim()).then(result => {
+      if (result.student) {
+        const course = courses.find(c => c.name.toLowerCase() === result.student.course.toLowerCase());
+        setPortalStudent(result.student);
+        setPortalCourse(course || { name: result.student.course, terms: {} });
+        const terms = Object.keys(result.student.marksheets || {});
+        setPortalActiveTerm(terms[0] || '');
+        const pd = result.student.publishedDocs || {};
+        if (terms[0]) {
+          if (pd.marksheets?.[terms[0]] === true) setPortalActiveTab('marksheet');
+          else if (pd.admitCards?.[terms[0]] === true) setPortalActiveTab('admit');
+          else if (pd.results?.[terms[0]] === true) setPortalActiveTab('result');
+          else if (pd.idCards?.[terms[0]] === true) setPortalActiveTab('idcard');
+          else setPortalActiveTab('');
+        } else {
+          setPortalActiveTab('');
+        }
       }
-      // If only name provided
-      if (n && !q) {
-        return sName.includes(n) || n.includes(sName);
-      }
-      // If only roll/enroll provided
-      if (!n && q) {
-        return sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
-      }
-      return false;
-    });
-
-    if (found) {
-      const course = courses.find(c => c.name.toLowerCase() === found.course.toLowerCase());
-      setPortalStudent(found);
-      setPortalCourse(course || { name: found.course, terms: {} });
-      const terms = Object.keys(found.marksheets || {});
-      setPortalActiveTerm(terms[0] || '');
-      // Default to first published tab
-      const pd = found.publishedDocs || {};
-      if (terms[0]) {
-        if (pd.marksheets?.[terms[0]] === true) setPortalActiveTab('marksheet');
-        else if (pd.admitCards?.[terms[0]] === true) setPortalActiveTab('admit');
-        else if (pd.results?.[terms[0]] === true) setPortalActiveTab('result');
-        else if (pd.idCards?.[terms[0]] === true) setPortalActiveTab('idcard');
-        else setPortalActiveTab('');
+    }).catch(() => {
+      // Fallback to local search
+      const found = students.find(s => {
+        const sName = (s.name || '').toLowerCase().trim();
+        const sRoll = String(s.rollNo || '').toLowerCase().trim();
+        const sEnroll = String(s.enrollmentNo || '').toLowerCase().trim();
+        if (n && q) {
+          const nameMatch = sName.includes(n) || n.includes(sName) || sName.split(' ').some(part => n.includes(part));
+          const rollMatch = sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
+          return nameMatch && rollMatch;
+        }
+        if (n && !q) return sName.includes(n) || n.includes(sName);
+        if (!n && q) return sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
+        return false;
+      });
+      if (found) {
+        const course = courses.find(c => c.name.toLowerCase() === found.course.toLowerCase());
+        setPortalStudent(found);
+        setPortalCourse(course || { name: found.course, terms: {} });
+        const terms = Object.keys(found.marksheets || {});
+        setPortalActiveTerm(terms[0] || '');
+        const pd = found.publishedDocs || {};
+        if (terms[0]) {
+          if (pd.marksheets?.[terms[0]] === true) setPortalActiveTab('marksheet');
+          else if (pd.admitCards?.[terms[0]] === true) setPortalActiveTab('admit');
+          else if (pd.results?.[terms[0]] === true) setPortalActiveTab('result');
+          else if (pd.idCards?.[terms[0]] === true) setPortalActiveTab('idcard');
+          else setPortalActiveTab('');
+        } else {
+          setPortalActiveTab('');
+        }
       } else {
-        setPortalActiveTab('');
+        setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
-    } else {
-      setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
-    }
+    });
   };
 
   // Filtered lists
