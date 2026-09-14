@@ -19,10 +19,10 @@ app.use(express.static('dist'));
 app.use(express.static('.'));
 app.use(express.static('public'));
 
-const uploadsDir = path.join(__dirname, 'public', 'uploads');
+const uploadsDir = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
-const dataDir = path.join(__dirname, 'data');
+const dataDir = process.env.DATA_DIR || path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 const dbPath = path.join(dataDir, 'db.json');
