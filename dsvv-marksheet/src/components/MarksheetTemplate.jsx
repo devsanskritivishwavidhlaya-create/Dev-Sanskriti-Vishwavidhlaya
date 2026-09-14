@@ -17,12 +17,14 @@ export function formatTermToRoman(termName) {
     .toUpperCase();
 }
 
-// Generates a date in the given month/year guaranteeing it is never a Sunday
-export function getNonSundayDate(year, monthIndex, preferredDay = 20) {
-  const d = new Date(year, monthIndex, preferredDay);
+// Generates a random date in the given month/year guaranteeing it is NEVER a Sunday
+export function getRandomNonSundayDate(year, monthIndex, termIndex = 0) {
+  const candidateDays = [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+  const day = candidateDays[(year * 7 + monthIndex * 13 + (termIndex + 1) * 17) % candidateDays.length];
+  const d = new Date(year, monthIndex, day);
   if (d.getDay() === 0) {
-    // If Sunday, shift forward to Monday (21st)
-    d.setDate(preferredDay + 1);
+    // If Sunday, shift to Monday (+1 day)
+    d.setDate(d.getDate() + 1);
   }
   const dd = String(d.getDate()).padStart(2, '0');
   const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -31,40 +33,45 @@ export function getNonSundayDate(year, monthIndex, preferredDay = 20) {
 }
 
 // Calculates Examination Session (e.g. DEC 2023 / JUNE 2024) and Date of Issue
-export function calculateSemesterDetails(sessionStr, courseType, termName, termIndex, totalTerms, existingIssueDate = null) {
+export function calculateSemesterDetails(sessionStr, courseType, termName, termIndex = 0, totalTerms = 1, existingIssueDate = null) {
   const years = (sessionStr || '').match(/\b(20\d{2})\b/g);
+  let startYear = 2024;
   let finalYear = 2026;
-  if (years && years.length > 0) {
+  if (years && years.length >= 2) {
+    startYear = parseInt(years[0]);
     finalYear = parseInt(years[years.length - 1]);
+  } else if (years && years.length === 1) {
+    startYear = parseInt(years[0]);
+    finalYear = startYear + 2;
   }
 
-  const k = termIndex + 1; // 1-based term number (1..totalTerms)
-  const D = Math.max(0, totalTerms - k); // distance from final term
   const isSemester = courseType !== 'year';
-
   let examMonth = 'JUNE';
   let examYear = finalYear;
-  let issueMonthIndex = 7; // August (0-indexed)
+  let issueMonthIndex = 7; // August (0-indexed: 7 is August)
   let issueYear = finalYear;
 
   if (isSemester) {
-    if (D % 2 === 0) {
-      // Even distance from final semester (e.g. 6th sem of 6, 4th sem of 6, 2nd sem of 6)
-      examMonth = 'JUNE';
-      examYear = finalYear - (D / 2);
-      issueMonthIndex = 7; // August
-      issueYear = examYear;
-    } else {
-      // Odd distance from final semester (e.g. 5th sem of 6, 3rd sem of 6, 1st sem of 6)
+    if (termIndex % 2 === 0) {
+      // ODD semester: 1st Sem (0), 3rd Sem (2), 5th Sem (4)...
+      // Exam in DEC of academic year, Marksheet in FEBRUARY of next year
       examMonth = 'DEC';
-      examYear = finalYear - Math.floor((D + 1) / 2);
+      examYear = startYear + Math.floor(termIndex / 2);
       issueMonthIndex = 1; // February
       issueYear = examYear + 1;
+    } else {
+      // EVEN semester: 2nd Sem (1), 4th Sem (3), 6th Sem (5)...
+      // Exam in JUNE of academic year, Marksheet in AUGUST of that year
+      examMonth = 'JUNE';
+      examYear = startYear + Math.floor(termIndex / 2) + 1;
+      issueMonthIndex = 7; // August
+      issueYear = examYear;
     }
   } else {
-    // Year-based courses (1st Year, 2nd Year, 3rd Year...)
+    // YEAR-based courses: 1st Year (0), 2nd Year (1), 3rd Year (2)...
+    // Exam in JUNE, Marksheet in AUGUST
     examMonth = 'JUNE';
-    examYear = finalYear - D;
+    examYear = startYear + termIndex + 1;
     issueMonthIndex = 7; // August
     issueYear = examYear;
   }
@@ -73,28 +80,23 @@ export function calculateSemesterDetails(sessionStr, courseType, termName, termI
   const examSessionText = `${romanTerm} EXAMINATION ${examMonth}-${examYear}`;
 
   let displayIssueDate = '';
-  const expectedDateStr = getNonSundayDate(issueYear, issueMonthIndex, 20);
   if (existingIssueDate && String(existingIssueDate).trim() !== '') {
     const raw = String(existingIssueDate).trim();
     const parts = raw.split(/[-/]/).map(Number);
     if (parts.length === 3) {
       let dd = parts[0], mm = parts[1], yyyy = parts[2];
       if (parts[0] > 1000) { yyyy = parts[0]; mm = parts[1]; dd = parts[2]; }
-      if (yyyy === issueYear && (mm - 1) === issueMonthIndex) {
-        const dObj = new Date(yyyy, mm - 1, dd);
-        if (dObj.getDay() === 0) {
-          dObj.setDate(dObj.getDate() + 1);
-          dd = dObj.getDate();
-        }
-        displayIssueDate = `${String(dd).padStart(2, '0')}/${String(mm).padStart(2, '0')}/${yyyy}`;
-      } else {
-        displayIssueDate = expectedDateStr;
+      const dObj = new Date(yyyy, mm - 1, dd);
+      if (dObj.getDay() === 0) {
+        dObj.setDate(dObj.getDate() + 1);
+        dd = dObj.getDate();
       }
+      displayIssueDate = `${String(dd).padStart(2, '0')}/${String(mm).padStart(2, '0')}/${yyyy}`;
     } else {
-      displayIssueDate = expectedDateStr;
+      displayIssueDate = getRandomNonSundayDate(issueYear, issueMonthIndex, termIndex);
     }
   } else {
-    displayIssueDate = expectedDateStr;
+    displayIssueDate = getRandomNonSundayDate(issueYear, issueMonthIndex, termIndex);
   }
 
   return {

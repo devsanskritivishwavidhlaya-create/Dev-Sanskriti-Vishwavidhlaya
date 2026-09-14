@@ -396,10 +396,27 @@ export default function App() {
   const getAutoIssueDate = (sessionStr, courseName, term) => {
     const c = courses.find(item => item.name.toLowerCase() === (courseName || '').toLowerCase());
     const terms = c ? getTermNames(c) : [];
-    const tIdx = Math.max(0, terms.indexOf(term));
+    const tIdx = Math.max(0, terms.findIndex(t => t.toLowerCase() === (term || '').toLowerCase()));
     const totalTerms = terms.length > 0 ? terms.length : 1;
     const { displayIssueDate } = calculateSemesterDetails(sessionStr, c?.type, term, tIdx, totalTerms);
     return displayIssueDate;
+  };
+
+  const populateAutoDmcsAndDates = (courseName, sessionStr, currentDmcs = {}, currentDates = {}) => {
+    const c = courses.find(item => item.name.toLowerCase() === (courseName || '').toLowerCase()) || courses[0];
+    const terms = c ? getTermNames(c) : [];
+    const { nextDmc } = getNextSequentialNumbers(sessionStr);
+    const newDmcs = { ...currentDmcs };
+    const newDates = { ...currentDates };
+    terms.forEach((t, idx) => {
+      if (!newDmcs[t]) {
+        newDmcs[t] = nextDmc + idx;
+      }
+      if (!newDates[t]) {
+        newDates[t] = getAutoIssueDate(sessionStr, c?.name, t);
+      }
+    });
+    return { newDmcs, newDates };
   };
 
   // ============================================================
@@ -604,14 +621,20 @@ export default function App() {
   // STUDENT REGISTRATION & MARKS ALGORITHM (GURUKUL WORKFLOW)
   // ============================================================
   const resetForm = () => {
-    const session = formData.session || '2024-2026';
-    const { nextRoll, nextEnroll, nextDmc } = getNextSequentialNumbers(session);
+    const session = '2024-2026';
+    const { nextRoll, nextEnroll } = getNextSequentialNumbers(session);
+    const c = courses[0];
+    const defaultCourseName = c?.name || '';
+    const terms = c ? getTermNames(c) : [];
+    const firstTerm = terms[0] || '';
+    const { newDmcs, newDates } = populateAutoDmcsAndDates(defaultCourseName, session);
+
     setFormData({
       name: '',
       fatherName: '',
       motherName: '',
       dob: '',
-      courseName: courses[0]?.name || '',
+      courseName: defaultCourseName,
       session: session,
       email: '',
       rollNo: nextRoll,
@@ -620,13 +643,10 @@ export default function App() {
       photo: '',
       centerCode: loggedCenter ? loggedCenter.centerCode : ''
     });
-    const c = courses[0];
-    const firstTerm = c ? getTermNames(c)[0] : '';
-    const autoDate = getAutoIssueDate(session, c?.name, firstTerm);
     setSelectedTerm(firstTerm || '');
     setFormMarksheets({});
-    setFormDmcNumbers({ [firstTerm]: nextDmc });
-    setFormIssueDates({ [firstTerm]: autoDate });
+    setFormDmcNumbers(newDmcs);
+    setFormIssueDates(newDates);
     setTargetPercentage('');
     setEditingStudentId(null);
     setIsCompleteEdit(false);
@@ -779,11 +799,13 @@ export default function App() {
     const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
     const terms = getTermNames(course);
     const marksheetsData = {};
+    const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
 
-    terms.forEach((t) => {
+    terms.forEach((t, idx) => {
       const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
+      const autoDmc = nextDmc + idx;
       marksheetsData[t] = {
-        dmcNo: formDmcNumbers[t] || getNextSequentialNumbers(formData.session || '2024-2026').nextDmc,
+        dmcNo: formDmcNumbers[t] || autoDmc,
         issueDate: formIssueDates[t] || autoDate,
         marks: formMarksheets[t] || {}
       };
@@ -1327,14 +1349,11 @@ export default function App() {
                             const cName = e.target.value;
                             const course = courses.find(c => c.name.toLowerCase() === cName.toLowerCase());
                             const firstTerm = course ? getTermNames(course)[0] : '';
-                            const autoDate = getAutoIssueDate(formData.session, cName, firstTerm);
+                            const { newDmcs, newDates } = populateAutoDmcsAndDates(cName, formData.session || '2024-2026', formDmcNumbers, formIssueDates);
                             setFormData(p => ({ ...p, courseName: cName }));
                             setSelectedTerm(firstTerm || '');
-                            if (firstTerm && !formDmcNumbers[firstTerm]) {
-                              const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
-                              setFormDmcNumbers(prev => ({ ...prev, [firstTerm]: nextDmc }));
-                              setFormIssueDates(prev => ({ ...prev, [firstTerm]: autoDate }));
-                            }
+                            setFormDmcNumbers(newDmcs);
+                            setFormIssueDates(newDates);
                           }} 
                           required
                         >
@@ -1348,7 +1367,19 @@ export default function App() {
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px' }}
                           placeholder="e.g. 2026 FINAL or 2024-2026" 
                           value={formData.session} 
-                          onChange={e => setFormData(p => ({ ...p, session: e.target.value.toUpperCase() }))} 
+                          onChange={e => {
+                            const newSession = e.target.value.toUpperCase();
+                            setFormData(p => ({ ...p, session: newSession }));
+                            if (formData.courseName) {
+                              const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
+                              const terms = course ? getTermNames(course) : [];
+                              const updatedDates = { ...formIssueDates };
+                              terms.forEach(t => {
+                                updatedDates[t] = getAutoIssueDate(newSession, formData.courseName, t);
+                              });
+                              setFormIssueDates(updatedDates);
+                            }
+                          }} 
                           required 
                         />
                       </div>
@@ -2173,14 +2204,46 @@ export default function App() {
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>COURSE</label>
-                      <select style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#fff' }} value={formData.courseName} onChange={e => { const cName = e.target.value; const c = courses.find(x => x.name.toLowerCase() === cName.toLowerCase()); setSelectedTerm(c ? getTermNames(c)[0] : ''); setFormData(p => ({ ...p, courseName: cName })); }} required>
+                      <select 
+                        style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#fff' }} 
+                        value={formData.courseName} 
+                        onChange={e => { 
+                          const cName = e.target.value; 
+                          const c = courses.find(x => x.name.toLowerCase() === cName.toLowerCase()); 
+                          const firstTerm = c ? getTermNames(c)[0] : ''; 
+                          const { newDmcs, newDates } = populateAutoDmcsAndDates(cName, formData.session || '2024-2026', formDmcNumbers, formIssueDates);
+                          setFormData(p => ({ ...p, courseName: cName })); 
+                          setSelectedTerm(firstTerm || ''); 
+                          setFormDmcNumbers(newDmcs);
+                          setFormIssueDates(newDates);
+                        }} 
+                        required
+                      >
                         <option value="">Select Course</option>
                         {courses.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
                       </select>
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>SESSION (FINAL END YEAR)</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} placeholder="e.g. 2026 FINAL or 2024-2026" value={formData.session} onChange={e => setFormData(p => ({ ...p, session: e.target.value.toUpperCase() }))} required />
+                      <input 
+                        style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} 
+                        placeholder="e.g. 2026 FINAL or 2024-2026" 
+                        value={formData.session} 
+                        onChange={e => {
+                          const newSession = e.target.value.toUpperCase();
+                          setFormData(p => ({ ...p, session: newSession }));
+                          if (formData.courseName) {
+                            const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
+                            const terms = course ? getTermNames(course) : [];
+                            const updatedDates = { ...formIssueDates };
+                            terms.forEach(t => {
+                              updatedDates[t] = getAutoIssueDate(newSession, formData.courseName, t);
+                            });
+                            setFormIssueDates(updatedDates);
+                          }
+                        }} 
+                        required 
+                      />
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>EMAIL ID</label>
@@ -2216,7 +2279,25 @@ export default function App() {
                     <div style={{ marginTop: '24px', borderTop: '1px solid #e2e8f0', paddingTop: '20px', marginBottom: '24px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                         <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#0d2149' }}>SUBJECT MARKS ENTRY</h3>
-                        <select value={selectedTerm} onChange={e => setSelectedTerm(e.target.value)} style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
+                        <select 
+                          value={selectedTerm} 
+                          onChange={e => {
+                            const t = e.target.value;
+                            setSelectedTerm(t);
+                            if (!formDmcNumbers[t]) {
+                              const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
+                              const c = courses.find(item => item.name.toLowerCase() === (formData.courseName || '').toLowerCase());
+                              const terms = c ? getTermNames(c) : [];
+                              const tIdx = Math.max(0, terms.indexOf(t));
+                              setFormDmcNumbers(prev => ({ ...prev, [t]: nextDmc + tIdx }));
+                            }
+                            if (!formIssueDates[t]) {
+                              const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
+                              setFormIssueDates(prev => ({ ...prev, [t]: autoDate }));
+                            }
+                          }} 
+                          style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1' }}
+                        >
                           {getTermNames(courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase())).map(t => (
                             <option key={t} value={t}>{t}</option>
                           ))}
@@ -2230,6 +2311,30 @@ export default function App() {
                           <span>%</span>
                         </div>
                         <button type="button" className="btn-primary" style={{ margin: 0, padding: '6px 16px', fontSize: '12px' }} onClick={handleGenerateMarks}>Generate Marks</button>
+                      </div>
+
+                      {/* DMC Number & Date of Issue Row for Center */}
+                      <div style={{ marginBottom: '16px', display: 'flex', gap: '24px', flexWrap: 'wrap', background: '#ffffff', padding: '10px 14px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569' }}>DMC Number ({selectedTerm}):</span>
+                          <input 
+                            type="text"
+                            placeholder="e.g. 1001"
+                            value={formDmcNumbers[selectedTerm] || ''}
+                            onChange={e => setFormDmcNumbers(prev => ({ ...prev, [selectedTerm]: e.target.value }))}
+                            style={{ width: '130px', padding: '5px 8px', borderRadius: '5px', border: '1.5px solid #cbd5e1', fontSize: '12px' }}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '600', color: '#475569' }}>Date of Issue:</span>
+                          <input 
+                            type="text"
+                            placeholder="DD/MM/YYYY"
+                            value={formIssueDates[selectedTerm] || ''}
+                            onChange={e => setFormIssueDates(prev => ({ ...prev, [selectedTerm]: e.target.value }))}
+                            style={{ width: '130px', padding: '5px 8px', borderRadius: '5px', border: '1.5px solid #cbd5e1', fontSize: '12px' }}
+                          />
+                        </div>
                       </div>
 
                       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>

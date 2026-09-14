@@ -1,16 +1,55 @@
 import React from 'react';
-import { calculateSemesterDetails } from './MarksheetTemplate';
 
 function getExamDate(examMonth, examYear, index) {
   try {
     const monthMap = { 'JUNE': 5, 'DEC': 11 };
     const monthIdx = monthMap[examMonth] ?? 5;
-    const baseDate = new Date(examYear, monthIdx, 10);
-    baseDate.setDate(baseDate.getDate() + (index * 2));
-    return `${String(baseDate.getDate()).padStart(2, '0')}-${String(baseDate.getMonth() + 1).padStart(2, '0')}-${baseDate.getFullYear()}`;
+    const baseDate = new Date(examYear, monthIdx, 10 + (index * 2));
+    if (baseDate.getDay() === 0) {
+      // Avoid Sunday for examination schedule
+      baseDate.setDate(baseDate.getDate() + 1);
+    }
+    const dd = String(baseDate.getDate()).padStart(2, '0');
+    const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
+    const yyyy = baseDate.getFullYear();
+    return `${dd}-${mm}-${yyyy}`;
   } catch {
     return '10-06-2026';
   }
+}
+
+function getSemesterDetails(sessionStr, courseType, termName, termIndex, totalTerms) {
+  const years = (sessionStr || '').match(/\b(20\d{2})\b/g);
+  let startYear = 2024;
+  let finalYear = 2026;
+  if (years && years.length >= 2) {
+    startYear = parseInt(years[0]);
+    finalYear = parseInt(years[years.length - 1]);
+  } else if (years && years.length === 1) {
+    startYear = parseInt(years[0]);
+    finalYear = startYear + 2;
+  }
+
+  const isSemester = courseType !== 'year';
+  let examMonth = 'JUNE';
+  let examYear = finalYear;
+
+  if (isSemester) {
+    if (termIndex % 2 === 0) {
+      // ODD semester (1st, 3rd, 5th...): Exam held in DECEMBER of academic year
+      examMonth = 'DEC';
+      examYear = startYear + Math.floor(termIndex / 2);
+    } else {
+      // EVEN semester (2nd, 4th, 6th...): Exam held in JUNE of academic year
+      examMonth = 'JUNE';
+      examYear = startYear + Math.floor(termIndex / 2) + 1;
+    }
+  } else {
+    // Year-based courses: Exam in JUNE
+    examMonth = 'JUNE';
+    examYear = startYear + termIndex + 1;
+  }
+  return { examMonth, examYear };
 }
 
 export default function AdmitCardTemplate({ student, course, termName }) {
@@ -18,13 +57,9 @@ export default function AdmitCardTemplate({ student, course, termName }) {
   const marksheet = student.marksheets?.[termName] || { issueDate: '' };
   const subjects = course.terms?.[termName] || [];
   const terms = Object.keys(course.terms || {});
-  const termIndex = Math.max(0, terms.indexOf(termName));
+  const termIndex = Math.max(0, terms.findIndex(t => t.toLowerCase() === termName.toLowerCase()));
   const totalTerms = terms.length > 0 ? terms.length : 1;
-  const { examSessionText, displayIssueDate } = calculateSemesterDetails(
-    student.session, course.type, termName, termIndex, totalTerms, marksheet.issueDate
-  );
-  const examMonth = examSessionText.includes('DEC') ? 'DEC' : 'JUNE';
-  const examYear = parseInt(examSessionText.match(/\d{4}/)?.[0] || '2026');
+  const { examMonth, examYear } = getSemesterDetails(student.session, course.type, termName, termIndex, totalTerms);
 
   return (
     <div className="print-container admit-card-layout">
