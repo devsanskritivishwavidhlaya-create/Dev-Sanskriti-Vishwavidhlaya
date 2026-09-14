@@ -4,40 +4,40 @@ export const DEFAULT_COURSES = [
     type: "semester",
     terms: {
       "1st Semester": [
-        { code: "BSC 101", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 102", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 103", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 104", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 101", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 102", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 103", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 104", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ],
       "2nd Semester": [
-        { code: "BSC 201", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 202", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 203", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 204", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 201", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 202", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 203", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 204", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ],
       "3rd Semester": [
-        { code: "BSC 301", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 302", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 303", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 304", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 301", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 302", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 303", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 304", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ],
       "4th Semester": [
-        { code: "BSC 401", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 402", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 403", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 404", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 401", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 402", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 403", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 404", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ],
       "5th Semester": [
-        { code: "BSC 501", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 502", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 503", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 504", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 501", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 502", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 503", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 504", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ],
       "6th Semester": [
-        { code: "BSC 601", name: "YOGA", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 602", name: "PHYSICS", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 603", name: "CHEMISTRY", maxMarks: 100, minMarks: 40 },
-        { code: "BSC 604", name: "MATHEMATICS", maxMarks: 100, minMarks: 40 }
+        { code: "BSC 601", name: "YOGA", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 602", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 603", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
+        { code: "BSC 604", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
       ]
     }
   },
@@ -46,12 +46,12 @@ export const DEFAULT_COURSES = [
     type: "semester",
     terms: {
       "1st Semester": [
-        { code: "BBA 101", name: "MICROECONOMICS", maxMarks: 100, minMarks: 40 },
-        { code: "BBA 102", name: "QUANTITATIVE TECHNIQUES - I", maxMarks: 100, minMarks: 40 },
-        { code: "BBA 103", name: "FINANCIAL ACCOUNTING", maxMarks: 100, minMarks: 40 },
-        { code: "BBA 104", name: "PRINCIPLES OF MANAGEMENT", maxMarks: 100, minMarks: 40 },
-        { code: "BBA 105", name: "INDIA SOCIO-POLITICAL ECONOMICS", maxMarks: 100, minMarks: 40 },
-        { code: "BBA 106", name: "ESSENTIALS OF IT", maxMarks: 100, minMarks: 40 }
+        { code: "BBA 101", name: "MICROECONOMICS", maxMarks: 110, minMarks: 44 },
+        { code: "BBA 102", name: "QUANTITATIVE TECHNIQUES - I", maxMarks: 110, minMarks: 44 },
+        { code: "BBA 103", name: "FINANCIAL ACCOUNTING", maxMarks: 110, minMarks: 44 },
+        { code: "BBA 104", name: "PRINCIPLES OF MANAGEMENT", maxMarks: 110, minMarks: 44 },
+        { code: "BBA 105", name: "INDIA SOCIO-POLITICAL ECONOMICS", maxMarks: 110, minMarks: 44 },
+        { code: "BBA 106", name: "ESSENTIALS OF IT", maxMarks: 110, minMarks: 44 }
       ]
     }
   },
@@ -60,22 +60,22 @@ export const DEFAULT_COURSES = [
     type: "year",
     terms: {
       "1st Year": [
-        { code: "BA 101", name: "GENERAL", maxMarks: 100, minMarks: 40 },
-        { code: "BA 102", name: "ENGLISH", maxMarks: 100, minMarks: 40 },
-        { code: "BA 103", name: "HINDI", maxMarks: 100, minMarks: 40 },
-        { code: "BA 104", name: "SANSKRIT", maxMarks: 100, minMarks: 40 }
+        { code: "BA 101", name: "GENERAL", maxMarks: 110, minMarks: 44 },
+        { code: "BA 102", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
+        { code: "BA 103", name: "HINDI", maxMarks: 110, minMarks: 44 },
+        { code: "BA 104", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
       ],
       "2nd Year": [
-        { code: "BA 201", name: "GENERAL", maxMarks: 100, minMarks: 40 },
-        { code: "BA 202", name: "ENGLISH", maxMarks: 100, minMarks: 40 },
-        { code: "BA 203", name: "HINDI", maxMarks: 100, minMarks: 40 },
-        { code: "BA 204", name: "SANSKRIT", maxMarks: 100, minMarks: 40 }
+        { code: "BA 201", name: "GENERAL", maxMarks: 110, minMarks: 44 },
+        { code: "BA 202", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
+        { code: "BA 203", name: "HINDI", maxMarks: 110, minMarks: 44 },
+        { code: "BA 204", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
       ],
       "3rd Year": [
-        { code: "BA 301", name: "GENERAL", maxMarks: 100, minMarks: 40 },
-        { code: "BA 302", name: "ENGLISH", maxMarks: 100, minMarks: 40 },
-        { code: "BA 303", name: "HINDI", maxMarks: 100, minMarks: 40 },
-        { code: "BA 304", name: "SANSKRIT", maxMarks: 100, minMarks: 40 }
+        { code: "BA 301", name: "GENERAL", maxMarks: 110, minMarks: 44 },
+        { code: "BA 302", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
+        { code: "BA 303", name: "HINDI", maxMarks: 110, minMarks: 44 },
+        { code: "BA 304", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
       ]
     }
   }

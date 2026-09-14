@@ -142,23 +142,45 @@ export default function MarksheetTemplate({ student, course, termName }) {
     const maxM = parseInt(sub.maxMarks) || 100;
     const minM = parseInt(sub.minMarks) || 40;
 
-    // Standard theory/practical/assignment split with per-subject variation
-    const seed = (sub.code || sub.name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-    const varFactor = ((seed % 7) - 3) / 100;
-    const thMax = Math.round(maxM * (0.6 + varFactor));
-    const prMax = Math.round(maxM * (0.3 - varFactor * 0.5));
-    const asgMax = maxM - thMax - prMax;
+    // Fixed theory (60), practical (40), assignment (10) split
+    const thMax = 60;
+    const prMax = 40;
+    const asgMax = 10;
 
-    const thMin = Math.round(minM * (0.7 + varFactor));
-    const prMin = Math.round(minM * (0.2 - varFactor * 0.5));
-    const asgMin = minM - thMin - prMin;
+    // Minimum passing marks (e.g. 24 Th / 16 Pr / 4 Asg for minM = 44)
+    const thMin = sub.thMin !== undefined ? parseInt(sub.thMin) : Math.round((thMax * minM) / maxM);
+    const prMin = sub.prMin !== undefined ? parseInt(sub.prMin) : Math.round((prMax * minM) / maxM);
+    const asgMin = sub.asgMin !== undefined ? parseInt(sub.asgMin) : (minM - thMin - prMin);
 
     let thObt = 0, prObt = 0, asgObt = 0;
     if (rawObt !== undefined && rawObt !== '') {
-      const variation = ((seed % 11) - 5) / 100;
-      thObt = Math.round(obtNum * (0.58 + variation));
-      prObt = Math.round(obtNum * (0.32 - variation * 0.7));
+      const seed = (sub.code || sub.name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+      const variation = ((seed % 9) - 4) / 200; // slight natural fluctuation ±2%
+      thObt = Math.round(obtNum * (0.60 + variation));
+      prObt = Math.round(obtNum * (0.40 - variation * 0.7));
+
+      // Clamp to ensure obtained marks never exceed component max marks
+      thObt = Math.min(thMax, Math.max(0, thObt));
+      prObt = Math.min(prMax, Math.max(0, prObt));
       asgObt = obtNum - thObt - prObt;
+
+      if (asgObt > asgMax) {
+        const excess = asgObt - asgMax;
+        asgObt = asgMax;
+        if (thObt + excess <= thMax) {
+          thObt += excess;
+        } else {
+          prObt = Math.min(prMax, prObt + excess);
+        }
+      } else if (asgObt < 0) {
+        const deficit = -asgObt;
+        asgObt = 0;
+        if (thObt - deficit >= 0) {
+          thObt -= deficit;
+        } else {
+          prObt = Math.max(0, prObt - deficit);
+        }
+      }
     }
 
     if (obtNum < minM) hasFailed = true;
