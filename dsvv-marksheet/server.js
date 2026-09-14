@@ -352,6 +352,22 @@ app.get('/api/public/student', (req, res) => {
   }
 });
 
+// Bulk import database (for migration)
+app.post('/api/import', (req, res) => {
+  try {
+    const { students, courses, centers } = req.body;
+    const db = readDB();
+    if (students && Array.isArray(students)) db.students = students;
+    if (courses && Array.isArray(courses)) db.courses = courses;
+    if (centers && Array.isArray(centers)) db.centers = centers;
+    writeDB(db);
+    res.json({ message: 'Database imported successfully', counts: { students: db.students.length, courses: db.courses.length, centers: db.centers.length } });
+  } catch (err) {
+    console.error('Import error:', err);
+    res.status(500).json({ error: 'Failed to import database' });
+  }
+});
+
 // SPA catch-all — serve index.html for all non-API routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
