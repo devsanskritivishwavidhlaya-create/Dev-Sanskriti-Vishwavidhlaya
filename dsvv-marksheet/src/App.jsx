@@ -379,7 +379,15 @@ export default function App() {
     const nextRoll = lastRoll + 1;
     const sessionYear = parseInt((sessionStr || '').match(/\b(20\d{2})\b/)?.[0] || '2024');
     const nextEnroll = `${sessionYear - 1}${nextRoll}`;
-    return { nextRoll, nextEnroll };
+    const lastDmc = students.reduce((max, s) => {
+      Object.values(s.marksheets || {}).forEach(m => {
+        const d = parseInt(m.dmcNo) || 0;
+        if (d > max) max = d;
+      });
+      return max;
+    }, 1000);
+    const nextDmc = lastDmc + 1;
+    return { nextRoll, nextEnroll, nextDmc };
   };
 
   const getTermNames = (course) => course ? Object.keys(course.terms || {}) : [];
@@ -596,14 +604,15 @@ export default function App() {
   // STUDENT REGISTRATION & MARKS ALGORITHM (GURUKUL WORKFLOW)
   // ============================================================
   const resetForm = () => {
-    const { nextRoll, nextEnroll } = getNextSequentialNumbers('2024-2026');
+    const session = formData.session || '2024-2026';
+    const { nextRoll, nextEnroll, nextDmc } = getNextSequentialNumbers(session);
     setFormData({
       name: '',
       fatherName: '',
       motherName: '',
       dob: '',
       courseName: courses[0]?.name || '',
-      session: '2024-2026',
+      session: session,
       email: '',
       rollNo: nextRoll,
       enrollmentNo: nextEnroll,
@@ -613,10 +622,10 @@ export default function App() {
     });
     const c = courses[0];
     const firstTerm = c ? getTermNames(c)[0] : '';
-    const autoDate = getAutoIssueDate('2024-2026', c?.name, firstTerm);
+    const autoDate = getAutoIssueDate(session, c?.name, firstTerm);
     setSelectedTerm(firstTerm || '');
     setFormMarksheets({});
-    setFormDmcNumbers({ [firstTerm]: Math.floor(1000 + Math.random() * 9000) });
+    setFormDmcNumbers({ [firstTerm]: nextDmc });
     setFormIssueDates({ [firstTerm]: autoDate });
     setTargetPercentage('');
     setEditingStudentId(null);
@@ -741,7 +750,8 @@ export default function App() {
     }));
 
     if (!formDmcNumbers[selectedTerm]) {
-      setFormDmcNumbers(prev => ({ ...prev, [selectedTerm]: Math.floor(1000 + Math.random() * 9000) }));
+      const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
+      setFormDmcNumbers(prev => ({ ...prev, [selectedTerm]: nextDmc }));
     }
     if (!formIssueDates[selectedTerm] || formIssueDates[selectedTerm] === '') {
       const autoDate = getAutoIssueDate(formData.session, formData.courseName, selectedTerm);
@@ -773,7 +783,7 @@ export default function App() {
     terms.forEach((t) => {
       const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
       marksheetsData[t] = {
-        dmcNo: formDmcNumbers[t] || Math.floor(1000 + Math.random() * 9000),
+        dmcNo: formDmcNumbers[t] || getNextSequentialNumbers(formData.session || '2024-2026').nextDmc,
         issueDate: formIssueDates[t] || autoDate,
         marks: formMarksheets[t] || {}
       };
@@ -1256,7 +1266,7 @@ export default function App() {
                     </p>
                   </div>
 
-                  <form onSubmit={handleSaveStudent}>
+                  <form onSubmit={handleSaveStudent} autoComplete="off">
                     {/* Row 1: Student Name, Father's Name, Mother's Name (3 columns) */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: '20px', marginBottom: '20px' }}>
                       <div className="form-group">
@@ -1321,7 +1331,8 @@ export default function App() {
                             setFormData(p => ({ ...p, courseName: cName }));
                             setSelectedTerm(firstTerm || '');
                             if (firstTerm && !formDmcNumbers[firstTerm]) {
-                              setFormDmcNumbers(prev => ({ ...prev, [firstTerm]: Math.floor(1000 + Math.random() * 9000) }));
+                              const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
+                              setFormDmcNumbers(prev => ({ ...prev, [firstTerm]: nextDmc }));
                               setFormIssueDates(prev => ({ ...prev, [firstTerm]: autoDate }));
                             }
                           }} 
@@ -1439,7 +1450,8 @@ export default function App() {
                                 setSelectedTerm(t);
                                 const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
                                 if (!formDmcNumbers[t]) {
-                                  setFormDmcNumbers(prev => ({ ...prev, [t]: Math.floor(1000 + Math.random() * 9000) }));
+                                  const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
+                                  setFormDmcNumbers(prev => ({ ...prev, [t]: nextDmc }));
                                 }
                                 if (!formIssueDates[t]) {
                                   setFormIssueDates(prev => ({ ...prev, [t]: autoDate }));
@@ -2136,7 +2148,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <form onSubmit={handleSaveStudent}>
+                <form onSubmit={handleSaveStudent} autoComplete="off">
                   {/* Row 1 */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: '20px', marginBottom: '20px' }}>
                     <div className="form-group">
