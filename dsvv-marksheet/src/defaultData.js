@@ -1,81 +1,1199 @@
 export const DEFAULT_COURSES = [
   {
-    name: "BACHELOR OF SCIENCE (B.SC.)",
-    type: "semester",
-    terms: {
+    "name": "BACHELOR OF ARTS (GENERAL)",
+    "type": "semester",
+    "terms": {
       "1st Semester": [
-        { code: "BSC 101", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 102", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 103", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 104", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-101",
+          "name": "English Literature- I",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-102",
+          "name": "Environmental Studies",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-103",
+          "name": "Public Administration-I (Element of Public Administartion)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-104",
+          "name": "Economics",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
       "2nd Semester": [
-        { code: "BSC 201", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 202", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 203", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 204", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-201",
+          "name": "Introduction to Mass Media",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-202",
+          "name": "Political Science-I(Indian Govt. and Politics)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-203",
+          "name": "History-I (History of Indian form Earliest to 1256 Ad 361)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-204",
+          "name": "Sociology-I (Introduction to Sociology)",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
       "3rd Semester": [
-        { code: "BSC 301", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 302", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 303", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 304", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-301",
+          "name": "English - II",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-302",
+          "name": "Hindi General",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-303",
+          "name": "Public Administration-II (Constitutional & Administrative Aspect of HP)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-304",
+          "name": "Economics-II",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
       "4th Semester": [
-        { code: "BSC 401", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 402", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 403", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 404", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-401",
+          "name": "Communication Tools",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-402",
+          "name": "Political Science-II (Political Theory)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-403",
+          "name": "History-II History of India(1526-1857 A.D.)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-404",
+          "name": "Sociology-II (Research Mythology)",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
       "5th Semester": [
-        { code: "BSC 501", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 502", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 503", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 504", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-501",
+          "name": "English - III",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-502",
+          "name": "Public Administration-III (Local Government)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-503",
+          "name": "Economics-III",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-504",
+          "name": "Mathematics (Analysis)",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
       "6th Semester": [
-        { code: "BSC 601", name: "YOGA", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 602", name: "PHYSICS", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 603", name: "CHEMISTRY", maxMarks: 110, minMarks: 44 },
-        { code: "BSC 604", name: "MATHEMATICS", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BAGEN-601",
+          "name": "Media Writing",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-602",
+          "name": "Political Science-III (Comparative Govt. & Policies)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-603",
+          "name": "History-III (Modern World)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BAGEN-604",
+          "name": "Sociology-III (Population and Society)",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ]
     }
   },
   {
-    name: "BACHELOR OF BUSINESS ADMINISTRATION",
-    type: "semester",
-    terms: {
+    "name": "BACHELOR OF EDUCATION (CHEMISTRY)",
+    "type": "semester",
+    "terms": {
       "1st Semester": [
-        { code: "BBA 101", name: "MICROECONOMICS", maxMarks: 110, minMarks: 44 },
-        { code: "BBA 102", name: "QUANTITATIVE TECHNIQUES - I", maxMarks: 110, minMarks: 44 },
-        { code: "BBA 103", name: "FINANCIAL ACCOUNTING", maxMarks: 110, minMarks: 44 },
-        { code: "BBA 104", name: "PRINCIPLES OF MANAGEMENT", maxMarks: 110, minMarks: 44 },
-        { code: "BBA 105", name: "INDIA SOCIO-POLITICAL ECONOMICS", maxMarks: 110, minMarks: 44 },
-        { code: "BBA 106", name: "ESSENTIALS OF IT", maxMarks: 110, minMarks: 44 }
+        {
+          "code": "BED-101",
+          "name": "CHILDHOOD & GROWING UP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-102",
+          "name": "EDUCATION IN CONTEMPORARY INDIA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-103",
+          "name": "LANGUAGE ACROSS THE CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-104",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-105",
+          "name": "PEDAGOGY OF CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-106",
+          "name": "UNDERSTANDING ICT AND ITS APPLICATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-107",
+          "name": "SCHOOL EXPOSURE",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-108",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "2nd Semester": [
+        {
+          "code": "BED-201",
+          "name": "LEARNING AND TEACHING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-202",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-203",
+          "name": "PEDAGOGY OF CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-204",
+          "name": "KNOWLEDGE AND CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-205",
+          "name": "ASSESSMENT FOR LEARNING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-206",
+          "name": "SCHOOL ATACHMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-207",
+          "name": "COMMUNITY LIVING CAMP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-208",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "3rd Semester": [
+        {
+          "code": "BED-301",
+          "name": "PRE INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-302",
+          "name": "INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-303",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "4th Semester": [
+        {
+          "code": "BED-401",
+          "name": "POST INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-402",
+          "name": "GENDER, SCHOOL AND SOCIETY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-403",
+          "name": "READING AND REFLECTING ON TEXTS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-404",
+          "name": "ARTS IN EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-405",
+          "name": "UNDERSTANDING THE SELF",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-406",
+          "name": "CREATING AND INCLUSIVE SCHOOL",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-407",
+          "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-408",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ]
     }
   },
   {
-    name: "BACHELOR OF ARTS (B.A.)",
-    type: "year",
-    terms: {
-      "1st Year": [
-        { code: "BA 101", name: "GENERAL", maxMarks: 110, minMarks: 44 },
-        { code: "BA 102", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
-        { code: "BA 103", name: "HINDI", maxMarks: 110, minMarks: 44 },
-        { code: "BA 104", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
+    "name": "BACHELOR OF EDUCATION (COMMERCE)",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        {
+          "code": "BED-101",
+          "name": "CHILDHOOD & GROWING UP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-102",
+          "name": "EDUCATION IN CONTEMPORARY INDIA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-103",
+          "name": "LANGUAGE ACROSS THE CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-104",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - MATH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-105",
+          "name": "PEDAGOGY OF COMMERCE",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-106",
+          "name": "UNDERSTANDING ICT AND ITS APPLICATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-107",
+          "name": "SCHOOL EXPOSURE",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-108",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
-      "2nd Year": [
-        { code: "BA 201", name: "GENERAL", maxMarks: 110, minMarks: 44 },
-        { code: "BA 202", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
-        { code: "BA 203", name: "HINDI", maxMarks: 110, minMarks: 44 },
-        { code: "BA 204", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
+      "2nd Semester": [
+        {
+          "code": "BED-201",
+          "name": "LEARNING AND TEACHING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-202",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - MATH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-203",
+          "name": "PEDAGOGY OF COMMERCE",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-204",
+          "name": "KNOWLEDGE AND CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-205",
+          "name": "ASSESSMENT FOR LEARNING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-206",
+          "name": "SCHOOL ATACHMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-207",
+          "name": "COMMUNITY LIVING CAMP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-208",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ],
-      "3rd Year": [
-        { code: "BA 301", name: "GENERAL", maxMarks: 110, minMarks: 44 },
-        { code: "BA 302", name: "ENGLISH", maxMarks: 110, minMarks: 44 },
-        { code: "BA 303", name: "HINDI", maxMarks: 110, minMarks: 44 },
-        { code: "BA 304", name: "SANSKRIT", maxMarks: 110, minMarks: 44 }
+      "3rd Semester": [
+        {
+          "code": "BED-301",
+          "name": "PRE INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-302",
+          "name": "INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-303",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "4th Semester": [
+        {
+          "code": "BED-401",
+          "name": "POST INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-402",
+          "name": "GENDER, SCHOOL AND SOCIETY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-403",
+          "name": "READING AND REFLECTING ON TEXTS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-404",
+          "name": "ARTS IN EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-405",
+          "name": "UNDERSTANDING THE SELF",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-406",
+          "name": "CREATING AND INCLUSIVE SCHOOL",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-407",
+          "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-408",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ]
+    }
+  },
+  {
+    "name": "BACHELOR OF EDUCATION (HISTORY)",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        {
+          "code": "BED-101",
+          "name": "CHILDHOOD & GROWING UP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-102",
+          "name": "EDUCATION IN CONTEMPORARY INDIA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-103",
+          "name": "LANGUAGE ACROSS THE CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-104",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-105",
+          "name": "PEDAGOGY OF HISTORY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-106",
+          "name": "UNDERSTANDING ICT AND ITS APPLICATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-107",
+          "name": "SCHOOL EXPOSURE",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-108",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "2nd Semester": [
+        {
+          "code": "BED-201",
+          "name": "LEARNING AND TEACHING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-202",
+          "name": "PEDAGOGY OF SCHOOL SUBJECT - ENGLISH",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-203",
+          "name": "PEDAGOGY OF HISTORY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-204",
+          "name": "KNOWLEDGE AND CURRICULUM",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-205",
+          "name": "ASSESSMENT FOR LEARNING",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-206",
+          "name": "SCHOOL ATACHMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-207",
+          "name": "COMMUNITY LIVING CAMP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-208",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "3rd Semester": [
+        {
+          "code": "BED-301",
+          "name": "PRE INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-302",
+          "name": "INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-303",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "4th Semester": [
+        {
+          "code": "BED-401",
+          "name": "POST INTERNSHIP",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-402",
+          "name": "GENDER, SCHOOL AND SOCIETY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-403",
+          "name": "READING AND REFLECTING ON TEXTS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-404",
+          "name": "ARTS IN EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-405",
+          "name": "UNDERSTANDING THE SELF",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-406",
+          "name": "CREATING AND INCLUSIVE SCHOOL",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-407",
+          "name": "HEALTH, YOGA, AND PHYSICAL EDUCATION",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BED-408",
+          "name": "FIELD ENGAGEMENT",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ]
+    }
+  },
+  {
+    "name": "BACHELOR OF TECHNOLOGY IN MECHANICAL",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        {
+          "code": "BTEM101",
+          "name": "Engineering Ethics",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM102",
+          "name": "Communication & Writing Skills",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM103",
+          "name": "Calculus for Engineers",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM104",
+          "name": "Computer Programming using C",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM105",
+          "name": "Basic Electrical & Electronics Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM106",
+          "name": "Elements of Mechanical Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM107",
+          "name": "Design Thinking - The Way to Joy of Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "2nd Semester": [
+        {
+          "code": "BTEM201",
+          "name": "Energy Harvesting and Storage",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM202",
+          "name": "Materials Science",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM203",
+          "name": "Python Programming",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM204",
+          "name": "Probability and Statistics",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM205",
+          "name": "Computational Materials Science",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM206",
+          "name": "Surface Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM207",
+          "name": "Environmental Science and Sustainability",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM208",
+          "name": "Joy of Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "3rd Semester": [
+        {
+          "code": "BTEM301",
+          "name": "Innovation & Entrepreneurship",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM302",
+          "name": "Linear Algebra and Differential Equations",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM303",
+          "name": "Introduction to Robotics & loT",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM304",
+          "name": "Data Analytics using Python",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM305",
+          "name": "Engineering Thermodynamics",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM306",
+          "name": "Student to pick any 1 course from corresponding basket",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM307",
+          "name": "Engineering Materials",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "4th Semester": [
+        {
+          "code": "BTEM401",
+          "name": "Entrepreneurship",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM402",
+          "name": "Computational Mathematics",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM403",
+          "name": "Casting and welding of Metals",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM404",
+          "name": "Computer Aided Design & Manufacturing",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM405",
+          "name": "Fluid Mechanics and Hydraulic Machines",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM406",
+          "name": "Applied Engineering Thermodynamics",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM407",
+          "name": "Mechanics of Solids",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "5th Semester": [
+        {
+          "code": "BTEM501",
+          "name": "Materials Science and Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM502",
+          "name": "Metal Cutting and Forming",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM503",
+          "name": "Quality Control Assurance & Reliability",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM504",
+          "name": "Kinematic & Dynamics of Machine",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM505",
+          "name": "IC Engines & Automobile Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM506",
+          "name": "Core Elective-1 (Specialisation specific)",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM507",
+          "name": "Project -1",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM508",
+          "name": "Mechanics of Solids",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "6th Semester": [
+        {
+          "code": "BTEM601",
+          "name": "Logical Reasoning & Quantitative Analysis",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM602",
+          "name": "Project -2",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM603",
+          "name": "Heat & Mass Transfer",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM604",
+          "name": "Machine Design",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM605",
+          "name": "Micro and Nano Systems",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM606",
+          "name": "Applications of Nanotechnology",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM607",
+          "name": "Computational Materials Science",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "7th Semester": [
+        {
+          "code": "BTEM701",
+          "name": "Metrology and Measurements",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM702",
+          "name": "Industrial Engineering",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM703",
+          "name": "Advanced Manufacturing Processes",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM704",
+          "name": "Refrigeration and Air conditioning",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM705",
+          "name": "Core Elective 4(Specialisation specifi",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM706",
+          "name": "Nanometrology",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM707",
+          "name": "Nanomaterial Characterization",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "8th Semester": [
+        {
+          "code": "BTEM801",
+          "name": "Synthesis and Fabrication of Nano Materials",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM802",
+          "name": "Minor Thesis in Nanotechnology",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BTEM803",
+          "name": "Practice School",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ]
+    }
+  },
+  {
+    "name": "BACHELOR OF SCIENCE (B.SC.)",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        {
+          "code": "BSC 101",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 102",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 103",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 104",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "2nd Semester": [
+        {
+          "code": "BSC 201",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 202",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 203",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 204",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "3rd Semester": [
+        {
+          "code": "BSC 301",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 302",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 303",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 304",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "4th Semester": [
+        {
+          "code": "BSC 401",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 402",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 403",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 404",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "5th Semester": [
+        {
+          "code": "BSC 501",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 502",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 503",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 504",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
+      ],
+      "6th Semester": [
+        {
+          "code": "BSC 601",
+          "name": "YOGA",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 602",
+          "name": "PHYSICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 603",
+          "name": "CHEMISTRY",
+          "maxMarks": 110,
+          "minMarks": 44
+        },
+        {
+          "code": "BSC 604",
+          "name": "MATHEMATICS",
+          "maxMarks": 110,
+          "minMarks": 44
+        }
       ]
     }
   }
@@ -83,134 +1201,540 @@ export const DEFAULT_COURSES = [
 
 export const DEFAULT_STUDENTS = [
   {
-    id: "std-sample-1",
-    name: "AASHISH BAGH",
-    fatherName: "RAJESH BAGH",
-    motherName: "SUNITA BAGH",
-    dob: "15/05/2002",
-    course: "BACHELOR OF SCIENCE (B.SC.)",
-    session: "2024-2026",
-    email: "aashish.bagh@example.com",
-    rollNo: 231456,
-    enrollmentNo: "2023231456",
-    schoolCollege: "Government Degree College, Raipur",
-    photo: "student_photo.jpg",
-    isPublished: true,
-    centerCode: "DSVV-CTR-01",
-    marksheets: {
+    "id": "std-shravan-1",
+    "name": "SHRAVAN KUMAR",
+    "fatherName": "RAMESH KUMAR",
+    "motherName": "GEETA DEVI",
+    "dob": "10/06/2001",
+    "course": "BACHELOR OF EDUCATION (HISTORY)",
+    "session": "2021-2023",
+    "email": "shravan.kumar@example.com",
+    "rollNo": 232153,
+    "enrollmentNo": "2023232156",
+    "schoolCollege": "Faculty of Education, DSVV Raipur",
+    "photo": "sample.jpg",
+    "centerCode": "DSVV-CTR-01",
+    "isPublished": true,
+    "marksheets": {
       "1st Semester": {
-        dmcNo: 8492,
-        issueDate: "28-02-2024",
-        marks: { "BSC 101": 78, "BSC 102": 82, "BSC 103": 75, "BSC 104": 88 }
+        "dmcNo": 8500,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-101": 84,
+          "BED-102": 83,
+          "BED-103": 84,
+          "BED-104": 76,
+          "BED-105": 70,
+          "BED-106": 84,
+          "BED-107": 72,
+          "BED-108": 83
+        },
+        "isPublished": true
       },
       "2nd Semester": {
-        dmcNo: 8493,
-        issueDate: "25-08-2024",
-        marks: { "BSC 201": 80, "BSC 202": 85, "BSC 203": 79, "BSC 204": 90 }
+        "dmcNo": 8501,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-201": 87,
+          "BED-202": 81,
+          "BED-203": 86,
+          "BED-204": 86,
+          "BED-205": 74,
+          "BED-206": 83,
+          "BED-207": 93,
+          "BED-208": 79
+        },
+        "isPublished": true
       },
       "3rd Semester": {
-        dmcNo: 8494,
-        issueDate: "23-02-2025",
-        marks: { "BSC 301": 84, "BSC 302": 81, "BSC 303": 86, "BSC 304": 92 }
+        "dmcNo": 8502,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-301": 89,
+          "BED-302": 87,
+          "BED-303": 76
+        },
+        "isPublished": true
       },
       "4th Semester": {
-        dmcNo: 8495,
-        issueDate: "24-08-2025",
-        marks: { "BSC 401": 86, "BSC 402": 88, "BSC 403": 82, "BSC 404": 94 }
-      },
-      "5th Semester": {
-        dmcNo: 8496,
-        issueDate: "22-02-2026",
-        marks: { "BSC 501": 88, "BSC 502": 90, "BSC 503": 85, "BSC 504": 95 }
-      },
-      "6th Semester": {
-        dmcNo: 8497,
-        issueDate: "23-08-2026",
-        marks: { "BSC 601": 90, "BSC 602": 92, "BSC 603": 89, "BSC 604": 96 }
+        "dmcNo": 8503,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-401": 87,
+          "BED-402": 75,
+          "BED-403": 86,
+          "BED-404": 88,
+          "BED-405": 80,
+          "BED-406": 89,
+          "BED-407": 76,
+          "BED-408": 78
+        },
+        "isPublished": true
       }
     },
-    publishedDocs: {
-      marksheets: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+    "publishedDocs": {
+      "idCard": true,
+      "marksheets": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      admitCards: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "admitCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      results: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "results": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      idCards: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "idCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       }
     }
   },
   {
-    id: "std-sample-2",
-    name: "RAMESH BAGH",
-    fatherName: "RAJESH BAGH",
-    motherName: "SUNITA BAGH",
-    dob: "12/08/2003",
-    course: "BACHELOR OF SCIENCE (B.SC.)",
-    session: "2024-2026",
-    email: "ramesh.bagh@example.com",
-    rollNo: 232151,
-    enrollmentNo: "2023232151",
-    schoolCollege: "DAV College, Bilaspur",
-    photo: "student_photo.jpg",
-    isPublished: true,
-    centerCode: "DSVV-CTR-01",
-    marksheets: {
+    "id": "std-raj-2",
+    "name": "MD RAJ HASAN",
+    "fatherName": "MD HASAN ALI",
+    "motherName": "RASHIDA KHATOON",
+    "dob": "14/02/2002",
+    "course": "BACHELOR OF EDUCATION (CHEMISTRY)",
+    "session": "2024-2026",
+    "email": "raj.hasan@example.com",
+    "rollNo": 232154,
+    "enrollmentNo": "2023232157",
+    "schoolCollege": "Faculty of Education, DSVV Raipur",
+    "photo": "sample.jpg",
+    "centerCode": "DSVV-CTR-01",
+    "isPublished": true,
+    "marksheets": {
       "1st Semester": {
-        dmcNo: 8510,
-        issueDate: "28-02-2024",
-        marks: { "BSC 101": 75, "BSC 102": 80, "BSC 103": 72, "BSC 104": 85 }
+        "dmcNo": 8500,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-101": 77,
+          "BED-102": 75,
+          "BED-103": 94,
+          "BED-104": 80,
+          "BED-105": 81,
+          "BED-106": 76,
+          "BED-107": 88,
+          "BED-108": 77
+        },
+        "isPublished": true
       },
       "2nd Semester": {
-        dmcNo: 8511,
-        issueDate: "25-08-2024",
-        marks: { "BSC 201": 78, "BSC 202": 82, "BSC 203": 76, "BSC 204": 88 }
+        "dmcNo": 8501,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-201": 72,
+          "BED-202": 90,
+          "BED-203": 85,
+          "BED-204": 74,
+          "BED-205": 93,
+          "BED-206": 91,
+          "BED-207": 80,
+          "BED-208": 70
+        },
+        "isPublished": true
       },
       "3rd Semester": {
-        dmcNo: 8512,
-        issueDate: "23-02-2025",
-        marks: { "BSC 301": 82, "BSC 302": 85, "BSC 303": 80, "BSC 304": 90 }
+        "dmcNo": 8502,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-301": 90,
+          "BED-302": 80,
+          "BED-303": 90
+        },
+        "isPublished": true
       },
       "4th Semester": {
-        dmcNo: 8513,
-        issueDate: "24-08-2025",
-        marks: { "BSC 401": 84, "BSC 402": 86, "BSC 403": 81, "BSC 404": 91 }
-      },
-      "5th Semester": {
-        dmcNo: 8514,
-        issueDate: "22-02-2026",
-        marks: { "BSC 501": 86, "BSC 502": 88, "BSC 503": 84, "BSC 504": 93 }
-      },
-      "6th Semester": {
-        dmcNo: 8515,
-        issueDate: "23-08-2026",
-        marks: { "BSC 601": 88, "BSC 602": 90, "BSC 603": 87, "BSC 604": 95 }
+        "dmcNo": 8503,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-401": 81,
+          "BED-402": 84,
+          "BED-403": 71,
+          "BED-404": 75,
+          "BED-405": 77,
+          "BED-406": 79,
+          "BED-407": 76,
+          "BED-408": 84
+        },
+        "isPublished": true
       }
     },
-    publishedDocs: {
-      marksheets: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+    "publishedDocs": {
+      "idCard": true,
+      "marksheets": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      admitCards: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "admitCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      results: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "results": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
       },
-      idCards: {
-        "1st Semester": true, "2nd Semester": true, "3rd Semester": true,
-        "4th Semester": true, "5th Semester": true, "6th Semester": true
+      "idCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
+      }
+    }
+  },
+  {
+    "id": "std-pragati-3",
+    "name": "PRAGATI RIYA",
+    "fatherName": "ANIL KUMAR",
+    "motherName": "SARITA DEVI",
+    "dob": "22/09/2003",
+    "course": "BACHELOR OF EDUCATION (COMMERCE)",
+    "session": "2023-2025",
+    "email": "pragati.riya@example.com",
+    "rollNo": 232152,
+    "enrollmentNo": "2023232155",
+    "schoolCollege": "Faculty of Education, DSVV Raipur",
+    "photo": "sample.jpg",
+    "centerCode": "DSVV-CTR-01",
+    "isPublished": true,
+    "marksheets": {
+      "1st Semester": {
+        "dmcNo": 8500,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-101": 76,
+          "BED-102": 88,
+          "BED-103": 88,
+          "BED-104": 73,
+          "BED-105": 77,
+          "BED-106": 94,
+          "BED-107": 71,
+          "BED-108": 89
+        },
+        "isPublished": true
+      },
+      "2nd Semester": {
+        "dmcNo": 8501,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-201": 89,
+          "BED-202": 88,
+          "BED-203": 92,
+          "BED-204": 77,
+          "BED-205": 87,
+          "BED-206": 76,
+          "BED-207": 89,
+          "BED-208": 84
+        },
+        "isPublished": true
+      },
+      "3rd Semester": {
+        "dmcNo": 8502,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-301": 72,
+          "BED-302": 85,
+          "BED-303": 74
+        },
+        "isPublished": true
+      },
+      "4th Semester": {
+        "dmcNo": 8503,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BED-401": 88,
+          "BED-402": 77,
+          "BED-403": 89,
+          "BED-404": 73,
+          "BED-405": 83,
+          "BED-406": 86,
+          "BED-407": 80,
+          "BED-408": 91
+        },
+        "isPublished": true
+      }
+    },
+    "publishedDocs": {
+      "idCard": true,
+      "marksheets": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
+      },
+      "admitCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
+      },
+      "results": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
+      },
+      "idCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true
+      }
+    }
+  },
+  {
+    "id": "std-sample-1",
+    "name": "AASHISH BAGH",
+    "fatherName": "RAJESH BAGH",
+    "motherName": "SUNITA BAGH",
+    "dob": "15/05/2002",
+    "course": "BACHELOR OF SCIENCE (B.SC.)",
+    "session": "2024-2026",
+    "email": "aashish.bagh@example.com",
+    "rollNo": 231456,
+    "enrollmentNo": "2023231456",
+    "schoolCollege": "Government Degree College, Raipur",
+    "photo": "student_photo.jpg",
+    "centerCode": "DSVV-CTR-01",
+    "isPublished": true,
+    "marksheets": {
+      "1st Semester": {
+        "dmcNo": 8500,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 101": 70,
+          "BSC 102": 79,
+          "BSC 103": 91,
+          "BSC 104": 94
+        },
+        "isPublished": true
+      },
+      "2nd Semester": {
+        "dmcNo": 8501,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 201": 88,
+          "BSC 202": 79,
+          "BSC 203": 88,
+          "BSC 204": 88
+        },
+        "isPublished": true
+      },
+      "3rd Semester": {
+        "dmcNo": 8502,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 301": 86,
+          "BSC 302": 71,
+          "BSC 303": 73,
+          "BSC 304": 79
+        },
+        "isPublished": true
+      },
+      "4th Semester": {
+        "dmcNo": 8503,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 401": 93,
+          "BSC 402": 75,
+          "BSC 403": 93,
+          "BSC 404": 82
+        },
+        "isPublished": true
+      },
+      "5th Semester": {
+        "dmcNo": 8504,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 501": 74,
+          "BSC 502": 89,
+          "BSC 503": 94,
+          "BSC 504": 86
+        },
+        "isPublished": true
+      },
+      "6th Semester": {
+        "dmcNo": 8505,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 601": 80,
+          "BSC 602": 82,
+          "BSC 603": 72,
+          "BSC 604": 73
+        },
+        "isPublished": true
+      }
+    },
+    "publishedDocs": {
+      "idCard": true,
+      "marksheets": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "admitCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "results": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "idCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      }
+    }
+  },
+  {
+    "id": "std-sample-2",
+    "name": "RAMESH BAGH",
+    "fatherName": "RAJESH BAGH",
+    "motherName": "SUNITA BAGH",
+    "dob": "12/08/2003",
+    "course": "BACHELOR OF SCIENCE (B.SC.)",
+    "session": "2024-2026",
+    "email": "ramesh.bagh@example.com",
+    "rollNo": 232151,
+    "enrollmentNo": "2023232151",
+    "schoolCollege": "DAV College, Bilaspur",
+    "photo": "student_photo.jpg",
+    "centerCode": "DSVV-CTR-01",
+    "isPublished": true,
+    "marksheets": {
+      "1st Semester": {
+        "dmcNo": 8500,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 101": 85,
+          "BSC 102": 89,
+          "BSC 103": 73,
+          "BSC 104": 84
+        },
+        "isPublished": true
+      },
+      "2nd Semester": {
+        "dmcNo": 8501,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 201": 83,
+          "BSC 202": 83,
+          "BSC 203": 87,
+          "BSC 204": 83
+        },
+        "isPublished": true
+      },
+      "3rd Semester": {
+        "dmcNo": 8502,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 301": 82,
+          "BSC 302": 83,
+          "BSC 303": 85,
+          "BSC 304": 70
+        },
+        "isPublished": true
+      },
+      "4th Semester": {
+        "dmcNo": 8503,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 401": 81,
+          "BSC 402": 71,
+          "BSC 403": 94,
+          "BSC 404": 72
+        },
+        "isPublished": true
+      },
+      "5th Semester": {
+        "dmcNo": 8504,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 501": 70,
+          "BSC 502": 94,
+          "BSC 503": 74,
+          "BSC 504": 76
+        },
+        "isPublished": true
+      },
+      "6th Semester": {
+        "dmcNo": 8505,
+        "issueDate": "28-02-2024",
+        "marks": {
+          "BSC 601": 81,
+          "BSC 602": 82,
+          "BSC 603": 94,
+          "BSC 604": 73
+        },
+        "isPublished": true
+      }
+    },
+    "publishedDocs": {
+      "idCard": true,
+      "marksheets": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "admitCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "results": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
+      },
+      "idCards": {
+        "1st Semester": true,
+        "2nd Semester": true,
+        "3rd Semester": true,
+        "4th Semester": true,
+        "5th Semester": true,
+        "6th Semester": true
       }
     }
   }
@@ -218,24 +1742,31 @@ export const DEFAULT_STUDENTS = [
 
 export const DEFAULT_CENTERS = [
   {
-    id: "ctr-1",
-    centerCode: "DSVV-CTR-01",
-    centerName: "DSVV RAIPUR REGIONAL CENTER",
-    coordinatorName: "DR. SURESH SHARMA",
-    email: "center.raipur@devsanskritivishwavidyalaya.com",
-    phone: "+91-9876543210",
-    password: "center@2026",
-    status: "approved",
-    walletBalance: 15000,
-    createdAt: "2026-08-20",
-    transactions: [
-      { id: "tx-1", date: "2026-08-20 10:30", type: "credit", amount: 15000, description: "Initial Admin Wallet Recharge", balanceAfter: 15000 }
+    "id": "ctr-1",
+    "centerCode": "DSVV-CTR-01",
+    "centerName": "DSVV RAIPUR REGIONAL CENTER",
+    "coordinatorName": "DR. SURESH SHARMA",
+    "email": "center.raipur@devsanskritivishwavidyalaya.com",
+    "phone": "+91-9876543210",
+    "password": "center@2026",
+    "status": "approved",
+    "walletBalance": 15000,
+    "createdAt": "2026-08-20",
+    "transactions": [
+      {
+        "id": "tx-1",
+        "date": "2026-08-20 10:30",
+        "type": "credit",
+        "amount": 15000,
+        "description": "Initial Admin Wallet Recharge",
+        "balanceAfter": 15000
+      }
     ]
   }
 ];
 
 export function parseCSVClient(text) {
-  const lines = text.split(/\r\n|\n/).map(l => l.trim()).filter(l => l);
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l);
   if (lines.length === 0) return [];
   const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
   const rows = [];
