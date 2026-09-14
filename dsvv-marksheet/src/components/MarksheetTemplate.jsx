@@ -138,26 +138,26 @@ export default function MarksheetTemplate({ student, course, termName }) {
 
   const processedSubjects = subjects.map(sub => {
     const rawObt = marks[sub.code];
-    const obtNum = (rawObt !== undefined && rawObt !== '') ? parseInt(rawObt) : 0;
-    const maxM = parseInt(sub.maxMarks) || 100;
-    const minM = parseInt(sub.minMarks) || 40;
+    const obtNum = (rawObt !== undefined && rawObt !== '') ? Math.min(100, parseInt(rawObt)) : 0;
 
-    // Fixed theory, practical (30), assignment (10) split
+    // Fixed standard structure: Theory (60), Practical (30), Assignment (10) -> Total 100
+    const thMax = 60;
     const prMax = 30;
     const asgMax = 10;
-    const thMax = maxM >= (prMax + asgMax) ? (maxM - prMax - asgMax) : 60;
+    const maxM = 100;
 
-    // Minimum passing marks (e.g. 24-28 Th / 12 Pr / 4 Asg for minM = 40 or 44)
-    const thMin = sub.thMin !== undefined ? parseInt(sub.thMin) : Math.round((thMax * minM) / maxM);
-    const prMin = sub.prMin !== undefined ? parseInt(sub.prMin) : Math.round((prMax * minM) / maxM);
-    const asgMin = sub.asgMin !== undefined ? parseInt(sub.asgMin) : Math.max(0, minM - thMin - prMin);
+    // Minimum passing marks (40% of each component: 24 Th / 12 Pr / 4 Asg -> Total 40)
+    const thMin = 24;
+    const prMin = 12;
+    const asgMin = 4;
+    const minM = 40;
 
     let thObt = 0, prObt = 0, asgObt = 0;
     if (rawObt !== undefined && rawObt !== '') {
       const seed = (sub.code || sub.name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
       const variation = ((seed % 9) - 4) / 200; // slight natural fluctuation ±2%
-      thObt = Math.round(obtNum * ((thMax / maxM) + variation));
-      prObt = Math.round(obtNum * ((prMax / maxM) - variation * 0.7));
+      thObt = Math.round(obtNum * (0.60 + variation));
+      prObt = Math.round(obtNum * (0.30 - variation * 0.7));
 
       // Clamp to ensure obtained marks never exceed component max marks
       thObt = Math.min(thMax, Math.max(0, thObt));
