@@ -287,9 +287,9 @@ export default function MarksheetTemplate({ student, course, termName }) {
   return (
     <div className="marksheet-a4-landscape-wrapper">
       <div className="marksheet-a4-landscape">
-        {/* High-Res Background Image from sample.jpg */}
+        {/* High-Res Background Image with unique versioned name */}
         <img 
-          src="sample.jpg?v=20260915" 
+          src="marksheet-bg-v2.jpg" 
           alt="Marksheet Background" 
           className="marksheet-bg-img"
         />
