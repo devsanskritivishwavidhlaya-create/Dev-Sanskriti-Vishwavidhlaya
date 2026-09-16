@@ -11,7 +11,7 @@ dsvv-marksheet/dist/
 *.mov
 
 # Design files
-Format.cdr
+*.cdr
 
 # Sensitive files - NEVER commit
 Login Details.txt

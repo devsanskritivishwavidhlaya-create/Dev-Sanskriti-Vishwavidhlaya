@@ -1051,7 +1051,7 @@ export default function App() {
         <img src="Monogram.png" alt="DSVV" className="logo-monogram-top" />
         <div className="header-brand">
           <h1 className="header-univ-title">DEV SANSKRITI VISHWAVIDYALAYA</h1>
-          <p className="header-univ-sub">RAIPUR, CHHATTISGARH &bull; ADMINISTRATIVE SYSTEMS</p>
+          <p className="header-univ-sub">DURG, CHHATTISGARH &bull; ADMINISTRATIVE SYSTEMS</p>
         </div>
         <nav className="header-nav-actions">
           <button className={`nav-mode-btn ${currentView === 'admin' ? 'active' : ''}`} onClick={() => setCurrentView('admin')}>

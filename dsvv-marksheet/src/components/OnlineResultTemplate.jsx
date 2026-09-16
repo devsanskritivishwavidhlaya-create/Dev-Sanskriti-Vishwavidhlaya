@@ -65,7 +65,7 @@ export default function OnlineResultTemplate({ student, course, termName }) {
       <div style={{ background: 'linear-gradient(135deg, #0d2149, #1e3a8a)', color: '#ffffff', padding: '24px 20px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <img src="Dev_Sanskriti_Vishwavidyalaya Logo2.png" alt="DSVV Logo" style={{ height: '58px', marginBottom: '8px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} />
         <h2 style={{ margin: 0, fontSize: '18px', letterSpacing: '0.8px', color: '#ffffff', fontWeight: '800', textAlign: 'center' }}>DEV SANSKRITI VISHWAVIDYALAYA</h2>
-        <p style={{ margin: '4px 0 0', fontSize: '11px', color: '#cbd5e1', letterSpacing: '0.5px', textAlign: 'center' }}>DURG / RAIPUR, CHHATTISGARH</p>
+        <p style={{ margin: '4px 0 0', fontSize: '11px', color: '#cbd5e1', letterSpacing: '0.5px', textAlign: 'center' }}>DURG, CHHATTISGARH</p>
         <div style={{ marginTop: '10px', display: 'inline-block', background: '#d4af37', color: '#0d2149', padding: '4px 18px', borderRadius: '4px', fontWeight: '800', fontSize: '11.5px', letterSpacing: '1.5px', textAlign: 'center' }}>ONLINE STATEMENT OF MARKS</div>
       </div>
 
