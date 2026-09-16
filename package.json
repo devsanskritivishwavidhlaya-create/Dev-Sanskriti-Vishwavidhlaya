@@ -1,0 +1,8 @@
+{
+  "name": "dev-sanskriti-vishwavidhlaya",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd dsvv-marksheet && npm install && npm run build",
+    "start": "cd dsvv-marksheet && node server.js"
+  }
+}
