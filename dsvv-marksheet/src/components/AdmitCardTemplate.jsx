@@ -73,7 +73,7 @@ export default function AdmitCardTemplate({ student, course, termName }) {
           />
           <div className="admit-titles">
             <h1>DEV SANSKRITI VISHWAVIDYALAYA</h1>
-            <p>DURG / RAIPUR, CHHATTISGARH</p>
+            <p>DURG, CHHATTISGARH</p>
             <div className="admit-badge">EXAMINATION ADMIT CARD</div>
           </div>
         </div>

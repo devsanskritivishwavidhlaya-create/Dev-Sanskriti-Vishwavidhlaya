@@ -73,7 +73,7 @@ export default function IdCardTemplate({ student, course, termName }) {
                 />
                 <div className="idcard-univ-titles">
                   <h2>DEV SANSKRITI VISHWAVIDYALAYA</h2>
-                  <p>DURG / RAIPUR, CHHATTISGARH</p>
+                  <p>DURG, CHHATTISGARH</p>
                 </div>
               </div>
 
