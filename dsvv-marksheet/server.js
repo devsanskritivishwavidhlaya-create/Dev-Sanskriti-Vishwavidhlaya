@@ -403,10 +403,25 @@ app.post('/api/import', (req, res) => {
   }
 });
 
-// SPA catch-all — serve index.html for all non-API routes
-app.get('*', (req, res) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// Global Express Error Handler
+app.use((err, req, res, next) => {
+  if (err.type === 'request.aborted' || err.code === 'ECONNABORTED' || err.message === 'request aborted') {
+    console.warn(`[Client Abort] Request aborted by client: ${req.method} ${req.url}`);
+    if (!res.headersSent) {
+      return res.status(400).json({ error: 'Request aborted by client' });
+    }
+    return;
+  }
+  if (err.type === 'entity.too.large' || err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(413).json({ error: 'Payload or file too large' });
+  }
+  console.error('Unhandled server error:', err);
+  if (!res.headersSent) {
+    res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
+  }
 });
 
-app.listen(PORT, () => console.log(`DSVV Server running on http://localhost:${PORT}`));
+const server = app.listen(PORT, '0.0.0.0', () => console.log(`DSVV Server running on http://localhost:${PORT}`));
+
+server.keepAliveTimeout = 120000;
+server.headersTimeout = 125000;
