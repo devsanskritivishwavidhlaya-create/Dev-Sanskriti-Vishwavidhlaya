@@ -151,8 +151,176 @@ const courses = [
     icon: "fa-book-open",
     subcourses: [
       {
-        name: "B.A.",
+        name: "General",
         code: "B.A. - 09",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "English",
+        code: "B.A. - 09B",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Economics",
+        code: "B.A. - 09C",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Hindi",
+        code: "B.A. - 09D",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Sanskrit",
+        code: "B.A. - 09E",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "History",
+        code: "B.A. - 09F",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Political Science",
+        code: "B.A. - 09G",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Sociology",
+        code: "B.A. - 09H",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Psychology",
+        code: "B.A. - 09I",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Philosophy",
+        code: "B.A. - 09J",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Geography",
+        code: "B.A. - 09K",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Public Administration",
+        code: "B.A. - 09L",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Mathematics",
+        code: "B.A. - 09M",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Journalism & Mass Communication",
+        code: "B.A. - 09N",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Social Work",
+        code: "B.A. - 09O",
         semesters: [
           { name: "Semester - 1", fee: 8000.00 },
           { name: "Semester - 2", fee: 8000.00 },
@@ -172,6 +340,54 @@ const courses = [
           { name: "Semester - 4", fee: 10000.00 },
           { name: "Semester - 5", fee: 10000.00 },
           { name: "Semester - 6", fee: 10000.00 }
+        ]
+      },
+      {
+        name: "Education",
+        code: "B.A. - 09P",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Home Science",
+        code: "B.A. - 09Q",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Fashion Design",
+        code: "B.A. - 09R",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
+        ]
+      },
+      {
+        name: "Library Science",
+        code: "B.A. - 09S",
+        semesters: [
+          { name: "Semester - 1", fee: 8000.00 },
+          { name: "Semester - 2", fee: 8000.00 },
+          { name: "Semester - 3", fee: 8000.00 },
+          { name: "Semester - 4", fee: 8000.00 },
+          { name: "Semester - 5", fee: 8000.00 },
+          { name: "Semester - 6", fee: 8000.00 }
         ]
       }
     ]

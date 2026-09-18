@@ -162,6 +162,90 @@ export const DEFAULT_COURSES = [
     }
   },
   {
+    "name": "BACHELOR OF ARTS (ENGLISH)",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        { "code": "BAENG-101", "name": "Introduction to English Literature & Poetry", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-102", "name": "English Prose & Fiction", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-103", "name": "Environmental Studies", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-104", "name": "Communicative English & Phonetics", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "2nd Semester": [
+        { "code": "BAENG-201", "name": "British Poetry & Drama (14th to 17th Century)", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-202", "name": "Indian Classical Literature in Translation", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-203", "name": "History of English Language", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-204", "name": "Academic Writing & Composition", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "3rd Semester": [
+        { "code": "BAENG-301", "name": "British Literature (18th Century & Romantic)", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-302", "name": "Indian Writing in English - I", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-303", "name": "Linguistics & English Grammar", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-304", "name": "Creative Writing", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "4th Semester": [
+        { "code": "BAENG-401", "name": "Victorian Literature & Modern Novel", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-402", "name": "Indian Writing in English - II", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-403", "name": "Literary Criticism & Theory - I", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-404", "name": "English for Media & Communication", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "5th Semester": [
+        { "code": "BAENG-501", "name": "20th Century British & World Literature", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-502", "name": "American Literature", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-503", "name": "Postcolonial Literature & Translation Studies", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-504", "name": "Literary Theory & Cultural Studies", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "6th Semester": [
+        { "code": "BAENG-601", "name": "Modern European Drama", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-602", "name": "Women's Writing & Gender Studies", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-603", "name": "Research Methodology & Project", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAENG-604", "name": "Contemporary Indian Literature", "maxMarks": 100, "minMarks": 40 }
+      ]
+    }
+  },
+  {
+    "name": "BACHELOR OF ARTS (ECONOMICS)",
+    "type": "semester",
+    "terms": {
+      "1st Semester": [
+        { "code": "BAECO-101", "name": "Introductory Microeconomics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-102", "name": "Mathematical Methods for Economics - I", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-103", "name": "Environmental Studies", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-104", "name": "English Communication", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "2nd Semester": [
+        { "code": "BAECO-201", "name": "Introductory Macroeconomics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-202", "name": "Mathematical Methods for Economics - II", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-203", "name": "Statistical Methods for Economics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-204", "name": "Indian Economic History", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "3rd Semester": [
+        { "code": "BAECO-301", "name": "Intermediate Microeconomics - I", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-302", "name": "Intermediate Macroeconomics - I", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-303", "name": "Economic Statistics & Econometrics Basics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-304", "name": "Public Economics & Finance", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "4th Semester": [
+        { "code": "BAECO-401", "name": "Intermediate Microeconomics - II", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-402", "name": "Intermediate Macroeconomics - II", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-403", "name": "Indian Economy - I (Structure & Problems)", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-404", "name": "Money & Banking", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "5th Semester": [
+        { "code": "BAECO-501", "name": "Indian Economy - II (Policies & Growth)", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-502", "name": "Development Economics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-503", "name": "International Economics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-504", "name": "Applied Econometrics", "maxMarks": 100, "minMarks": 40 }
+      ],
+      "6th Semester": [
+        { "code": "BAECO-601", "name": "Environmental Economics", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-602", "name": "Financial Economics & Markets", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-603", "name": "Research Methodology & Dissertation", "maxMarks": 100, "minMarks": 40 },
+        { "code": "BAECO-604", "name": "Agricultural & Rural Economics", "maxMarks": 100, "minMarks": 40 }
+      ]
+    }
+  },
+  {
     "name": "BACHELOR OF EDUCATION (CHEMISTRY)",
     "type": "semester",
     "terms": {
