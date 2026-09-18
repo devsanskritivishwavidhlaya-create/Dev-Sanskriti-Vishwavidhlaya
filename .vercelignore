@@ -1,0 +1,7 @@
+node_modules
+dsvv-marksheet/node_modules
+*.mp4
+*.cdr
+*.psd
+.git
+.github
