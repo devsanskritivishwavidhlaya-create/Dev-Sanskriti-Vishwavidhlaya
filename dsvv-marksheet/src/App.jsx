@@ -40,21 +40,68 @@ export default function App() {
   const [students, setStudents] = useState([]);
   const [centers, setCenters] = useState([]);
 
+  // Helper to ensure all courses and subject names are uppercase
+  const sanitizeCourses = (courseList) => {
+    if (!Array.isArray(courseList)) return [];
+    return courseList.map(c => {
+      const updatedTerms = {};
+      if (c.terms) {
+        Object.keys(c.terms).forEach(t => {
+          updatedTerms[t] = (c.terms[t] || []).map(s => ({
+            ...s,
+            code: (s.code || '').toUpperCase(),
+            name: (s.name || '').toUpperCase()
+          }));
+        });
+      }
+      return {
+        ...c,
+        name: (c.name || '').toUpperCase(),
+        terms: updatedTerms
+      };
+    });
+  };
+
+  const sanitizeStudents = (studentList) => {
+    if (!Array.isArray(studentList)) return [];
+    return studentList.map(st => {
+      const updatedMarksheets = {};
+      if (st.marksheets) {
+        Object.keys(st.marksheets).forEach(t => {
+          const ms = st.marksheets[t] || {};
+          const updatedSubs = Array.isArray(ms.subjects) ? ms.subjects.map(s => ({
+            ...s,
+            code: (s.code || '').toUpperCase(),
+            name: (s.name || '').toUpperCase()
+          })) : undefined;
+          updatedMarksheets[t] = {
+            ...ms,
+            ...(updatedSubs ? { subjects: updatedSubs } : {})
+          };
+        });
+      }
+      return {
+        ...st,
+        marksheets: updatedMarksheets
+      };
+    });
+  };
+
   // Load data from backend API on mount
   useEffect(() => {
     api.getDb().then(db => {
-      const serverStudents = db.students || [];
+      const serverStudents = sanitizeStudents(db.students || []);
       if (serverStudents.length > 0) {
         setStudents(serverStudents);
-        setCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES);
+        setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
         setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
       } else {
         // Server empty — try localStorage, then sync to server
         const localStudents = JSON.parse(localStorage.getItem('dsvv_students') || '[]');
         const localCourses = JSON.parse(localStorage.getItem('dsvv_courses') || '[]');
         const localCenters = JSON.parse(localStorage.getItem('dsvv_centers') || '[]');
-        const studentsToUse = localStudents.length > 0 ? localStudents : DEFAULT_STUDENTS;
-        const coursesToUse = localCourses.length > 0 ? localCourses : DEFAULT_COURSES;
+        const studentsToUse = sanitizeStudents(localStudents.length > 0 ? localStudents : DEFAULT_STUDENTS);
+        const coursesToUse = sanitizeCourses(localCourses.length > 0 ? localCourses : DEFAULT_COURSES);
         const centersToUse = localCenters.length > 0 ? localCenters : DEFAULT_CENTERS;
         setStudents(studentsToUse);
         setCourses(coursesToUse);
@@ -67,8 +114,8 @@ export default function App() {
       setDbLoaded(true);
     }).catch(() => {
       // Fallback to localStorage if API unavailable
-      setStudents(JSON.parse(localStorage.getItem('dsvv_students')) || DEFAULT_STUDENTS);
-      setCourses(JSON.parse(localStorage.getItem('dsvv_courses')) || DEFAULT_COURSES);
+      setStudents(sanitizeStudents(JSON.parse(localStorage.getItem('dsvv_students')) || DEFAULT_STUDENTS));
+      setCourses(sanitizeCourses(JSON.parse(localStorage.getItem('dsvv_courses')) || DEFAULT_COURSES));
       setCenters(JSON.parse(localStorage.getItem('dsvv_centers')) || DEFAULT_CENTERS);
       setDbLoaded(true);
     });
@@ -392,7 +439,14 @@ export default function App() {
   };
 
   const getTermNames = (course) => course ? Object.keys(course.terms || {}) : [];
-  const getTermSubjects = (course, term) => (course && course.terms && course.terms[term]) || [];
+  const getTermSubjects = (course, term) => {
+    const subs = (course && course.terms && course.terms[term]) || [];
+    return subs.map(s => ({
+      ...s,
+      code: (s.code || '').toUpperCase(),
+      name: (s.name || '').toUpperCase()
+    }));
+  };
 
   const getAutoIssueDate = (sessionStr, courseName, term) => {
     const c = courses.find(item => item.name.toLowerCase() === (courseName || '').toLowerCase());
@@ -694,11 +748,18 @@ export default function App() {
   };
 
   const getCurrentTermSubjects = (term = selectedTerm) => {
+    let subs = [];
     if (formSubjects[term] && Array.isArray(formSubjects[term])) {
-      return formSubjects[term];
+      subs = formSubjects[term];
+    } else {
+      const course = courses.find(c => c.name.toLowerCase() === (formData.courseName || '').toLowerCase());
+      subs = (course && course.terms && course.terms[term]) ? course.terms[term] : [];
     }
-    const course = courses.find(c => c.name.toLowerCase() === (formData.courseName || '').toLowerCase());
-    return (course && course.terms && course.terms[term]) ? course.terms[term] : [];
+    return subs.map(s => ({
+      ...s,
+      code: (s.code || '').toUpperCase(),
+      name: (s.name || '').toUpperCase()
+    }));
   };
 
   const handleSubjectFieldChange = (idx, field, value) => {
@@ -706,9 +767,13 @@ export default function App() {
     if (!currentList[idx]) return;
 
     const oldCode = currentList[idx].code;
+    const finalVal = (field === 'code' || field === 'name')
+      ? String(value || '').toUpperCase()
+      : ((field === 'minMarks' || field === 'maxMarks') ? (parseInt(value) || 0) : value);
+
     currentList[idx] = {
       ...currentList[idx],
-      [field]: (field === 'minMarks' || field === 'maxMarks') ? (parseInt(value) || 0) : value
+      [field]: finalVal
     };
 
     setFormSubjects(prev => ({
@@ -717,11 +782,11 @@ export default function App() {
     }));
 
     // If code changed, migrate mark in formMarksheets
-    if (field === 'code' && oldCode && oldCode !== value) {
+    if (field === 'code' && oldCode && oldCode !== finalVal) {
       setFormMarksheets(prev => {
         const termMarks = { ...(prev[selectedTerm] || {}) };
         if (oldCode in termMarks) {
-          termMarks[value] = termMarks[oldCode];
+          termMarks[finalVal] = termMarks[oldCode];
           delete termMarks[oldCode];
         }
         return { ...prev, [selectedTerm]: termMarks };
@@ -734,7 +799,7 @@ export default function App() {
     const nextNum = currentList.length + 1;
     const newSub = {
       code: `SUB-${nextNum.toString().padStart(3, '0')}`,
-      name: `Subject ${nextNum}`,
+      name: `NEW SUBJECT ${nextNum}`,
       minMarks: 40,
       maxMarks: 100
     };
@@ -1666,17 +1731,17 @@ export default function App() {
                                         type="text"
                                         value={sub.code}
                                         onChange={e => handleSubjectFieldChange(idx, 'code', e.target.value.toUpperCase())}
-                                        placeholder="Code"
-                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', fontWeight: '700', color: '#0d2149', background: '#fff' }}
+                                        placeholder="CODE"
+                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', fontWeight: '700', color: '#0d2149', background: '#fff', textTransform: 'uppercase' }}
                                       />
                                     </td>
                                     <td style={{ padding: '8px 10px' }}>
                                       <input 
                                         type="text"
                                         value={sub.name}
-                                        onChange={e => handleSubjectFieldChange(idx, 'name', e.target.value)}
-                                        placeholder="Subject Title"
-                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', color: '#1e293b', background: '#fff' }}
+                                        onChange={e => handleSubjectFieldChange(idx, 'name', e.target.value.toUpperCase())}
+                                        placeholder="SUBJECT TITLE"
+                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', color: '#1e293b', background: '#fff', textTransform: 'uppercase' }}
                                       />
                                     </td>
                                     <td style={{ padding: '8px 10px', textAlign: 'center' }}>

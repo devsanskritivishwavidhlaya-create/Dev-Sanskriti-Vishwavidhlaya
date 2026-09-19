@@ -151,15 +151,15 @@ app.post('/api/courses/upload', upload.single('csvFile'), (req, res) => {
     const parsed = parseCSV(fs.readFileSync(req.file.path, 'utf8'));
     const coursesMap = {};
     parsed.forEach(row => {
-      const name = row['Course'];
+      const name = (row['Course'] || '').toUpperCase();
       if (!name) return;
       const termName = row['Semester'] || row['Year'] || 'General';
       const termType = row['Semester'] ? 'semester' : (row['Year'] ? 'year' : 'general');
       if (!coursesMap[name]) coursesMap[name] = { name, type: termType, terms: {} };
       if (!coursesMap[name].terms[termName]) coursesMap[name].terms[termName] = [];
       coursesMap[name].terms[termName].push({
-        code: row['Course Code'] || '',
-        name: row['Subject'] || '',
+        code: (row['Course Code'] || '').toUpperCase(),
+        name: (row['Subject'] || '').toUpperCase(),
         maxMarks: parseInt(row['Max Marks']) || 100,
         minMarks: parseInt(row['Min Marks']) || 40
       });
@@ -309,13 +309,25 @@ app.put('/api/students/:id', (req, res) => {
     if (marksheetsData) {
       if (!student.marksheets) student.marksheets = {};
       Object.keys(marksheetsData).forEach(t => {
+        const msData = marksheetsData[t] || {};
+        const sanitizedSubs = Array.isArray(msData.subjects) ? msData.subjects.map(s => ({
+          ...s,
+          code: (s.code || '').toUpperCase(),
+          name: (s.name || '').toUpperCase(),
+          minMarks: parseInt(s.minMarks) || 40,
+          maxMarks: parseInt(s.maxMarks) || 100
+        })) : undefined;
+
         if (student.marksheets[t]) {
-          if (marksheetsData[t].marks !== undefined) student.marksheets[t].marks = marksheetsData[t].marks;
-          if (marksheetsData[t].dmcNo !== undefined) student.marksheets[t].dmcNo = marksheetsData[t].dmcNo;
-          if (marksheetsData[t].issueDate !== undefined) student.marksheets[t].issueDate = marksheetsData[t].issueDate;
-          if (marksheetsData[t].subjects !== undefined) student.marksheets[t].subjects = marksheetsData[t].subjects;
+          if (msData.marks !== undefined) student.marksheets[t].marks = msData.marks;
+          if (msData.dmcNo !== undefined) student.marksheets[t].dmcNo = msData.dmcNo;
+          if (msData.issueDate !== undefined) student.marksheets[t].issueDate = msData.issueDate;
+          if (sanitizedSubs !== undefined) student.marksheets[t].subjects = sanitizedSubs;
         } else {
-          student.marksheets[t] = marksheetsData[t];
+          student.marksheets[t] = {
+            ...msData,
+            ...(sanitizedSubs !== undefined ? { subjects: sanitizedSubs } : {})
+          };
         }
       });
     }

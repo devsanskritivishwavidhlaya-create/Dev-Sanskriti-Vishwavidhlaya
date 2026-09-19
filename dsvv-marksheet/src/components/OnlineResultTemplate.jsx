@@ -101,9 +101,9 @@ export default function OnlineResultTemplate({ student, course, termName }) {
               const gp = ob !== undefined && ob !== '' ? getGP(Math.min(100, parseInt(ob) || 0), sMax) : '—';
               return (
                 <tr key={i} style={{ background: i % 2 === 0 ? '#f8fafc' : '#ffffff' }}>
-                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '600', color: '#475569' }}>{sub.code}</td>
-                  <td style={{ padding: '8px 12px', border: '1px solid #e2e8f0', color: '#0f172a', fontWeight: '500' }}>{sub.name}</td>
-                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', color: '#475569' }}>{sMax}</td>
+                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '600', color: '#475569' }}>{(sub.code || '').toUpperCase()}</td>
+                  <td style={{ padding: '8px 12px', border: '1px solid #e2e8f0', color: '#0f172a', fontWeight: '500' }}>{(sub.name || '').toUpperCase()}</td>
+                  <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', color: '#475569' }}>{sub.maxMarks || 100}</td>
                   <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '700', color: '#0d2149' }}>{ob !== undefined ? ob : '—'}</td>
                   <td style={{ padding: '8px', border: '1px solid #e2e8f0', textAlign: 'center', fontWeight: '600', color: '#334155' }}>{gp}</td>
                 </tr>
