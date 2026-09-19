@@ -547,25 +547,25 @@
         "1st Semester": [
           {
             "code": "BAGEN-101",
-            "name": "English Literature- I",
+            "name": "ENGLISH LITERATURE- I",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-102",
-            "name": "Environmental Studies",
+            "name": "ENVIRONMENTAL STUDIES",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-103",
-            "name": "Public Administration-I (Element of Public Administartion)",
+            "name": "PUBLIC ADMINISTRATION-I (ELEMENT OF PUBLIC ADMINISTARTION)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-104",
-            "name": "Economics",
+            "name": "ECONOMICS",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -573,25 +573,25 @@
         "2nd Semester": [
           {
             "code": "BAGEN-201",
-            "name": "Introduction to Mass Media",
+            "name": "INTRODUCTION TO MASS MEDIA",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-202",
-            "name": "Political Science-I(Indian Govt. and Politics)",
+            "name": "POLITICAL SCIENCE-I(INDIAN GOVT. AND POLITICS)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-203",
-            "name": "History-I (History of Indian form Earliest to 1256 Ad 361)",
+            "name": "HISTORY-I (HISTORY OF INDIAN FORM EARLIEST TO 1256 AD 361)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-204",
-            "name": "Sociology-I (Introduction to Sociology)",
+            "name": "SOCIOLOGY-I (INTRODUCTION TO SOCIOLOGY)",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -599,25 +599,25 @@
         "3rd Semester": [
           {
             "code": "BAGEN-301",
-            "name": "English - II",
+            "name": "ENGLISH - II",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-302",
-            "name": "Hindi General",
+            "name": "HINDI GENERAL",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-303",
-            "name": "Public Administration-II (Constitutional & Administrative Aspect of HP)",
+            "name": "PUBLIC ADMINISTRATION-II (CONSTITUTIONAL & ADMINISTRATIVE ASPECT OF HP)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-304",
-            "name": "Economics-II",
+            "name": "ECONOMICS-II",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -625,25 +625,25 @@
         "4th Semester": [
           {
             "code": "BAGEN-401",
-            "name": "Communication Tools",
+            "name": "COMMUNICATION TOOLS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-402",
-            "name": "Political Science-II (Political Theory)",
+            "name": "POLITICAL SCIENCE-II (POLITICAL THEORY)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-403",
-            "name": "History-II History of India(1526-1857 A.D.)",
+            "name": "HISTORY-II HISTORY OF INDIA(1526-1857 A.D.)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-404",
-            "name": "Sociology-II (Research Mythology)",
+            "name": "SOCIOLOGY-II (RESEARCH MYTHOLOGY)",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -651,25 +651,25 @@
         "5th Semester": [
           {
             "code": "BAGEN-501",
-            "name": "English - III",
+            "name": "ENGLISH - III",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-502",
-            "name": "Public Administration-III (Local Government)",
+            "name": "PUBLIC ADMINISTRATION-III (LOCAL GOVERNMENT)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-503",
-            "name": "Economics-III",
+            "name": "ECONOMICS-III",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-504",
-            "name": "Mathematics (Analysis)",
+            "name": "MATHEMATICS (ANALYSIS)",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -677,25 +677,25 @@
         "6th Semester": [
           {
             "code": "BAGEN-601",
-            "name": "Media Writing",
+            "name": "MEDIA WRITING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-602",
-            "name": "Political Science-III (Comparative Govt. & Policies)",
+            "name": "POLITICAL SCIENCE-III (COMPARATIVE GOVT. & POLICIES)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-603",
-            "name": "History-III (Modern World)",
+            "name": "HISTORY-III (MODERN WORLD)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BAGEN-604",
-            "name": "Sociology-III (Population and Society)",
+            "name": "SOCIOLOGY-III (POPULATION AND SOCIETY)",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -707,40 +707,160 @@
       "type": "semester",
       "terms": {
         "1st Semester": [
-          { "code": "BAENG-101", "name": "Introduction to English Literature & Poetry", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-102", "name": "English Prose & Fiction", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-103", "name": "Environmental Studies", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-104", "name": "Communicative English & Phonetics", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-101",
+            "name": "INTRODUCTION TO ENGLISH LITERATURE & POETRY",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-102",
+            "name": "ENGLISH PROSE & FICTION",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-103",
+            "name": "ENVIRONMENTAL STUDIES",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-104",
+            "name": "COMMUNICATIVE ENGLISH & PHONETICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "2nd Semester": [
-          { "code": "BAENG-201", "name": "British Poetry & Drama (14th to 17th Century)", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-202", "name": "Indian Classical Literature in Translation", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-203", "name": "History of English Language", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-204", "name": "Academic Writing & Composition", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-201",
+            "name": "BRITISH POETRY & DRAMA (14TH TO 17TH CENTURY)",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-202",
+            "name": "INDIAN CLASSICAL LITERATURE IN TRANSLATION",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-203",
+            "name": "HISTORY OF ENGLISH LANGUAGE",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-204",
+            "name": "ACADEMIC WRITING & COMPOSITION",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "3rd Semester": [
-          { "code": "BAENG-301", "name": "British Literature (18th Century & Romantic)", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-302", "name": "Indian Writing in English - I", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-303", "name": "Linguistics & English Grammar", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-304", "name": "Creative Writing", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-301",
+            "name": "BRITISH LITERATURE (18TH CENTURY & ROMANTIC)",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-302",
+            "name": "INDIAN WRITING IN ENGLISH - I",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-303",
+            "name": "LINGUISTICS & ENGLISH GRAMMAR",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-304",
+            "name": "CREATIVE WRITING",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "4th Semester": [
-          { "code": "BAENG-401", "name": "Victorian Literature & Modern Novel", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-402", "name": "Indian Writing in English - II", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-403", "name": "Literary Criticism & Theory - I", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-404", "name": "English for Media & Communication", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-401",
+            "name": "VICTORIAN LITERATURE & MODERN NOVEL",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-402",
+            "name": "INDIAN WRITING IN ENGLISH - II",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-403",
+            "name": "LITERARY CRITICISM & THEORY - I",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-404",
+            "name": "ENGLISH FOR MEDIA & COMMUNICATION",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "5th Semester": [
-          { "code": "BAENG-501", "name": "20th Century British & World Literature", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-502", "name": "American Literature", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-503", "name": "Postcolonial Literature & Translation Studies", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-504", "name": "Literary Theory & Cultural Studies", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-501",
+            "name": "20TH CENTURY BRITISH & WORLD LITERATURE",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-502",
+            "name": "AMERICAN LITERATURE",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-503",
+            "name": "POSTCOLONIAL LITERATURE & TRANSLATION STUDIES",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-504",
+            "name": "LITERARY THEORY & CULTURAL STUDIES",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "6th Semester": [
-          { "code": "BAENG-601", "name": "Modern European Drama", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-602", "name": "Women's Writing & Gender Studies", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-603", "name": "Research Methodology & Project", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAENG-604", "name": "Contemporary Indian Literature", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAENG-601",
+            "name": "MODERN EUROPEAN DRAMA",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-602",
+            "name": "WOMEN'S WRITING & GENDER STUDIES",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-603",
+            "name": "RESEARCH METHODOLOGY & PROJECT",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAENG-604",
+            "name": "CONTEMPORARY INDIAN LITERATURE",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ]
       }
     },
@@ -749,40 +869,160 @@
       "type": "semester",
       "terms": {
         "1st Semester": [
-          { "code": "BAECO-101", "name": "Introductory Microeconomics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-102", "name": "Mathematical Methods for Economics - I", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-103", "name": "Environmental Studies", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-104", "name": "English Communication", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-101",
+            "name": "INTRODUCTORY MICROECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-102",
+            "name": "MATHEMATICAL METHODS FOR ECONOMICS - I",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-103",
+            "name": "ENVIRONMENTAL STUDIES",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-104",
+            "name": "ENGLISH COMMUNICATION",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "2nd Semester": [
-          { "code": "BAECO-201", "name": "Introductory Macroeconomics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-202", "name": "Mathematical Methods for Economics - II", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-203", "name": "Statistical Methods for Economics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-204", "name": "Indian Economic History", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-201",
+            "name": "INTRODUCTORY MACROECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-202",
+            "name": "MATHEMATICAL METHODS FOR ECONOMICS - II",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-203",
+            "name": "STATISTICAL METHODS FOR ECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-204",
+            "name": "INDIAN ECONOMIC HISTORY",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "3rd Semester": [
-          { "code": "BAECO-301", "name": "Intermediate Microeconomics - I", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-302", "name": "Intermediate Macroeconomics - I", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-303", "name": "Economic Statistics & Econometrics Basics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-304", "name": "Public Economics & Finance", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-301",
+            "name": "INTERMEDIATE MICROECONOMICS - I",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-302",
+            "name": "INTERMEDIATE MACROECONOMICS - I",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-303",
+            "name": "ECONOMIC STATISTICS & ECONOMETRICS BASICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-304",
+            "name": "PUBLIC ECONOMICS & FINANCE",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "4th Semester": [
-          { "code": "BAECO-401", "name": "Intermediate Microeconomics - II", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-402", "name": "Intermediate Macroeconomics - II", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-403", "name": "Indian Economy - I (Structure & Problems)", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-404", "name": "Money & Banking", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-401",
+            "name": "INTERMEDIATE MICROECONOMICS - II",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-402",
+            "name": "INTERMEDIATE MACROECONOMICS - II",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-403",
+            "name": "INDIAN ECONOMY - I (STRUCTURE & PROBLEMS)",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-404",
+            "name": "MONEY & BANKING",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "5th Semester": [
-          { "code": "BAECO-501", "name": "Indian Economy - II (Policies & Growth)", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-502", "name": "Development Economics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-503", "name": "International Economics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-504", "name": "Applied Econometrics", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-501",
+            "name": "INDIAN ECONOMY - II (POLICIES & GROWTH)",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-502",
+            "name": "DEVELOPMENT ECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-503",
+            "name": "INTERNATIONAL ECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-504",
+            "name": "APPLIED ECONOMETRICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ],
         "6th Semester": [
-          { "code": "BAECO-601", "name": "Environmental Economics", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-602", "name": "Financial Economics & Markets", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-603", "name": "Research Methodology & Dissertation", "maxMarks": 100, "minMarks": 40 },
-          { "code": "BAECO-604", "name": "Agricultural & Rural Economics", "maxMarks": 100, "minMarks": 40 }
+          {
+            "code": "BAECO-601",
+            "name": "ENVIRONMENTAL ECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-602",
+            "name": "FINANCIAL ECONOMICS & MARKETS",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-603",
+            "name": "RESEARCH METHODOLOGY & DISSERTATION",
+            "maxMarks": 100,
+            "minMarks": 40
+          },
+          {
+            "code": "BAECO-604",
+            "name": "AGRICULTURAL & RURAL ECONOMICS",
+            "maxMarks": 100,
+            "minMarks": 40
+          }
         ]
       }
     },
@@ -1321,43 +1561,43 @@
         "1st Semester": [
           {
             "code": "BTEM101",
-            "name": "Engineering Ethics",
+            "name": "ENGINEERING ETHICS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM102",
-            "name": "Communication & Writing Skills",
+            "name": "COMMUNICATION & WRITING SKILLS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM103",
-            "name": "Calculus for Engineers",
+            "name": "CALCULUS FOR ENGINEERS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM104",
-            "name": "Computer Programming using C",
+            "name": "COMPUTER PROGRAMMING USING C",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM105",
-            "name": "Basic Electrical & Electronics Engineering",
+            "name": "BASIC ELECTRICAL & ELECTRONICS ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM106",
-            "name": "Elements of Mechanical Engineering",
+            "name": "ELEMENTS OF MECHANICAL ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM107",
-            "name": "Design Thinking - The Way to Joy of Engineering",
+            "name": "DESIGN THINKING - THE WAY TO JOY OF ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1365,49 +1605,49 @@
         "2nd Semester": [
           {
             "code": "BTEM201",
-            "name": "Energy Harvesting and Storage",
+            "name": "ENERGY HARVESTING AND STORAGE",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM202",
-            "name": "Materials Science",
+            "name": "MATERIALS SCIENCE",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM203",
-            "name": "Python Programming",
+            "name": "PYTHON PROGRAMMING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM204",
-            "name": "Probability and Statistics",
+            "name": "PROBABILITY AND STATISTICS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM205",
-            "name": "Computational Materials Science",
+            "name": "COMPUTATIONAL MATERIALS SCIENCE",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM206",
-            "name": "Surface Engineering",
+            "name": "SURFACE ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM207",
-            "name": "Environmental Science and Sustainability",
+            "name": "ENVIRONMENTAL SCIENCE AND SUSTAINABILITY",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM208",
-            "name": "Joy of Engineering",
+            "name": "JOY OF ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1415,43 +1655,43 @@
         "3rd Semester": [
           {
             "code": "BTEM301",
-            "name": "Innovation & Entrepreneurship",
+            "name": "INNOVATION & ENTREPRENEURSHIP",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM302",
-            "name": "Linear Algebra and Differential Equations",
+            "name": "LINEAR ALGEBRA AND DIFFERENTIAL EQUATIONS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM303",
-            "name": "Introduction to Robotics & loT",
+            "name": "INTRODUCTION TO ROBOTICS & LOT",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM304",
-            "name": "Data Analytics using Python",
+            "name": "DATA ANALYTICS USING PYTHON",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM305",
-            "name": "Engineering Thermodynamics",
+            "name": "ENGINEERING THERMODYNAMICS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM306",
-            "name": "Student to pick any 1 course from corresponding basket",
+            "name": "STUDENT TO PICK ANY 1 COURSE FROM CORRESPONDING BASKET",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM307",
-            "name": "Engineering Materials",
+            "name": "ENGINEERING MATERIALS",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1459,43 +1699,43 @@
         "4th Semester": [
           {
             "code": "BTEM401",
-            "name": "Entrepreneurship",
+            "name": "ENTREPRENEURSHIP",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM402",
-            "name": "Computational Mathematics",
+            "name": "COMPUTATIONAL MATHEMATICS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM403",
-            "name": "Casting and welding of Metals",
+            "name": "CASTING AND WELDING OF METALS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM404",
-            "name": "Computer Aided Design & Manufacturing",
+            "name": "COMPUTER AIDED DESIGN & MANUFACTURING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM405",
-            "name": "Fluid Mechanics and Hydraulic Machines",
+            "name": "FLUID MECHANICS AND HYDRAULIC MACHINES",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM406",
-            "name": "Applied Engineering Thermodynamics",
+            "name": "APPLIED ENGINEERING THERMODYNAMICS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM407",
-            "name": "Mechanics of Solids",
+            "name": "MECHANICS OF SOLIDS",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1503,49 +1743,49 @@
         "5th Semester": [
           {
             "code": "BTEM501",
-            "name": "Materials Science and Engineering",
+            "name": "MATERIALS SCIENCE AND ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM502",
-            "name": "Metal Cutting and Forming",
+            "name": "METAL CUTTING AND FORMING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM503",
-            "name": "Quality Control Assurance & Reliability",
+            "name": "QUALITY CONTROL ASSURANCE & RELIABILITY",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM504",
-            "name": "Kinematic & Dynamics of Machine",
+            "name": "KINEMATIC & DYNAMICS OF MACHINE",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM505",
-            "name": "IC Engines & Automobile Engineering",
+            "name": "IC ENGINES & AUTOMOBILE ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM506",
-            "name": "Core Elective-1 (Specialisation specific)",
+            "name": "CORE ELECTIVE-1 (SPECIALISATION SPECIFIC)",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM507",
-            "name": "Project -1",
+            "name": "PROJECT -1",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM508",
-            "name": "Mechanics of Solids",
+            "name": "MECHANICS OF SOLIDS",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1553,43 +1793,43 @@
         "6th Semester": [
           {
             "code": "BTEM601",
-            "name": "Logical Reasoning & Quantitative Analysis",
+            "name": "LOGICAL REASONING & QUANTITATIVE ANALYSIS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM602",
-            "name": "Project -2",
+            "name": "PROJECT -2",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM603",
-            "name": "Heat & Mass Transfer",
+            "name": "HEAT & MASS TRANSFER",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM604",
-            "name": "Machine Design",
+            "name": "MACHINE DESIGN",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM605",
-            "name": "Micro and Nano Systems",
+            "name": "MICRO AND NANO SYSTEMS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM606",
-            "name": "Applications of Nanotechnology",
+            "name": "APPLICATIONS OF NANOTECHNOLOGY",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM607",
-            "name": "Computational Materials Science",
+            "name": "COMPUTATIONAL MATERIALS SCIENCE",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1597,43 +1837,43 @@
         "7th Semester": [
           {
             "code": "BTEM701",
-            "name": "Metrology and Measurements",
+            "name": "METROLOGY AND MEASUREMENTS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM702",
-            "name": "Industrial Engineering",
+            "name": "INDUSTRIAL ENGINEERING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM703",
-            "name": "Advanced Manufacturing Processes",
+            "name": "ADVANCED MANUFACTURING PROCESSES",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM704",
-            "name": "Refrigeration and Air conditioning",
+            "name": "REFRIGERATION AND AIR CONDITIONING",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM705",
-            "name": "Core Elective 4(Specialisation specifi",
+            "name": "CORE ELECTIVE 4(SPECIALISATION SPECIFI",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM706",
-            "name": "Nanometrology",
+            "name": "NANOMETROLOGY",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM707",
-            "name": "Nanomaterial Characterization",
+            "name": "NANOMATERIAL CHARACTERIZATION",
             "maxMarks": 100,
             "minMarks": 40
           }
@@ -1641,19 +1881,19 @@
         "8th Semester": [
           {
             "code": "BTEM801",
-            "name": "Synthesis and Fabrication of Nano Materials",
+            "name": "SYNTHESIS AND FABRICATION OF NANO MATERIALS",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM802",
-            "name": "Minor Thesis in Nanotechnology",
+            "name": "MINOR THESIS IN NANOTECHNOLOGY",
             "maxMarks": 100,
             "minMarks": 40
           },
           {
             "code": "BTEM803",
-            "name": "Practice School",
+            "name": "PRACTICE SCHOOL",
             "maxMarks": 100,
             "minMarks": 40
           }

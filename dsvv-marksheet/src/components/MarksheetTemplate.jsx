@@ -192,8 +192,8 @@ export default function MarksheetTemplate({ student, course, termName }) {
     totalThObt += thObt; totalPrObt += prObt; totalAsgObt += asgObt; totalObt += obtNum;
 
     return {
-      code: sub.code,
-      name: sub.name,
+      code: (sub.code || '').toUpperCase(),
+      name: (sub.name || '').toUpperCase(),
       thMax, prMax, asgMax, maxM,
       thMin, prMin, asgMin, minM,
       thObt, prObt, asgObt, obtNum

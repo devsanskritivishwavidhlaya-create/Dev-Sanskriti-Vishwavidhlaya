@@ -148,8 +148,8 @@ export default function AdmitCardTemplate({ student, course, termName }) {
             {subjects.length > 0 ? (
               subjects.map((sub, idx) => (
                 <tr key={sub.code || idx}>
-                  <td style={{ whiteSpace: 'nowrap' }}>{sub.code}</td>
-                  <td style={{ textAlign: 'left', fontWeight: '500' }}>{sub.name}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>{(sub.code || '').toUpperCase()}</td>
+                  <td style={{ textAlign: 'left', fontWeight: '500' }}>{(sub.name || '').toUpperCase()}</td>
                   <td style={{ whiteSpace: 'nowrap' }}>{getExamDate(examMonth, examYear, idx)}</td>
                   <td style={{ whiteSpace: 'nowrap', fontSize: '7.5pt' }}>10:00 AM - 01:00 PM</td>
                 </tr>
