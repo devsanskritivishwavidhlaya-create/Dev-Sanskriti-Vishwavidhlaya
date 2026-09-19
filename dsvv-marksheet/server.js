@@ -307,11 +307,15 @@ app.put('/api/students/:id', (req, res) => {
     }
 
     if (marksheetsData) {
+      if (!student.marksheets) student.marksheets = {};
       Object.keys(marksheetsData).forEach(t => {
         if (student.marksheets[t]) {
-          if (marksheetsData[t].marks) student.marksheets[t].marks = marksheetsData[t].marks;
-          if (marksheetsData[t].dmcNo) student.marksheets[t].dmcNo = marksheetsData[t].dmcNo;
-          if (marksheetsData[t].issueDate) student.marksheets[t].issueDate = marksheetsData[t].issueDate;
+          if (marksheetsData[t].marks !== undefined) student.marksheets[t].marks = marksheetsData[t].marks;
+          if (marksheetsData[t].dmcNo !== undefined) student.marksheets[t].dmcNo = marksheetsData[t].dmcNo;
+          if (marksheetsData[t].issueDate !== undefined) student.marksheets[t].issueDate = marksheetsData[t].issueDate;
+          if (marksheetsData[t].subjects !== undefined) student.marksheets[t].subjects = marksheetsData[t].subjects;
+        } else {
+          student.marksheets[t] = marksheetsData[t];
         }
       });
     }

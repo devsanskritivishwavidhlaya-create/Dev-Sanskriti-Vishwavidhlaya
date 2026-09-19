@@ -119,7 +119,7 @@ export default function MarksheetTemplate({ student, course, termName }) {
   const currentTermIndex = Math.max(0, courseTerms.findIndex(t => t.toLowerCase() === termName.toLowerCase()));
 
   const marksheet = student.marksheets?.[termName] || { dmcNo: '', issueDate: '', marks: {} };
-  const subjects = course.terms?.[termName] || [];
+  const subjects = marksheet.subjects || student.marksheets?.[termName]?.subjects || course.terms?.[termName] || [];
   const marks = marksheet.marks || {};
 
   // Dynamic Exam Session & Issue Date calculation based on term position & final session
@@ -140,19 +140,19 @@ export default function MarksheetTemplate({ student, course, termName }) {
 
   const processedSubjects = subjects.map(sub => {
     const rawObt = marks[sub.code];
-    const obtNum = (rawObt !== undefined && rawObt !== '') ? Math.min(100, parseInt(rawObt)) : 0;
+    const maxM = parseInt(sub.maxMarks) || 100;
+    const minM = parseInt(sub.minMarks) || 40;
+    const obtNum = (rawObt !== undefined && rawObt !== '') ? Math.min(maxM, parseInt(rawObt)) : 0;
 
-    // Fixed standard structure: Theory (60), Practical (30), Assignment (10) -> Total 100
-    const thMax = 60;
-    const prMax = 30;
-    const asgMax = 10;
-    const maxM = 100;
+    // Fixed standard structure: Theory (60%), Practical (30%), Assignment (10%) proportional to maxM
+    const thMax = Math.round(maxM * 0.60);
+    const prMax = Math.round(maxM * 0.30);
+    const asgMax = maxM - thMax - prMax;
 
-    // Minimum passing marks (40% of each component: 24 Th / 12 Pr / 4 Asg -> Total 40)
-    const thMin = 24;
-    const prMin = 12;
-    const asgMin = 4;
-    const minM = 40;
+    // Minimum passing marks (40% of each component)
+    const thMin = Math.round(minM * 0.60);
+    const prMin = Math.round(minM * 0.30);
+    const asgMin = minM - thMin - prMin;
 
     let thObt = 0, prObt = 0, asgObt = 0;
     if (rawObt !== undefined && rawObt !== '') {
@@ -223,7 +223,7 @@ export default function MarksheetTemplate({ student, course, termName }) {
   let runningCumMax = 0;
 
   const termSummaries = courseTerms.map((tName, idx) => {
-    const tSubjects = course.terms?.[tName] || [];
+    const tSubjects = student.marksheets?.[tName]?.subjects || course.terms?.[tName] || [];
     const tMarks = student.marksheets?.[tName]?.marks || {};
     let tMax = 0, tObt = 0;
 

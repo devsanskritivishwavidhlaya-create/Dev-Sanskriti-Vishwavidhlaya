@@ -21,25 +21,25 @@ export default function OnlineResultTemplate({ student, course, termName }) {
   if (!student || !course || !termName) return null;
 
   const marksheet = student.marksheets?.[termName] || { marks: {} };
-  const subjects = course.terms?.[termName] || [];
+  const subjects = marksheet.subjects || student.marksheets?.[termName]?.subjects || course.terms?.[termName] || [];
   const marks = marksheet.marks || {};
 
   let totalMax = 0, totalObtained = 0;
   let allEntered = true, hasFailed = false;
   subjects.forEach(sub => {
     const ob = marks[sub.code];
-    const sMax = 100;
-    const sMin = 40;
+    const sMax = parseInt(sub.maxMarks) || 100;
+    const sMin = parseInt(sub.minMarks) || 40;
     totalMax += sMax;
     if (ob !== undefined && ob !== '') {
-      const v = Math.min(100, parseInt(ob) || 0);
+      const v = Math.min(sMax, parseInt(ob) || 0);
       totalObtained += v;
       if (v < sMin) hasFailed = true;
     } else { allEntered = false; }
   });
 
   const percentage = totalMax > 0 ? ((totalObtained / totalMax) * 100).toFixed(2) : '0.00';
-  const cgpa = subjects.length > 0 ? (subjects.reduce((sum, sub) => sum + getGP(Math.min(100, parseInt(marks[sub.code]) || 0), 100), 0) / subjects.length).toFixed(2) : '0.00';
+  const cgpa = subjects.length > 0 ? (subjects.reduce((sum, sub) => sum + getGP(Math.min(parseInt(sub.maxMarks) || 100, parseInt(marks[sub.code]) || 0), parseInt(sub.maxMarks) || 100), 0) / subjects.length).toFixed(2) : '0.00';
   let result = 'PENDING';
   if (allEntered && subjects.length > 0) result = hasFailed || parseFloat(percentage) < 33 ? 'FAIL' : 'PASS';
   let division = '—';

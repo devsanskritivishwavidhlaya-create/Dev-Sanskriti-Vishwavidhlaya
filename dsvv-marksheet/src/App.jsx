@@ -133,6 +133,7 @@ export default function App() {
   const [formMarksheets, setFormMarksheets] = useState({}); // { term: { subjectCode: mark } }
   const [formDmcNumbers, setFormDmcNumbers] = useState({}); // { term: dmcNo }
   const [formIssueDates, setFormIssueDates] = useState({}); // { term: issueDate }
+  const [formSubjects, setFormSubjects] = useState({}); // { term: [ { code, name, minMarks, maxMarks } ] }
   const [targetPercentage, setTargetPercentage] = useState('');
   const [editingStudentId, setEditingStudentId] = useState(null);
   const [isCompleteEdit, setIsCompleteEdit] = useState(false);
@@ -647,6 +648,7 @@ export default function App() {
     setFormMarksheets({});
     setFormDmcNumbers(newDmcs);
     setFormIssueDates(newDates);
+    setFormSubjects({});
     setTargetPercentage('');
     setEditingStudentId(null);
     setIsCompleteEdit(false);
@@ -674,16 +676,103 @@ export default function App() {
     const initialMarks = {};
     const initialDmcs = {};
     const initialDates = {};
+    const initialSubjects = {};
     terms.forEach(t => {
       initialMarks[t] = student.marksheets[t]?.marks || {};
       initialDmcs[t] = student.marksheets[t]?.dmcNo || '';
       initialDates[t] = student.marksheets[t]?.issueDate || '';
+      if (student.marksheets[t]?.subjects && Array.isArray(student.marksheets[t].subjects) && student.marksheets[t].subjects.length > 0) {
+        initialSubjects[t] = JSON.parse(JSON.stringify(student.marksheets[t].subjects));
+      }
     });
     setFormMarksheets(initialMarks);
     setFormDmcNumbers(initialDmcs);
     setFormIssueDates(initialDates);
+    setFormSubjects(initialSubjects);
     setSelectedTerm(terms[0] || '');
     setAdminTab('add-student');
+  };
+
+  const getCurrentTermSubjects = (term = selectedTerm) => {
+    if (formSubjects[term] && Array.isArray(formSubjects[term])) {
+      return formSubjects[term];
+    }
+    const course = courses.find(c => c.name.toLowerCase() === (formData.courseName || '').toLowerCase());
+    return (course && course.terms && course.terms[term]) ? course.terms[term] : [];
+  };
+
+  const handleSubjectFieldChange = (idx, field, value) => {
+    const currentList = getCurrentTermSubjects(selectedTerm).map(s => ({ ...s }));
+    if (!currentList[idx]) return;
+
+    const oldCode = currentList[idx].code;
+    currentList[idx] = {
+      ...currentList[idx],
+      [field]: (field === 'minMarks' || field === 'maxMarks') ? (parseInt(value) || 0) : value
+    };
+
+    setFormSubjects(prev => ({
+      ...prev,
+      [selectedTerm]: currentList
+    }));
+
+    // If code changed, migrate mark in formMarksheets
+    if (field === 'code' && oldCode && oldCode !== value) {
+      setFormMarksheets(prev => {
+        const termMarks = { ...(prev[selectedTerm] || {}) };
+        if (oldCode in termMarks) {
+          termMarks[value] = termMarks[oldCode];
+          delete termMarks[oldCode];
+        }
+        return { ...prev, [selectedTerm]: termMarks };
+      });
+    }
+  };
+
+  const handleAddSubjectRow = () => {
+    const currentList = getCurrentTermSubjects(selectedTerm).map(s => ({ ...s }));
+    const nextNum = currentList.length + 1;
+    const newSub = {
+      code: `SUB-${nextNum.toString().padStart(3, '0')}`,
+      name: `Subject ${nextNum}`,
+      minMarks: 40,
+      maxMarks: 100
+    };
+    setFormSubjects(prev => ({
+      ...prev,
+      [selectedTerm]: [...currentList, newSub]
+    }));
+  };
+
+  const handleDeleteSubjectRow = (idx) => {
+    const currentList = getCurrentTermSubjects(selectedTerm).map(s => ({ ...s }));
+    if (currentList.length <= 1) {
+      alert('A semester must have at least one subject.');
+      return;
+    }
+    const removed = currentList[idx];
+    const updatedList = currentList.filter((_, i) => i !== idx);
+    setFormSubjects(prev => ({
+      ...prev,
+      [selectedTerm]: updatedList
+    }));
+    if (removed && removed.code) {
+      setFormMarksheets(prev => {
+        const termMarks = { ...(prev[selectedTerm] || {}) };
+        delete termMarks[removed.code];
+        return { ...prev, [selectedTerm]: termMarks };
+      });
+    }
+  };
+
+  const handleResetTermSubjects = () => {
+    const course = courses.find(c => c.name.toLowerCase() === (formData.courseName || '').toLowerCase());
+    if (!course || !selectedTerm) return;
+    const defaultSubs = (course.terms && course.terms[selectedTerm]) ? JSON.parse(JSON.stringify(course.terms[selectedTerm])) : [];
+    setFormSubjects(prev => ({
+      ...prev,
+      [selectedTerm]: defaultSubs
+    }));
   };
 
   const handleMarkChange = (subCode, val, maxMarks) => {
@@ -702,13 +791,13 @@ export default function App() {
       return;
     }
 
-    const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
-    if (!course || !selectedTerm || !course.terms[selectedTerm]) {
+    const course = courses.find(c => c.name.toLowerCase() === (formData.courseName || '').toLowerCase());
+    const activeSubjects = getCurrentTermSubjects(selectedTerm);
+    if (!course || !selectedTerm || !activeSubjects || activeSubjects.length === 0) {
       alert('Please select a valid course and term/semester first.');
       return;
     }
 
-    const activeSubjects = course.terms[selectedTerm];
     const totalMaxMarks = activeSubjects.reduce((sum, s) => sum + (parseInt(s.maxMarks) || 100), 0);
     const targetTotal = Math.round(totalMaxMarks * (pctVal / 100));
 
@@ -804,10 +893,14 @@ export default function App() {
     terms.forEach((t, idx) => {
       const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
       const autoDmc = nextDmc + idx;
+      const termSubjects = (formSubjects[t] && formSubjects[t].length > 0)
+        ? formSubjects[t]
+        : ((course && course.terms && course.terms[t]) ? course.terms[t] : []);
       marksheetsData[t] = {
         dmcNo: formDmcNumbers[t] || autoDmc,
         issueDate: formIssueDates[t] || autoDate,
-        marks: formMarksheets[t] || {}
+        marks: formMarksheets[t] || {},
+        subjects: termSubjects
       };
     });
 
@@ -1354,6 +1447,7 @@ export default function App() {
                             setSelectedTerm(firstTerm || '');
                             setFormDmcNumbers(newDmcs);
                             setFormIssueDates(newDates);
+                            setFormSubjects({});
                           }} 
                           required
                         >
@@ -1552,40 +1646,109 @@ export default function App() {
 
                         {/* Subject Marks Table */}
                         <div style={{ overflowX: 'auto' }}>
-                        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
-                          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <thead>
-                              <tr style={{ background: '#f1f5f9', color: '#475569', textAlign: 'left', borderBottom: '1.5px solid #cbd5e1' }}>
-                                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase' }}>Code</th>
-                                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase' }}>Subject</th>
-                                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center' }}>Min Marks</th>
-                                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center' }}>Max Marks</th>
-                                <th style={{ padding: '12px 16px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', width: '180px' }}>Obtained Marks</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {getTermSubjects(courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase()), selectedTerm).map((sub, idx) => (
-                                <tr key={sub.code} style={{ borderBottom: '1px solid #f1f5f9', background: idx % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                                  <td style={{ padding: '12px 16px', fontSize: '13px', fontWeight: '600', color: '#0d2149' }}>{sub.code}</td>
-                                  <td style={{ padding: '12px 16px', fontSize: '13px', color: '#334155' }}>{sub.name}</td>
-                                  <td style={{ padding: '12px 16px', fontSize: '13px', textAlign: 'center', color: '#64748b' }}>{sub.minMarks}</td>
-                                  <td style={{ padding: '12px 16px', fontSize: '13px', textAlign: 'center', color: '#64748b' }}>{sub.maxMarks}</td>
-                                  <td style={{ padding: '12px 16px', textAlign: 'center' }}>
-                                    <input 
-                                      type="number"
-                                      min={0}
-                                      max={sub.maxMarks}
-                                      placeholder={`Max ${sub.maxMarks}`}
-                                      value={formMarksheets[selectedTerm]?.[sub.code] !== undefined ? formMarksheets[selectedTerm][sub.code] : ''}
-                                      onChange={e => handleMarkChange(sub.code, e.target.value, sub.maxMarks)}
-                                      style={{ padding: '8px 12px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '13px', width: '120px', textAlign: 'center' }}
-                                    />
-                                  </td>
+                          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: '10px', overflow: 'hidden' }}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                              <thead>
+                                <tr style={{ background: '#f1f5f9', color: '#475569', textAlign: 'left', borderBottom: '1.5px solid #cbd5e1' }}>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', width: '150px' }}>Code</th>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase' }}>Subject Name</th>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', width: '90px' }}>Min Marks</th>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', width: '90px' }}>Max Marks</th>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', width: '130px' }}>Obtained Marks</th>
+                                  <th style={{ padding: '12px 14px', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', width: '60px' }}>Action</th>
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              </thead>
+                              <tbody>
+                                {getCurrentTermSubjects(selectedTerm).map((sub, idx) => (
+                                  <tr key={`${sub.code || 'sub'}-${idx}`} style={{ borderBottom: '1px solid #f1f5f9', background: idx % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                                    <td style={{ padding: '8px 10px' }}>
+                                      <input 
+                                        type="text"
+                                        value={sub.code}
+                                        onChange={e => handleSubjectFieldChange(idx, 'code', e.target.value.toUpperCase())}
+                                        placeholder="Code"
+                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', fontWeight: '700', color: '#0d2149', background: '#fff' }}
+                                      />
+                                    </td>
+                                    <td style={{ padding: '8px 10px' }}>
+                                      <input 
+                                        type="text"
+                                        value={sub.name}
+                                        onChange={e => handleSubjectFieldChange(idx, 'name', e.target.value)}
+                                        placeholder="Subject Title"
+                                        style={{ width: '100%', padding: '7px 9px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', color: '#1e293b', background: '#fff' }}
+                                      />
+                                    </td>
+                                    <td style={{ padding: '8px 10px', textAlign: 'center' }}>
+                                      <input 
+                                        type="number"
+                                        min={0}
+                                        max={sub.maxMarks || 100}
+                                        value={sub.minMarks !== undefined ? sub.minMarks : 40}
+                                        onChange={e => handleSubjectFieldChange(idx, 'minMarks', e.target.value)}
+                                        style={{ width: '65px', padding: '7px 6px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', textAlign: 'center', color: '#475569', background: '#fff' }}
+                                      />
+                                    </td>
+                                    <td style={{ padding: '8px 10px', textAlign: 'center' }}>
+                                      <input 
+                                        type="number"
+                                        min={1}
+                                        max={1000}
+                                        value={sub.maxMarks !== undefined ? sub.maxMarks : 100}
+                                        onChange={e => handleSubjectFieldChange(idx, 'maxMarks', e.target.value)}
+                                        style={{ width: '65px', padding: '7px 6px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', textAlign: 'center', color: '#475569', background: '#fff' }}
+                                      />
+                                    </td>
+                                    <td style={{ padding: '8px 10px', textAlign: 'center' }}>
+                                      <input 
+                                        type="number"
+                                        min={0}
+                                        max={sub.maxMarks || 100}
+                                        placeholder={`Max ${sub.maxMarks || 100}`}
+                                        value={formMarksheets[selectedTerm]?.[sub.code] !== undefined ? formMarksheets[selectedTerm][sub.code] : ''}
+                                        onChange={e => handleMarkChange(sub.code, e.target.value, sub.maxMarks || 100)}
+                                        style={{ padding: '7px 8px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '12.5px', width: '90px', textAlign: 'center', fontWeight: '700', color: '#0f172a', background: '#fff' }}
+                                      />
+                                    </td>
+                                    <td style={{ padding: '8px 10px', textAlign: 'center' }}>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteSubjectRow(idx)}
+                                        title="Delete Subject"
+                                        style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5', borderRadius: '6px', padding: '6px 8px', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                                      >
+                                        <Trash2 size={14} />
+                                      </button>
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
+
+                        {/* Action Buttons: Add Subject & Reset */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', flexWrap: 'wrap', gap: '10px' }}>
+                          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                            <button
+                              type="button"
+                              onClick={handleAddSubjectRow}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#e0f2fe', color: '#0369a1', border: '1.5px solid #bae6fd', padding: '7px 14px', borderRadius: '6px', fontSize: '12.5px', fontWeight: '600', cursor: 'pointer' }}
+                            >
+                              <PlusCircle size={15} /> Add Subject
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleResetTermSubjects}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: '#f1f5f9', color: '#475569', border: '1.5px solid #cbd5e1', padding: '7px 14px', borderRadius: '6px', fontSize: '12.5px', fontWeight: '600', cursor: 'pointer' }}
+                              title="Restore syllabus default subjects for this semester"
+                            >
+                              <RefreshCw size={14} /> Reset to Default Subjects
+                            </button>
+                          </div>
+                          <span style={{ fontSize: '12px', color: '#64748b' }}>
+                            💡 You can edit Code, Subject Name, and Min/Max Marks directly in the table.
+                          </span>
                         </div>
 
                       </div>
