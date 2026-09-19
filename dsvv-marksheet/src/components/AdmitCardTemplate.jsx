@@ -55,7 +55,7 @@ function getSemesterDetails(sessionStr, courseType, termName, termIndex, totalTe
 export default function AdmitCardTemplate({ student, course, termName }) {
   if (!student || !course || !termName) return null;
   const marksheet = student.marksheets?.[termName] || { issueDate: '' };
-  const subjects = course.terms?.[termName] || [];
+  const subjects = marksheet.subjects || student.marksheets?.[termName]?.subjects || course.terms?.[termName] || [];
   const terms = Object.keys(course.terms || {});
   const termIndex = Math.max(0, terms.findIndex(t => t.toLowerCase() === termName.toLowerCase()));
   const totalTerms = terms.length > 0 ? terms.length : 1;
