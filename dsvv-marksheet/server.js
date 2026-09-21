@@ -365,7 +365,7 @@ app.post('/api/students/:id/publish', (req, res) => {
     if (idx < 0) return res.status(404).json({ error: 'Student not found' });
 
     let any = publishedDocs.idCard || false;
-    ['marksheets', 'admitCards', 'results'].forEach(k => {
+    ['marksheets', 'admitCards', 'results', 'idCards'].forEach(k => {
       if (publishedDocs[k]) Object.values(publishedDocs[k]).forEach(v => { if (v) any = true; });
     });
 
