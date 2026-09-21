@@ -641,12 +641,12 @@ export default function App() {
     const course = courses.find(c => c.name.toLowerCase() === student.course.toLowerCase());
     const terms = course ? getTermNames(course) : Object.keys(student.marksheets || {});
     terms.forEach(t => {
-      defaults.marksheets[t] = student.publishedDocs?.marksheets?.[t] ?? true;
-      defaults.admitCards[t] = student.publishedDocs?.admitCards?.[t] ?? true;
-      defaults.results[t] = student.publishedDocs?.results?.[t] ?? true;
-      defaults.idCards[t] = student.publishedDocs?.idCards?.[t] ?? true;
+      defaults.marksheets[t] = student.publishedDocs?.marksheets?.[t] !== undefined ? student.publishedDocs.marksheets[t] : true;
+      defaults.admitCards[t] = student.publishedDocs?.admitCards?.[t] !== undefined ? student.publishedDocs.admitCards[t] : true;
+      defaults.results[t] = student.publishedDocs?.results?.[t] !== undefined ? student.publishedDocs.results[t] : true;
+      defaults.idCards[t] = student.publishedDocs?.idCards?.[t] !== undefined ? student.publishedDocs.idCards[t] : true;
     });
-    setLocalPublishDocs(student.publishedDocs || defaults);
+    setLocalPublishDocs(defaults);
   };
 
   const submitPublishSettings = () => {
@@ -1124,28 +1124,41 @@ export default function App() {
     const n = portalName.trim().toLowerCase();
     const q = portalSearchVal.trim().toLowerCase();
 
+    const setupPortalStudent = (student, course) => {
+      setPortalStudent(student);
+      setPortalCourse(course || { name: student.course, terms: {} });
+      const pd = student.publishedDocs || {};
+      const allTerms = Object.keys(student.marksheets || {});
+      const publishedTerms = allTerms.filter(t => 
+        pd.marksheets?.[t] === true || 
+        pd.admitCards?.[t] === true || 
+        pd.results?.[t] === true || 
+        pd.idCards?.[t] === true
+      );
+      const activeTerm = publishedTerms.length > 0 ? publishedTerms[0] : (allTerms[0] || '');
+      setPortalActiveTerm(activeTerm);
+
+      if (activeTerm) {
+        if (pd.marksheets?.[activeTerm] === true) setPortalActiveTab('marksheet');
+        else if (pd.admitCards?.[activeTerm] === true) setPortalActiveTab('admit');
+        else if (pd.results?.[activeTerm] === true) setPortalActiveTab('result');
+        else if (pd.idCards?.[activeTerm] === true) setPortalActiveTab('idcard');
+        else setPortalActiveTab('');
+      } else {
+        setPortalActiveTab('');
+      }
+    };
+
     // Try API first, fallback to local search
     api.searchPublic(portalName.trim(), portalSearchVal.trim()).then(result => {
       if (result.student) {
         const course = courses.find(c => c.name.toLowerCase() === result.student.course.toLowerCase());
-        setPortalStudent(result.student);
-        setPortalCourse(course || { name: result.student.course, terms: {} });
-        const terms = Object.keys(result.student.marksheets || {});
-        setPortalActiveTerm(terms[0] || '');
-        const pd = result.student.publishedDocs || {};
-        if (terms[0]) {
-          if (pd.marksheets?.[terms[0]] === true) setPortalActiveTab('marksheet');
-          else if (pd.admitCards?.[terms[0]] === true) setPortalActiveTab('admit');
-          else if (pd.results?.[terms[0]] === true) setPortalActiveTab('result');
-          else if (pd.idCards?.[terms[0]] === true) setPortalActiveTab('idcard');
-          else setPortalActiveTab('');
-        } else {
-          setPortalActiveTab('');
-        }
+        setupPortalStudent(result.student, course);
       }
     }).catch(() => {
       // Fallback to local search
       const found = students.find(s => {
+        if (!s.isPublished) return false;
         const sName = (s.name || '').toLowerCase().trim();
         const sRoll = String(s.rollNo || '').toLowerCase().trim();
         const sEnroll = String(s.enrollmentNo || '').toLowerCase().trim();
@@ -1160,20 +1173,7 @@ export default function App() {
       });
       if (found) {
         const course = courses.find(c => c.name.toLowerCase() === found.course.toLowerCase());
-        setPortalStudent(found);
-        setPortalCourse(course || { name: found.course, terms: {} });
-        const terms = Object.keys(found.marksheets || {});
-        setPortalActiveTerm(terms[0] || '');
-        const pd = found.publishedDocs || {};
-        if (terms[0]) {
-          if (pd.marksheets?.[terms[0]] === true) setPortalActiveTab('marksheet');
-          else if (pd.admitCards?.[terms[0]] === true) setPortalActiveTab('admit');
-          else if (pd.results?.[terms[0]] === true) setPortalActiveTab('result');
-          else if (pd.idCards?.[terms[0]] === true) setPortalActiveTab('idcard');
-          else setPortalActiveTab('');
-        } else {
-          setPortalActiveTab('');
-        }
+        setupPortalStudent(found, course);
       } else {
         setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
@@ -2754,19 +2754,61 @@ export default function App() {
                     <select 
                       className="portal-term-select" 
                       value={portalActiveTerm} 
-                      onChange={e => setPortalActiveTerm(e.target.value)}
+                      onChange={e => {
+                        const newTerm = e.target.value;
+                        setPortalActiveTerm(newTerm);
+                        const pd = portalStudent?.publishedDocs || {};
+                        if (portalActiveTab === 'marksheet' && pd.marksheets?.[newTerm] === true) {
+                          // keep
+                        } else if (portalActiveTab === 'admit' && pd.admitCards?.[newTerm] === true) {
+                          // keep
+                        } else if (portalActiveTab === 'result' && pd.results?.[newTerm] === true) {
+                          // keep
+                        } else if (portalActiveTab === 'idcard' && pd.idCards?.[newTerm] === true) {
+                          // keep
+                        } else {
+                          if (pd.marksheets?.[newTerm] === true) setPortalActiveTab('marksheet');
+                          else if (pd.admitCards?.[newTerm] === true) setPortalActiveTab('admit');
+                          else if (pd.results?.[newTerm] === true) setPortalActiveTab('result');
+                          else if (pd.idCards?.[newTerm] === true) setPortalActiveTab('idcard');
+                          else setPortalActiveTab('');
+                        }
+                      }}
                     >
-                      {Object.keys(portalStudent.marksheets || {}).map(t => <option key={t} value={t}>{t}</option>)}
+                      {(() => {
+                        const pd = portalStudent?.publishedDocs || {};
+                        const allTerms = Object.keys(portalStudent?.marksheets || {});
+                        const publishedTerms = allTerms.filter(t => 
+                          pd.marksheets?.[t] === true || 
+                          pd.admitCards?.[t] === true || 
+                          pd.results?.[t] === true || 
+                          pd.idCards?.[t] === true
+                        );
+                        const termsToShow = publishedTerms.length > 0 ? publishedTerms : allTerms;
+                        return termsToShow.map(t => <option key={t} value={t}>{t}</option>);
+                      })()}
                     </select>
 
-                    <button className="portal-action-btn portal-btn-print" onClick={() => {
-                      const student = portalStudent;
-                      const name = student?.name || 'Marksheet';
-                      const roll = student?.rollNo || '';
-                      document.title = `${name}_${roll}_${portalActiveTab}`;
-                      window.print();
-                      setTimeout(() => { document.title = 'DSVV Document Portal'; }, 1000);
-                    }}>
+                    <button 
+                      className="portal-action-btn portal-btn-print" 
+                      disabled={
+                        !portalActiveTab || 
+                        !(
+                          (portalActiveTab === 'marksheet' && portalStudent?.publishedDocs?.marksheets?.[portalActiveTerm] === true) ||
+                          (portalActiveTab === 'admit' && portalStudent?.publishedDocs?.admitCards?.[portalActiveTerm] === true) ||
+                          (portalActiveTab === 'idcard' && portalStudent?.publishedDocs?.idCards?.[portalActiveTerm] === true) ||
+                          (portalActiveTab === 'result' && portalStudent?.publishedDocs?.results?.[portalActiveTerm] === true)
+                        )
+                      }
+                      onClick={() => {
+                        const student = portalStudent;
+                        const name = student?.name || 'Marksheet';
+                        const roll = student?.rollNo || '';
+                        document.title = `${name}_${roll}_${portalActiveTab}`;
+                        window.print();
+                        setTimeout(() => { document.title = 'DSVV Document Portal'; }, 1000);
+                      }}
+                    >
                       <Printer size={15} /> Print / Save as PDF
                     </button>
                   </div>
@@ -2774,10 +2816,32 @@ export default function App() {
                 
                 {/* Full-Width Studio Document Canvas */}
                 <div className="portal-doc-preview" ref={portalDocPreviewRef}>
-                  {portalActiveTab === 'marksheet' && <MarksheetTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
-                  {portalActiveTab === 'admit' && <AdmitCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
-                  {portalActiveTab === 'idcard' && <IdCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
-                  {portalActiveTab === 'result' && <OnlineResultTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
+                  {portalActiveTab === 'marksheet' && portalStudent.publishedDocs?.marksheets?.[portalActiveTerm] === true && (
+                    <MarksheetTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />
+                  )}
+                  {portalActiveTab === 'admit' && portalStudent.publishedDocs?.admitCards?.[portalActiveTerm] === true && (
+                    <AdmitCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />
+                  )}
+                  {portalActiveTab === 'idcard' && portalStudent.publishedDocs?.idCards?.[portalActiveTerm] === true && (
+                    <IdCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />
+                  )}
+                  {portalActiveTab === 'result' && portalStudent.publishedDocs?.results?.[portalActiveTerm] === true && (
+                    <OnlineResultTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />
+                  )}
+                  {(!portalActiveTab || !(
+                    (portalActiveTab === 'marksheet' && portalStudent.publishedDocs?.marksheets?.[portalActiveTerm] === true) ||
+                    (portalActiveTab === 'admit' && portalStudent.publishedDocs?.admitCards?.[portalActiveTerm] === true) ||
+                    (portalActiveTab === 'idcard' && portalStudent.publishedDocs?.idCards?.[portalActiveTerm] === true) ||
+                    (portalActiveTab === 'result' && portalStudent.publishedDocs?.results?.[portalActiveTerm] === true)
+                  )) && (
+                    <div style={{ textAlign: 'center', padding: '60px 20px', background: '#fff', borderRadius: '12px', color: '#64748b', margin: '20px auto', maxWidth: '600px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+                      <AlertCircle size={44} style={{ color: '#94a3b8', marginBottom: '12px' }} />
+                      <h3 style={{ margin: '0 0 8px', color: '#0d2149', fontSize: '18px' }}>No Document Published</h3>
+                      <p style={{ margin: 0, fontSize: '14px', lineHeight: '1.5' }}>
+                        No documents are currently published for <strong>{portalActiveTerm || 'this semester'}</strong>.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -3127,10 +3191,12 @@ export default function App() {
         <div className="print-only-container">
           {activeDocStudent && activeDocTab === 'marksheet' && <MarksheetTemplate student={activeDocStudent} course={courses.find(c => c.name.toLowerCase() === activeDocStudent.course.toLowerCase())} termName={activeDocTerm} />}
           {activeDocStudent && activeDocTab === 'admit' && <AdmitCardTemplate student={activeDocStudent} course={courses.find(c => c.name.toLowerCase() === activeDocStudent.course.toLowerCase())} termName={activeDocTerm} />}
+          {activeDocStudent && activeDocTab === 'idcard' && <IdCardTemplate student={activeDocStudent} course={courses.find(c => c.name.toLowerCase() === activeDocStudent.course.toLowerCase())} termName={activeDocTerm} />}
           {activeDocStudent && activeDocTab === 'result' && <OnlineResultTemplate student={activeDocStudent} course={courses.find(c => c.name.toLowerCase() === activeDocStudent.course.toLowerCase())} termName={activeDocTerm} />}
-          {portalStudent && portalActiveTab === 'marksheet' && <MarksheetTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
-          {portalStudent && portalActiveTab === 'admit' && <AdmitCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
-          {portalStudent && portalActiveTab === 'result' && <OnlineResultTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
+          {portalStudent && portalActiveTab === 'marksheet' && portalStudent.publishedDocs?.marksheets?.[portalActiveTerm] === true && <MarksheetTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
+          {portalStudent && portalActiveTab === 'admit' && portalStudent.publishedDocs?.admitCards?.[portalActiveTerm] === true && <AdmitCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
+          {portalStudent && portalActiveTab === 'idcard' && portalStudent.publishedDocs?.idCards?.[portalActiveTerm] === true && <IdCardTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
+          {portalStudent && portalActiveTab === 'result' && portalStudent.publishedDocs?.results?.[portalActiveTerm] === true && <OnlineResultTemplate student={portalStudent} course={portalCourse} termName={portalActiveTerm} />}
         </div>,
         document.body
       )}
