@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://rather-oecd-culture-initiative.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://rather-oecd-culture-initiative.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://colon-satisfied-prescribed-hydrogen.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://colon-satisfied-prescribed-hydrogen.trycloudflare.com/uploads/:path*" }
   ]
 }
