@@ -28,6 +28,9 @@ import { api } from './api';
 
 export default function App() {
   const [dbLoaded, setDbLoaded] = useState(false);
+  const [serverOnline, setServerOnline] = useState(true);
+  const [serverErrorMsg, setServerErrorMsg] = useState('');
+  const [isRetrying, setIsRetrying] = useState(false);
 
   const [currentView, setCurrentView] = useState(() => {
     const params = new URLSearchParams(window.location.search);
@@ -87,38 +90,31 @@ export default function App() {
     });
   };
 
+  const fetchInitialData = async () => {
+    setIsRetrying(true);
+    setServerErrorMsg('');
+    try {
+      const db = await api.getDb();
+      const serverStudents = sanitizeStudents(db.students || []);
+      setStudents(serverStudents);
+      setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
+      setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      setServerOnline(true);
+      setServerErrorMsg('');
+      setDbLoaded(true);
+    } catch (err) {
+      console.error('Kali backend offline or unreachable:', err);
+      setServerOnline(false);
+      setServerErrorMsg('Server Error: University backend server is offline or unreachable. Please contact administrator.');
+      setDbLoaded(true);
+    } finally {
+      setIsRetrying(false);
+    }
+  };
+
   // Load data from backend API on mount
   useEffect(() => {
-    api.getDb().then(db => {
-      const serverStudents = sanitizeStudents(db.students || []);
-      if (serverStudents.length > 0) {
-        setStudents(serverStudents);
-        setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
-        setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
-      } else {
-        // Server empty — try localStorage, then sync to server
-        const localStudents = JSON.parse(localStorage.getItem('dsvv_students') || '[]');
-        const localCourses = JSON.parse(localStorage.getItem('dsvv_courses') || '[]');
-        const localCenters = JSON.parse(localStorage.getItem('dsvv_centers') || '[]');
-        const studentsToUse = sanitizeStudents(localStudents.length > 0 ? localStudents : DEFAULT_STUDENTS);
-        const coursesToUse = sanitizeCourses(localCourses.length > 0 ? localCourses : DEFAULT_COURSES);
-        const centersToUse = localCenters.length > 0 ? localCenters : DEFAULT_CENTERS;
-        setStudents(studentsToUse);
-        setCourses(coursesToUse);
-        setCenters(centersToUse);
-        // Sync to server in background
-        api.importData({ students: studentsToUse, courses: coursesToUse, centers: centersToUse })
-          .then(() => console.log('Local data synced to server'))
-          .catch(err => console.error('Sync to server failed:', err));
-      }
-      setDbLoaded(true);
-    }).catch(() => {
-      // Fallback to localStorage if API unavailable
-      setStudents(sanitizeStudents(JSON.parse(localStorage.getItem('dsvv_students')) || DEFAULT_STUDENTS));
-      setCourses(sanitizeCourses(JSON.parse(localStorage.getItem('dsvv_courses')) || DEFAULT_COURSES));
-      setCenters(JSON.parse(localStorage.getItem('dsvv_centers')) || DEFAULT_CENTERS);
-      setDbLoaded(true);
-    });
+    fetchInitialData();
   }, []);
 
   // Admin Auth State
@@ -375,22 +371,24 @@ export default function App() {
     }
   }, [centers, dbLoaded]);
 
-  // Auto-sync any state changes to Railway Cloud Database
+  // Auto-sync any state changes to Live Cloud Database
   useEffect(() => {
-    if (!dbLoaded) return;
+    if (!dbLoaded || !serverOnline) return;
     const timeout = setTimeout(() => {
       api.importData({ students, courses, centers }).catch(err => {
         console.warn('Live Cloud auto-sync notice:', err);
       });
     }, 600);
     return () => clearTimeout(timeout);
-  }, [students, courses, centers, dbLoaded]);
+  }, [students, courses, centers, dbLoaded, serverOnline]);
 
   // Live real-time background sync across all devices
   useEffect(() => {
     if (!dbLoaded) return;
     const fetchLatestFromServer = () => {
       api.getDb().then(db => {
+        setServerOnline(true);
+        setServerErrorMsg('');
         if (db.students && Array.isArray(db.students) && db.students.length > 0) {
           setStudents(prev => {
             if (JSON.stringify(prev) !== JSON.stringify(db.students)) {
@@ -415,7 +413,11 @@ export default function App() {
             return prev;
           });
         }
-      }).catch(() => {});
+      }).catch(err => {
+        console.warn('Backend server poll unreachable (server offline):', err);
+        setServerOnline(false);
+        setServerErrorMsg('Server Error: Connection to backend server was lost. Please contact administrator.');
+      });
     };
 
     const interval = setInterval(fetchLatestFromServer, 10000);
@@ -1153,31 +1155,22 @@ export default function App() {
       }
     };
 
-    // Try API first, fallback to local search
+    if (!serverOnline) {
+      setPortalError('Server Error: University backend server is currently offline. Please contact the administrator.');
+      return;
+    }
+
+    // Try API search
     api.searchPublic(portalName.trim(), portalSearchVal.trim()).then(result => {
       if (result.student) {
-        const course = courses.find(c => c.name.toLowerCase() === result.student.course.toLowerCase());
+        const course = courses.find(c => c.name.toLowerCase() === (result.student.course || '').toLowerCase());
         setupPortalStudent(result.student, course);
+      } else {
+        setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
-    }).catch(() => {
-      // Fallback to local search
-      const found = students.find(s => {
-        if (!s.isPublished) return false;
-        const sName = (s.name || '').toLowerCase().trim();
-        const sRoll = String(s.rollNo || '').toLowerCase().trim();
-        const sEnroll = String(s.enrollmentNo || '').toLowerCase().trim();
-        if (n && q) {
-          const nameMatch = sName.includes(n) || n.includes(sName) || sName.split(' ').some(part => n.includes(part));
-          const rollMatch = sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
-          return nameMatch && rollMatch;
-        }
-        if (n && !q) return sName.includes(n) || n.includes(sName);
-        if (!n && q) return sRoll === q || sEnroll === q || q.includes(sRoll) || q.includes(sEnroll);
-        return false;
-      });
-      if (found) {
-        const course = courses.find(c => c.name.toLowerCase() === found.course.toLowerCase());
-        setupPortalStudent(found, course);
+    }).catch(err => {
+      if (!serverOnline || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError') || err.message?.includes('502') || err.message?.includes('503') || err.message?.includes('500')) {
+        setPortalError('Server Error: Could not connect to university backend server. Please contact administrator.');
       } else {
         setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
@@ -1231,6 +1224,82 @@ export default function App() {
         </nav>
       </header>
 
+      {/* STICKY SERVER ERROR BANNER (shows whenever server is offline) */}
+      {!serverOnline && (
+        <div style={{
+          backgroundColor: '#fef2f2',
+          borderBottom: '2px solid #ef4444',
+          color: '#991b1b',
+          padding: '12px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '12px',
+          flexWrap: 'wrap',
+          boxShadow: '0 2px 8px rgba(239, 68, 68, 0.1)',
+          position: 'relative',
+          zIndex: 1000
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <AlertCircle size={20} color="#dc2626" style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: '13.5px', fontWeight: '500' }}>
+              <strong>Server Error:</strong> University Backend Server (Kali Linux) is offline or unreachable. Please contact the administrator.
+            </span>
+          </div>
+          <button 
+            onClick={fetchInitialData} 
+            disabled={isRetrying}
+            style={{
+              background: '#dc2626',
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '6px 14px',
+              fontSize: '12px',
+              fontWeight: '600',
+              cursor: isRetrying ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <RefreshCw size={12} className={isRetrying ? 'animate-spin' : ''} /> {isRetrying ? 'Checking...' : 'Retry Connection'}
+          </button>
+        </div>
+      )}
+
+      {!serverOnline && (!students || students.length === 0) ? (
+        <main style={{ minHeight: 'calc(100vh - 120px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+          <div style={{ maxWidth: '520px', width: '100%', background: '#fff', borderRadius: '12px', border: '1px solid #fee2e2', padding: '2.5rem 2rem', textAlign: 'center', boxShadow: '0 10px 25px -5px rgba(239, 68, 68, 0.15)' }}>
+            <div style={{ width: '64px', height: '64px', borderRadius: '50%', backgroundColor: '#fee2e2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+              <AlertCircle size={36} />
+            </div>
+            <h2 style={{ color: '#0d2149', fontSize: '1.4rem', fontWeight: '700', marginBottom: '0.75rem' }}>
+              SERVER ERROR: BACKEND OFFLINE
+            </h2>
+            <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+              Could not connect to the University Backend Server. The server computer (Kali Linux) is currently offline or unreachable.
+            </p>
+            <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '8px', padding: '12px 16px', fontSize: '13px', color: '#991b1b', marginBottom: '1.5rem', textAlign: 'left' }}>
+              <strong>Notice:</strong> Please ensure the server system is turned on and connected to the network, or contact the university administrator.
+            </div>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button 
+                onClick={fetchInitialData} 
+                disabled={isRetrying}
+                className="btn-primary" 
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', background: '#0d2149', cursor: isRetrying ? 'not-allowed' : 'pointer' }}
+              >
+                <RefreshCw size={16} className={isRetrying ? 'animate-spin' : ''} /> {isRetrying ? 'Checking...' : 'Retry Connection'}
+              </button>
+              <a href="/" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', textDecoration: 'none' }}>
+                <Home size={16} /> Main Website
+              </a>
+            </div>
+          </div>
+        </main>
+      ) : (
+        <>
       {/* ============================================================
           1. ADMIN PORTAL VIEW
          ============================================================ */}
@@ -1301,9 +1370,9 @@ export default function App() {
                 >
                   <LogOut size={16} /> Sign Out
                 </button>
-                <div style={{ fontSize: '11px', color: '#10b981', marginTop: '10px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 6px #10b981' }}></span>
-                  Cloud Live Sync Active
+                <div style={{ fontSize: '11px', color: serverOnline ? '#10b981' : '#f87171', marginTop: '10px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: serverOnline ? '#10b981' : '#ef4444', display: 'inline-block', boxShadow: serverOnline ? '0 0 6px #10b981' : '0 0 6px #ef4444' }}></span>
+                  {serverOnline ? 'Backend Online (Port 5001)' : 'Server Offline (Contact Admin)'}
                 </div>
               </div>
             </aside>
@@ -3180,6 +3249,8 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
 
       {/* PHOTO CROPPER MODAL */}
