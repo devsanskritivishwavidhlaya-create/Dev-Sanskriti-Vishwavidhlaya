@@ -103,9 +103,9 @@ export default function App() {
       setServerErrorMsg('');
       setDbLoaded(true);
     } catch (err) {
-      console.error('Kali backend offline or unreachable:', err);
+      console.error('Server offline or unreachable:', err);
       setServerOnline(false);
-      setServerErrorMsg('Server Error: University backend server is offline or unreachable. Please contact administrator.');
+      setServerErrorMsg('Server Error: University server is currently offline. Please contact the administrator.');
       setDbLoaded(true);
     } finally {
       setIsRetrying(false);
@@ -416,7 +416,7 @@ export default function App() {
       }).catch(err => {
         console.warn('Backend server poll unreachable (server offline):', err);
         setServerOnline(false);
-        setServerErrorMsg('Server Error: Connection to backend server was lost. Please contact administrator.');
+        setServerErrorMsg('Server Error: University server is currently offline. Please contact the administrator.');
       });
     };
 
@@ -1156,7 +1156,7 @@ export default function App() {
     };
 
     if (!serverOnline) {
-      setPortalError('Server Error: University backend server is currently offline. Please contact the administrator.');
+      setPortalError('Server Error: University server is currently offline. Please contact the administrator.');
       return;
     }
 
@@ -1169,8 +1169,8 @@ export default function App() {
         setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
     }).catch(err => {
-      if (!serverOnline || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError') || err.message?.includes('502') || err.message?.includes('503') || err.message?.includes('500')) {
-        setPortalError('Server Error: Could not connect to university backend server. Please contact administrator.');
+      if (!serverOnline || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError') || err.message?.includes('502') || err.message?.includes('503') || err.message?.includes('500') || err.message?.includes('530')) {
+        setPortalError('Server Error: University server is currently offline. Please contact the administrator.');
       } else {
         setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
       }
@@ -1243,7 +1243,7 @@ export default function App() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <AlertCircle size={20} color="#dc2626" style={{ flexShrink: 0 }} />
             <span style={{ fontSize: '13.5px', fontWeight: '500' }}>
-              <strong>Server Error:</strong> University Backend Server (Kali Linux) is offline or unreachable. Please contact the administrator.
+              <strong>Server Error:</strong> University server is currently offline. Please contact the administrator.
             </span>
           </div>
           <button 
@@ -1275,13 +1275,13 @@ export default function App() {
               <AlertCircle size={36} />
             </div>
             <h2 style={{ color: '#0d2149', fontSize: '1.4rem', fontWeight: '700', marginBottom: '0.75rem' }}>
-              SERVER ERROR: BACKEND OFFLINE
+              SERVER ERROR
             </h2>
             <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-              Could not connect to the University Backend Server. The server computer (Kali Linux) is currently offline or unreachable.
+              Could not connect to the University Server. The server is currently offline or unreachable.
             </p>
             <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '8px', padding: '12px 16px', fontSize: '13px', color: '#991b1b', marginBottom: '1.5rem', textAlign: 'left' }}>
-              <strong>Notice:</strong> Please ensure the server system is turned on and connected to the network, or contact the university administrator.
+              <strong>Notice:</strong> Please ensure the server is turned on and connected to the network, or contact the university administrator.
             </div>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button 
@@ -1372,7 +1372,7 @@ export default function App() {
                 </button>
                 <div style={{ fontSize: '11px', color: serverOnline ? '#10b981' : '#f87171', marginTop: '10px', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: serverOnline ? '#10b981' : '#ef4444', display: 'inline-block', boxShadow: serverOnline ? '0 0 6px #10b981' : '0 0 6px #ef4444' }}></span>
-                  {serverOnline ? 'Backend Online (Port 5001)' : 'Server Offline (Contact Admin)'}
+                  {serverOnline ? 'University Server Online' : 'Server Offline (Contact Admin)'}
                 </div>
               </div>
             </aside>
