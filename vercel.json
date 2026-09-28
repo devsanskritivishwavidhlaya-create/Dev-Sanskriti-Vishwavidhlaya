@@ -19,5 +19,9 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://placeholder.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://placeholder.trycloudflare.com/uploads/:path*" }
   ]
 }
