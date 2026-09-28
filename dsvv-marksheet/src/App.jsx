@@ -291,14 +291,18 @@ export default function App() {
     if (!file) return;
     try {
       const data = await importDatabaseJson(file);
-      if (!confirm(`Restore ${data.students.length} students from backup file?`)) return;
+      if (!confirm(`Restore ${data.students?.length || 0} students from backup file?`)) return;
+      setCloudSyncLoading(true);
+      await api.importData(data);
       if (data.students && data.students.length > 0) setStudents(data.students);
       if (data.courses && data.courses.length > 0) setCourses(data.courses);
       if (data.centers && data.centers.length > 0) setCenters(data.centers);
-      setCloudSyncMsg({ type: 'success', text: `Successfully restored ${data.students.length} students from backup file!` });
+      setCloudSyncMsg({ type: 'success', text: `Successfully restored ${data.students?.length || 0} students to server & database!` });
       confetti({ particleCount: 70, spread: 60 });
     } catch (err) {
-      setCloudSyncMsg({ type: 'error', text: 'Invalid backup file: ' + err.message });
+      setCloudSyncMsg({ type: 'error', text: 'Failed to restore backup: ' + err.message });
+    } finally {
+      setCloudSyncLoading(false);
     }
     if (backupFileInputRef.current) backupFileInputRef.current.value = '';
   };
