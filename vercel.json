@@ -21,6 +21,14 @@
     }
   ],
   "rewrites": [
+    { "source": "/admin/assets/:path*", "destination": "/portal/assets/:path*" },
+    { "source": "/admin", "destination": "/portal/index.html" },
+    { "source": "/admin/", "destination": "/portal/index.html" },
+    { "source": "/admin/:path*", "destination": "/portal/index.html" },
+    { "source": "/portal/assets/:path*", "destination": "/portal/assets/:path*" },
+    { "source": "/portal", "destination": "/portal/index.html" },
+    { "source": "/portal/", "destination": "/portal/index.html" },
+    { "source": "/portal/:path*", "destination": "/portal/index.html" },
     { "source": "/api/:path*", "destination": "https://rather-oecd-culture-initiative.trycloudflare.com/api/:path*" },
     { "source": "/uploads/:path*", "destination": "https://rather-oecd-culture-initiative.trycloudflare.com/uploads/:path*" }
   ]

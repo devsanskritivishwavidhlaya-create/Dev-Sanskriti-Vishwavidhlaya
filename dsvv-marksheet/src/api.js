@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://dev-sanskriti-vishwavidhlaya-production.up.railway.app';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function request(url, options = {}) {
   const res = await fetch(`${API_BASE}${url}`, {

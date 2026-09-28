@@ -673,7 +673,7 @@ export default function App() {
   };
 
   // ============================================================
-  // STUDENT REGISTRATION & MARKS ALGORITHM (GURUKUL WORKFLOW)
+  // STUDENT REGISTRATION & MARKS ALGORITHM (DSVV WORKFLOW)
   // ============================================================
   const resetForm = () => {
     const session = '2024-2026';
@@ -848,7 +848,7 @@ export default function App() {
     }));
   };
 
-  // Gurukul Precise Percentage Distribution Algorithm
+  // Precise Percentage Distribution Algorithm
   const handleGenerateMarks = () => {
     const pctVal = parseInt(targetPercentage);
     if (isNaN(pctVal) || pctVal < 35 || pctVal > 100) {
@@ -1221,7 +1221,7 @@ export default function App() {
           <button className={`nav-mode-btn ${currentView === 'portal' ? 'active' : ''}`} onClick={() => { setCurrentView('portal'); setPortalStudent(null); setPortalError(''); }}>
             <Globe size={16} /> Result Portal
           </button>
-          <a href="../index.html" className="nav-mode-btn" style={{ textDecoration: 'none' }}>
+          <a href="/" className="nav-mode-btn" style={{ textDecoration: 'none' }}>
             <Home size={16} /> Main Website
           </a>
         </nav>
@@ -1305,7 +1305,7 @@ export default function App() {
             </aside>
 
             <main className="admin-content-panel">
-              {/* DASHBOARD TAB (EXACT GURUKUL CARD LAYOUT WITH PUBLISH, PARTIAL, COMPLETE) */}
+              {/* DASHBOARD TAB (EXACT DSVV CARD LAYOUT WITH PUBLISH, PARTIAL, COMPLETE) */}
               {adminTab === 'dashboard' && (
                 <div className="tab-content">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
@@ -1434,7 +1434,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* ADD/EDIT STUDENT (EXACT GURUKUL WORKFLOW & LAYOUT) */}
+              {/* ADD/EDIT STUDENT (EXACT DSVV WORKFLOW & LAYOUT) */}
               {adminTab === 'add-student' && (
                 <div style={{ background: '#fff', borderRadius: '16px', padding: 'clamp(16px, 4vw, 36px) clamp(12px, 3vw, 40px)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', maxWidth: '1080px', margin: '0 auto' }}>
                   <div style={{ marginBottom: '28px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
@@ -1620,7 +1620,7 @@ export default function App() {
                     </div>
 
                     {/* ============================================================
-                        SUBJECT MARKS ENTRY SECTION (EXACT GURUKUL WORKFLOW)
+                        SUBJECT MARKS ENTRY SECTION (EXACT DSVV WORKFLOW)
                        ============================================================ */}
                     {formData.courseName && (
                       <div style={{ marginTop: '28px', borderTop: '1px solid #e2e8f0', paddingTop: '24px', marginBottom: '28px' }}>
@@ -2853,7 +2853,7 @@ export default function App() {
           MODALS
          ============================================================ */}
 
-      {/* SELECTIVE PUBLISHING OPTIONS MODAL (GURUKUL WORKFLOW) */}
+      {/* SELECTIVE PUBLISHING OPTIONS MODAL (DSVV WORKFLOW) */}
       {publishingStudent && (
         <div className="modal-overlay" onClick={() => setPublishingStudent(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '540px', maxHeight: '85vh', overflowY: 'auto' }}>
