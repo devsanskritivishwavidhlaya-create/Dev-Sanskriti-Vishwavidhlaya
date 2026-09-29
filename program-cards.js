@@ -309,7 +309,7 @@ const programCards = [
     feePerSem: '\u20b96,000',
     totalFee: '\u20b912,000',
     specializations: ['Computer Application'],
-    pageLink: null
+    pageLink: 'programs/dca/index.html'
   },
   {
     id: 'pgdca',
@@ -322,7 +322,7 @@ const programCards = [
     feePerSem: '\u20b97,500',
     totalFee: '\u20b915,000',
     specializations: ['Computer Application'],
-    pageLink: null
+    pageLink: 'programs/pgdca/index.html'
   },
   {
     id: 'dhm',
@@ -335,7 +335,7 @@ const programCards = [
     feePerSem: '\u20b98,000 - \u20b990,000',
     totalFee: '\u20b932,000 - \u20b93,60,000',
     specializations: ['Hotel Management'],
-    pageLink: null
+    pageLink: 'programs/dhm/index.html'
   },
   {
     id: 'pgdbm',
@@ -348,7 +348,20 @@ const programCards = [
     feePerSem: '\u20b920,000',
     totalFee: '\u20b940,000',
     specializations: ['Business Management'],
-    pageLink: null
+    pageLink: 'programs/pgdbm/index.html'
+  },
+  {
+    id: 'pgdys',
+    category: 'diploma',
+    title: 'PG Diploma in Yogic Science (P.G.D.Y.S.)',
+    icon: 'fa-spa',
+    badge: '2 Semesters \u2022 PG Diploma',
+    description: 'Prestigious postgraduate diploma in yogic sciences, classical yoga philosophy, pranayama, meditation, and yoga therapy for holistic health and human consciousness.',
+    eligibility: 'Graduation in any discipline',
+    feePerSem: '\u20b910,000',
+    totalFee: '\u20b920,000',
+    specializations: ['Yogic Science & Therapy'],
+    pageLink: 'programs/pgdys/index.html'
   },
   {
     id: 'cert-life',

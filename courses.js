@@ -2,7 +2,7 @@ const courseCategories = {
   1: 'ug', 2: 'ug', 3: 'ug', 4: 'ug', 5: 'ug', 6: 'ug', 7: 'ug', 8: 'ug', 9: 'ug', 10: 'ug',
   11: 'diploma', 12: 'diploma', 13: 'ug', 14: 'cert', 15: 'cert', 16: 'cert', 17: 'diploma', 18: 'diploma',
   19: 'pg', 20: 'pg', 21: 'pg', 22: 'pg', 23: 'pg', 24: 'pg', 25: 'pg', 26: 'pg', 27: 'diploma', 28: 'pg',
-  29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg'
+  29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg', 36: 'diploma'
 };
 
 const courses = [
@@ -2030,6 +2030,23 @@ const courses = [
           { name: "Semester - 2", fee: 20000.00 },
           { name: "Semester - 3", fee: 20000.00 },
           { name: "Semester - 4", fee: 20000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 36,
+    name: "Post Graduation Diploma in Yogic Science (P.G.D.Y.S.)",
+    code: "P.G.D.Y.S. - 36",
+    duration: "2 - Semester's",
+    icon: "fa-spa",
+    subcourses: [
+      {
+        name: "Yogic Science & Therapy",
+        code: "P.G.D.Y.S. - 36",
+        semesters: [
+          { name: "Semester - 1", fee: 10000.00 },
+          { name: "Semester - 2", fee: 10000.00 }
         ]
       }
     ]
