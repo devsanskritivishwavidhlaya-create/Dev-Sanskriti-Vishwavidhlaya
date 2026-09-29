@@ -135,6 +135,13 @@ function openCourseModal(programId) {
     if (title.includes('d.c.a') && !title.includes('p.g.d.c.a') && c.name.includes('Diploma in Computer') && !c.name.includes('Post Graduation')) return true;
     if (title.includes('d.h.m') && c.name.includes('Diploma in Hotel')) return true;
     if (title.includes('p.g.d.b.m') && c.name.includes('Post Graduation Diploma in Business')) return true;
+    if (title.includes('diploma in mechanical') && c.name.includes('Diploma in Mechanical')) return true;
+    if (title.includes('diploma in civil') && c.name.includes('Diploma in Civil')) return true;
+    if (title.includes('diploma in electronics & electrical') && c.name.includes('Electronics & Electrical')) return true;
+    if (title.includes('diploma in electronics & communication') && c.name.includes('Electronics & Communication')) return true;
+    if (title.includes('diploma in electrical') && !title.includes('electronics') && c.name.includes('Diploma in Electrical')) return true;
+    if (title.includes('diploma in computer science') && c.name.includes('Diploma in Computer Science')) return true;
+    if (title.includes('diploma in engineering') && c.id === 37) return true;
     if (title.includes('p.g.d.y.s') && c.name.includes('Diploma in Yogic Science')) return true;
     if (title.includes('certificate in life') && c.name.includes('Certificate Course in Life')) return true;
     if (title.includes('certificate in yoga') && c.name.includes('Certificate Course in Yoga')) return true;

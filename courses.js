@@ -2,7 +2,8 @@ const courseCategories = {
   1: 'ug', 2: 'ug', 3: 'ug', 4: 'ug', 5: 'ug', 6: 'ug', 7: 'ug', 8: 'ug', 9: 'ug', 10: 'ug',
   11: 'diploma', 12: 'diploma', 13: 'ug', 14: 'cert', 15: 'cert', 16: 'cert', 17: 'diploma', 18: 'diploma',
   19: 'pg', 20: 'pg', 21: 'pg', 22: 'pg', 23: 'pg', 24: 'pg', 25: 'pg', 26: 'pg', 27: 'diploma', 28: 'pg',
-  29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg', 36: 'diploma'
+  29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg', 36: 'diploma',
+  37: 'diploma', 38: 'diploma', 39: 'diploma', 40: 'diploma', 41: 'diploma', 42: 'diploma'
 };
 
 const courses = [
@@ -2047,6 +2048,132 @@ const courses = [
         semesters: [
           { name: "Semester - 1", fee: 10000.00 },
           { name: "Semester - 2", fee: 10000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 37,
+    name: "Diploma in Mechanical Engineering",
+    code: "Diploma (Mech) - 37",
+    duration: "6 - Semester's",
+    icon: "fa-gears",
+    subcourses: [
+      {
+        name: "Mechanical Engineering",
+        code: "Diploma (Mech) - 37",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 38,
+    name: "Diploma in Civil Engineering",
+    code: "Diploma (Civil) - 38",
+    duration: "6 - Semester's",
+    icon: "fa-building",
+    subcourses: [
+      {
+        name: "Civil Engineering",
+        code: "Diploma (Civil) - 38",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 39,
+    name: "Diploma in Electrical Engineering",
+    code: "Diploma (EE) - 39",
+    duration: "6 - Semester's",
+    icon: "fa-bolt",
+    subcourses: [
+      {
+        name: "Electrical Engineering",
+        code: "Diploma (EE) - 39",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 40,
+    name: "Diploma in Electronics & Electrical Engineering",
+    code: "Diploma (EEE) - 40",
+    duration: "6 - Semester's",
+    icon: "fa-microchip",
+    subcourses: [
+      {
+        name: "Electronics & Electrical Engineering",
+        code: "Diploma (EEE) - 40",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 41,
+    name: "Diploma in Electronics & Communication Engineering",
+    code: "Diploma (ECE) - 41",
+    duration: "6 - Semester's",
+    icon: "fa-satellite-dish",
+    subcourses: [
+      {
+        name: "Electronics & Communication Engineering",
+        code: "Diploma (ECE) - 41",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 42,
+    name: "Diploma in Computer Science & Engineering",
+    code: "Diploma (CSE) - 42",
+    duration: "6 - Semester's",
+    icon: "fa-laptop-code",
+    subcourses: [
+      {
+        name: "Computer Science & Engineering",
+        code: "Diploma (CSE) - 42",
+        semesters: [
+          { name: "Semester - 1", fee: 12000.00 },
+          { name: "Semester - 2", fee: 12000.00 },
+          { name: "Semester - 3", fee: 12000.00 },
+          { name: "Semester - 4", fee: 12000.00 },
+          { name: "Semester - 5", fee: 12000.00 },
+          { name: "Semester - 6", fee: 12000.00 }
         ]
       }
     ]
