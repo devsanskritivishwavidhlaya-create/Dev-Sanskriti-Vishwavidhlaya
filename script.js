@@ -131,10 +131,11 @@ function openCourseModal(programId) {
     if (title.includes('m.c.a') && c.name.includes('Master of Computer')) return true;
     if (title.includes('m.s.w') && c.name.includes('Master of Social')) return true;
     if (title.includes('m.lib') && c.name.includes('Master of Library')) return true;
-    if (title.includes('d.c.a') && c.name.includes('Diploma in Computer')) return true;
     if (title.includes('p.g.d.c.a') && c.name.includes('Post Graduation Diploma in Computer')) return true;
+    if (title.includes('d.c.a') && !title.includes('p.g.d.c.a') && c.name.includes('Diploma in Computer') && !c.name.includes('Post Graduation')) return true;
     if (title.includes('d.h.m') && c.name.includes('Diploma in Hotel')) return true;
     if (title.includes('p.g.d.b.m') && c.name.includes('Post Graduation Diploma in Business')) return true;
+    if (title.includes('p.g.d.y.s') && c.name.includes('Diploma in Yogic Science')) return true;
     if (title.includes('certificate in life') && c.name.includes('Certificate Course in Life')) return true;
     if (title.includes('certificate in yoga') && c.name.includes('Certificate Course in Yoga')) return true;
     if (title.includes('certificate in sanskrit') && c.name.includes('Certificate Course in Sanskrit')) return true;
