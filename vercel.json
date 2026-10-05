@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://broadband-warm-upon-girlfriend.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://broadband-warm-upon-girlfriend.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://washing-investments-typically-wisconsin.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://washing-investments-typically-wisconsin.trycloudflare.com/uploads/:path*" }
   ]
 }
