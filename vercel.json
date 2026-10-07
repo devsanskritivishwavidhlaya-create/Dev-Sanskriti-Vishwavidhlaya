@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://instances-vol-hitachi-witness.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://instances-vol-hitachi-witness.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://twelve-amount-tenant-summary.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://twelve-amount-tenant-summary.trycloudflare.com/uploads/:path*" }
   ]
 }
