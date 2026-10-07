@@ -19,11 +19,11 @@ const programCards = [
     icon: 'fa-spa',
     badge: '5.5 Years \u2022 UG Degree',
     description: 'Comprehensive program integrating naturopathy, yoga therapy, and holistic healing sciences. Trains students in natural medicine, yoga, physiotherapy, and clinical practice with 1-year mandatory internship.',
-    eligibility: '10+2 with Science (PCB)',
+    eligibility: '10+2 with Science (PCB / PCM)',
     feePerSem: '\u20b925,000',
     totalFee: '\u20b95,50,000',
     specializations: ['Naturopathy & Yogic Sciences'],
-    pageLink: 'programs/bnys/index.html'
+    pageLink: 'bnys.html'
   },
   {
     id: 'ba',

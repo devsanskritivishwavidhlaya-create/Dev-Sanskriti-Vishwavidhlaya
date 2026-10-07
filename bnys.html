@@ -6,9 +6,9 @@
   <title>BNYS - Bachelor of Naturopathy & Yogic Sciences | Dev Sanskriti Vishwavidyalaya</title>
   <meta name="description" content="Bachelor of Naturopathy and Yogic Sciences (BNYS) at Dev Sanskriti Vishwavidyalaya. UGC approved 5.5-year medical degree program. Ministry of AYUSH compliant - NEET not required. 10+2 PCB/PCM eligibility.">
   <meta name="keywords" content="BNYS, Bachelor of Naturopathy and Yogic Sciences, Naturopathy doctor, Yoga therapy, DSVV BNYS, AYUSH, UGC approved BNYS, NEET not required BNYS, natural medicine degree">
-  <link rel="icon" type="image/png" href="../../Dev_Sanskriti_Vishwavidyalaya Logo.png">
+  <link rel="icon" type="image/png" href="Dev_Sanskriti_Vishwavidyalaya Logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="style.css">
   <style>
     :root {
       --primary-color: #8B4513;
@@ -762,6 +762,27 @@
     .peo-pso-container {
       margin-top: 1.5rem;
     }
+    .toggle-bar-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .btn-toggle-all {
+      background: none;
+      border: 1px solid #d4c8b8;
+      border-radius: 20px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      color: var(--primary-color);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-toggle-all:hover {
+      background: var(--primary-color);
+      color: white;
+    }
     .peo-card, .pso-card {
       background: white;
       border: 1px solid var(--border-soft);
@@ -779,6 +800,8 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
+      cursor: pointer;
+      user-select: none;
     }
     .peo-badge, .pso-badge {
       display: inline-block;
@@ -933,8 +956,8 @@
     <div class="top-bar-right">
       <a href="/portal/?view=admin" class="login-link admin-login"><i class="fas fa-user-shield"></i> Admin Portal</a>
       <a href="/portal/?view=center" class="login-link center-login"><i class="fas fa-building"></i> Center Portal</a>
-      <a href="../../application-form.html"><i class="fas fa-file-alt"></i> Admission Form</a>
-      <a href="../../programs.html"><i class="fas fa-download"></i> Download</a>
+      <a href="application-form.html"><i class="fas fa-file-alt"></i> Admission Form</a>
+      <a href="programs.html"><i class="fas fa-download"></i> Download</a>
       <a href="/portal/?view=portal"><i class="fas fa-chart-bar"></i> Result</a>
     </div>
   </div>
@@ -942,7 +965,7 @@
   <!-- Site Header -->
   <header class="site-header">
     <div class="header-container">
-      <a href="../../index.html"><img src="../../Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="header-logo"></a>
+      <a href="index.html"><img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="header-logo"></a>
     </div>
   </header>
 
@@ -950,44 +973,44 @@
   <nav class="main-nav">
     <div class="nav-container">
       <ul class="nav-links" id="navLinks">
-        <li><a href="../../index.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li class="has-dropdown">
           <a href="#" class="dropdown-toggle">About DSVV <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="../../about.html">About Our University</a></li>
-            <li><a href="../../ugc.html">UGC 2F</a></li>
+            <li><a href="about.html">About Our University</a></li>
+            <li><a href="ugc.html">UGC 2F</a></li>
           </ul>
         </li>
         <li class="has-dropdown">
           <a href="#" class="dropdown-toggle">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="../../naac.html">NAAC Approved</a></li>
-            <li><a href="../../ugc.html">UGC Recognition</a></li>
-            <li><a href="../../ncte.html">NCTE Recognition</a></li>
-            <li><a href="../../nirf.html">NIRF Status</a></li>
-            <li><a href="../../aiu.html">AIU Membership</a></li>
+            <li><a href="naac.html">NAAC Approved</a></li>
+            <li><a href="ugc.html">UGC Recognition</a></li>
+            <li><a href="ncte.html">NCTE Recognition</a></li>
+            <li><a href="nirf.html">NIRF Status</a></li>
+            <li><a href="aiu.html">AIU Membership</a></li>
           </ul>
         </li>
         <li class="has-dropdown">
           <a href="#" class="dropdown-toggle">Academics <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="../../academics.html">Academic Structure</a></li>
+            <li><a href="academics.html">Academic Structure</a></li>
           </ul>
         </li>
         <li class="has-dropdown">
           <a href="#" class="dropdown-toggle active">Programs <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="../../programs.html">All Courses</a></li>
-            <li><a href="../../bnys.html" class="active">BNYS Program</a></li>
+            <li><a href="programs.html">All Courses</a></li>
+            <li><a href="bnys.html" class="active">BNYS Program</a></li>
           </ul>
         </li>
         <li class="has-dropdown">
           <a href="#" class="dropdown-toggle">Gallery <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
-            <li><a href="../../gallery.html">Photo Gallery</a></li>
+            <li><a href="gallery.html">Photo Gallery</a></li>
           </ul>
         </li>
-        <li><a href="../../index.html#contact">Contact Us</a></li>
+        <li><a href="index.html#contact">Contact Us</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     </div>
@@ -997,9 +1020,9 @@
   <section class="bnys-hero">
     <div class="bnys-hero-inner">
       <div class="bnys-breadcrumbs">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
         <span>/</span>
-        <a href="../../programs.html">Programs</a>
+        <a href="programs.html">Programs</a>
         <span>/</span>
         <span>BNYS</span>
       </div>
@@ -1019,7 +1042,7 @@
       </p>
 
       <div class="hero-cta-group">
-        <a href="../../application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-paper-plane"></i> Apply for Admission</a>
+        <a href="application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-paper-plane"></i> Apply for Admission</a>
         <a href="#objectives" class="btn-hero btn-hero-outline"><i class="fas fa-list-check"></i> Explore Curriculum & Objectives</a>
       </div>
     </div>
@@ -1691,7 +1714,7 @@
         Admissions are now open for the Bachelor of Naturopathy and Yogic Sciences (BNYS) program. Enroll today to build an impactful career in holistic healthcare.
       </p>
       <div class="apply-btn-group">
-        <a href="../../application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-file-signature"></i> Fill Admission Form Online</a>
+        <a href="application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-file-signature"></i> Fill Admission Form Online</a>
         <a href="tel:+911334261366" class="btn-hero btn-hero-outline"><i class="fas fa-phone"></i> Call Admission Helpdesk</a>
       </div>
     </div>
@@ -1702,22 +1725,22 @@
   <footer role="contentinfo">
     <div class="footer-container">
       <div class="footer-col">
-        <img src="../../Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="footer-logo">
+        <img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="footer-logo">
         <p>Dev Sanskriti Vishwavidyalaya - A premier university dedicated to the integration of scientific education with cultural and spiritual values.</p>
       </div>
       <div class="footer-col">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="../../index.html">Home</a></li>
-          <li><a href="../../programs.html">Academic Programs</a></li>
-          <li><a href="../../bnys.html">BNYS Program</a></li>
-          <li><a href="../../academics.html">Academics</a></li>
-          <li><a href="../../why-choose.html">Why Choose DSVV</a></li>
-          <li><a href="../../gallery.html">Campus Gallery</a></li>
-          <li><a href="../../about.html">About DSVV</a></li>
-          <li><a href="../../naac.html">NAAC Approved</a></li>
-          <li><a href="../../ncte.html">NCTE Recognition</a></li>
-          <li><a href="../../ugc.html">UGC Commission</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Academic Programs</a></li>
+          <li><a href="bnys.html">BNYS Program</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="why-choose.html">Why Choose DSVV</a></li>
+          <li><a href="gallery.html">Campus Gallery</a></li>
+          <li><a href="about.html">About DSVV</a></li>
+          <li><a href="naac.html">NAAC Approved</a></li>
+          <li><a href="ncte.html">NCTE Recognition</a></li>
+          <li><a href="ugc.html">UGC Commission</a></li>
         </ul>
       </div>
       <div class="footer-col">
