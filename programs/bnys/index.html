@@ -3,185 +3,1782 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>B.N.Y.S. Program | Dev Sanskriti Vishwavidyalaya</title>
-  <meta name="description" content="Bachelor of Naturopathy & Yogic Sciences (B.N.Y.S.) at DSVV Raipur - 5.5 year integrated program in natural medicine, yoga therapy, and holistic healing sciences.">
+  <title>BNYS - Bachelor of Naturopathy & Yogic Sciences | Dev Sanskriti Vishwavidyalaya</title>
+  <meta name="description" content="Bachelor of Naturopathy and Yogic Sciences (BNYS) at Dev Sanskriti Vishwavidyalaya. UGC approved 5.5-year medical degree program. Ministry of AYUSH compliant - NEET not required. 10+2 PCB/PCM eligibility.">
+  <meta name="keywords" content="BNYS, Bachelor of Naturopathy and Yogic Sciences, Naturopathy doctor, Yoga therapy, DSVV BNYS, AYUSH, UGC approved BNYS, NEET not required BNYS, natural medicine degree">
+  <link rel="icon" type="image/png" href="../../Dev_Sanskriti_Vishwavidyalaya Logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../program-page.css">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    :root {
+      --primary-color: #8B4513;
+      --secondary-color: #D4AF37;
+      --accent-color: #CD7037;
+      --wellness-green: #1b5e20;
+      --wellness-green-light: #2e7d32;
+      --wellness-green-bg: #e8f5e9;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --topbar-bg: #1a1145;
+      --nav-border: #2d1b69;
+      --light-gold-bg: #fffbf0;
+      --border-soft: #eae3d2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fdfaf6;
+      color: #333;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--topbar-bg);
+      color: white;
+      padding: 0.6rem 5%;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .top-bar-left, .top-bar-right { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .top-bar-left a, .top-bar-right a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: opacity 0.3s;
+    }
+    .top-bar-left a:hover, .top-bar-right a:hover { opacity: 0.85; }
+
+    /* Site Header */
+    .site-header {
+      background: white;
+      padding: 1rem 5%;
+      border-bottom: 3px solid var(--nav-border);
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header-logo { height: 110px; width: auto; }
+
+    /* Navigation */
+    .main-nav {
+      background: white;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-bottom: 2px solid #e8e8e8;
+    }
+    .main-nav .nav-container {
+      display: flex;
+      justify-content: center;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 2%;
+    }
+    .main-nav .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      justify-content: center;
+      width: 100%;
+    }
+    .main-nav .nav-links li { position: relative; flex: 1; }
+    .main-nav .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 0.9rem 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .main-nav .nav-links a:hover, .main-nav .nav-links a.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--secondary-color);
+    }
+    .main-nav .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 220px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 0 0 8px 8px;
+      display: none;
+      z-index: 1001;
+      border-top: 3px solid var(--secondary-color);
+    }
+    .main-nav .has-dropdown:hover .dropdown-menu { display: block; }
+    .main-nav .dropdown-menu li a {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #f0f0f0;
+      border-left: 3px solid transparent;
+      justify-content: flex-start;
+      text-align: left;
+    }
+    .main-nav .dropdown-menu li a:hover {
+      background: #f8f8f8;
+      border-left-color: var(--secondary-color);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+    }
+
+    /* Hero Banner */
+    .bnys-hero {
+      position: relative;
+      background: linear-gradient(135deg, #2d1808 0%, #5d2c0c 40%, #1b3a1d 100%);
+      color: white;
+      padding: 4rem 5% 4.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .bnys-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.18), transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.25), transparent 50%);
+      pointer-events: none;
+    }
+    .bnys-hero-inner {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+    .bnys-breadcrumbs {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .bnys-breadcrumbs a {
+      color: #ffd885;
+      text-decoration: none;
+    }
+    .bnys-breadcrumbs a:hover { text-decoration: underline; }
+    .bnys-hero-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .bnys-hero-title span {
+      color: var(--secondary-color);
+      display: inline-block;
+    }
+    .bnys-hero-subtitle {
+      font-size: 1.25rem;
+      max-width: 850px;
+      margin: 0 auto 2rem;
+      color: #f0e6d6;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .bnys-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .bnys-badge.badge-gold {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--secondary-color);
+      color: #ffe699;
+    }
+    .bnys-badge.badge-green {
+      background: rgba(46, 125, 50, 0.35);
+      border-color: #81c784;
+      color: #a5d6a7;
+    }
+    .bnys-badge.badge-amber {
+      background: rgba(205, 112, 55, 0.35);
+      border-color: #ffb74d;
+      color: #ffe0b2;
+    }
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-hero-primary {
+      background: var(--secondary-color);
+      color: #2b1704;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      border: 2px solid var(--secondary-color);
+    }
+    .btn-hero-primary:hover {
+      background: #e5bd3c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    }
+    .btn-hero-outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+    }
+    .btn-hero-outline:hover {
+      background: white;
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    /* Sub-Navigation Strip (Quick Jumps) */
+    .quick-nav-bar {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 52px;
+      z-index: 990;
+      border-bottom: 1px solid #ebe5d8;
+    }
+    .quick-nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      gap: 0.4rem;
+      scrollbar-width: thin;
+    }
+    .quick-nav-container::-webkit-scrollbar { height: 4px; }
+    .quick-nav-container::-webkit-scrollbar-thumb { background: #d0c2af; border-radius: 4px; }
+    .quick-nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+      text-decoration: none;
+      border-radius: 20px;
+      transition: var(--transition);
+      background: #f7f4ed;
+    }
+    .quick-nav-pill:hover, .quick-nav-pill.active {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Stats Ribbon */
+    .stats-ribbon {
+      max-width: 1100px;
+      margin: -2.2rem auto 2.5rem;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+    .stat-box {
+      background: white;
+      padding: 1.5rem 1.2rem;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--secondary-color);
+      text-align: center;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--hover-shadow);
+      border-top-color: var(--primary-color);
+    }
+    .stat-box-icon {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    .stat-box-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #2b1704;
+      line-height: 1.2;
+    }
+    .stat-box-label {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    /* Main Container */
+    .page-wrapper {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 1rem 5% 5rem;
+    }
+
+    /* Section Component */
+    .content-block {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem 2.8rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border-soft);
+      position: relative;
+    }
+    .block-header {
+      margin-bottom: 1.8rem;
+      border-bottom: 2px solid #f4ece1;
+      padding-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .block-title {
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+    }
+    .block-title i {
+      color: var(--accent-color);
+      font-size: 1.4rem;
+    }
+    .block-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      background: #f4ece1;
+      color: var(--primary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Statutory Callout Card */
+    .statutory-card {
+      background: linear-gradient(135deg, #fff9e6 0%, #fefcf5 100%);
+      border: 2px solid #e0c878;
+      border-left: 8px solid var(--secondary-color);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
+    }
+    .statutory-badge-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .statutory-badge-header .seal-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--secondary-color);
+      color: #2b1704;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    .statutory-badge-header h3 {
+      font-size: 1.3rem;
+      color: #5a300a;
+      font-weight: 700;
+    }
+    .statutory-body p {
+      font-size: 1.02rem;
+      color: #3e3224;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .statutory-body p:last-child { margin-bottom: 0; }
+    .statutory-notice-box {
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-left: 5px solid var(--wellness-green);
+      padding: 1.2rem 1.4rem;
+      border-radius: 10px;
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .statutory-notice-box i {
+      color: var(--wellness-green);
+      font-size: 1.6rem;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .statutory-notice-box strong { color: var(--wellness-green); }
+
+    /* Eligibility & Duration Grids */
+    .info-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.2rem;
+    }
+    .feature-card {
+      background: #fbf9f4;
+      border-radius: 12px;
+      padding: 1.8rem;
+      border: 1px solid var(--border-soft);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .feature-card:hover {
+      background: white;
+      border-color: var(--secondary-color);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    .feature-card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(139, 69, 19, 0.1);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h4 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+    }
+    .feature-list {
+      list-style: none;
+      margin-top: 0.8rem;
+    }
+    .feature-list li {
+      padding: 0.4rem 0 0.4rem 1.6rem;
+      position: relative;
+      font-size: 0.93rem;
+      color: #444;
+    }
+    .feature-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      color: var(--wellness-green);
+      font-size: 0.85rem;
+    }
+
+    /* Program Breakdown Timeline */
+    .duration-timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .timeline-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fbf8f2 100%);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 1.8rem;
+      position: relative;
+      box-shadow: var(--card-shadow);
+    }
+    .timeline-card.academic { border-top: 4px solid var(--primary-color); }
+    .timeline-card.internship { border-top: 4px solid var(--wellness-green); }
+    .timeline-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .timeline-card.academic .timeline-pill { background: #fbeee4; color: var(--primary-color); }
+    .timeline-card.internship .timeline-pill { background: #e8f5e9; color: var(--wellness-green); }
+    .timeline-card h4 {
+      font-size: 1.25rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-card p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* Project & Internship Highlight */
+    .special-detail-box {
+      background: #f7fbf8;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-top: 1.5rem;
+    }
+    .special-detail-box h4 {
+      font-size: 1.15rem;
+      color: var(--wellness-green);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .special-detail-box p {
+      font-size: 0.95rem;
+      color: #334e35;
+      line-height: 1.75;
+    }
+
+    /* Program Outcomes Grid */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.3rem;
+      margin-top: 1.2rem;
+    }
+    .outcome-card {
+      background: #faf7f2;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent-color);
+      border-top: 1px solid var(--border-soft);
+      border-right: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      transition: var(--transition);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .outcome-card:hover {
+      background: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      border-left-color: var(--secondary-color);
+    }
+    .outcome-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+    .outcome-text {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    /* Career Opportunities Grid */
+    .careers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .career-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.3rem 1.2rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      transition: var(--transition);
+    }
+    .career-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border-color: var(--secondary-color);
+      background: #fffdf9;
+    }
+    .career-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(205, 112, 55, 0.12);
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .career-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    /* Objectives & Outcomes Full List */
+    .objectives-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1.2rem;
+    }
+    .obj-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      background: #fdfaf6;
+      border: 1px solid #eee5d8;
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+      transition: var(--transition);
+    }
+    .obj-item:hover {
+      background: white;
+      border-color: var(--secondary-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateX(4px);
+    }
+    .obj-index {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #efe3d0;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .obj-text {
+      font-size: 0.94rem;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    /* PEO & PSO Accordions / Cards */
+    .peo-pso-container {
+      margin-top: 1.5rem;
+    }
+    .peo-card, .pso-card {
+      background: white;
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .peo-card:hover, .pso-card:hover {
+      border-color: var(--secondary-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .peo-header, .pso-header {
+      padding: 1rem 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .peo-badge, .pso-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #f7eee2;
+      color: var(--primary-color);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pso-badge {
+      background: #eaf3eb;
+      color: var(--wellness-green);
+    }
+    .peo-title-text, .pso-title-text {
+      font-size: 0.94rem;
+      color: #333;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .sub-points-list {
+      margin: 0.75rem 0 0 1.5rem;
+      list-style-type: lower-alpha;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* Admissions Call To Action Section */
+    .bnys-apply-banner {
+      background: linear-gradient(135deg, #44220b 0%, #7d3c12 50%, #204823 100%);
+      color: white;
+      border-radius: 18px;
+      padding: 3.5rem 3rem;
+      text-align: center;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .bnys-apply-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .bnys-apply-banner h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .bnys-apply-banner p {
+      font-size: 1.1rem;
+      max-width: 750px;
+      margin: 0 auto 2rem;
+      color: #f7ebda;
+      line-height: 1.6;
+    }
+    .apply-btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer { background: #1a1a2e; color: white; padding: 4rem 5% 2rem; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .footer-col h3 { color: var(--secondary-color); margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.75rem; }
+    .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: var(--secondary-color); }
+    .footer-col p { color: #ccc; line-height: 1.7; margin-bottom: 0.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--secondary-color); }
+    .footer-logo { height: 70px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+    .footer-bottom { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-bottom p { color: #aaa; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
+    .social-links a:hover { background: var(--secondary-color); transform: translateY(-3px); }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .careers-grid { grid-template-columns: repeat(2, 1fr); }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .info-dual-grid, .duration-timeline { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .top-bar { flex-direction: column; }
+      .top-bar-left { justify-content: center; gap: 0.75rem; font-size: 0.75rem; }
+      .top-bar-left a { font-size: 0.75rem; }
+      .top-bar-right { justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+      .top-bar-right a { font-size: 0.72rem; padding: 0.3rem 0.5rem; background: rgba(255,255,255,0.12); border-radius: 4px; white-space: nowrap; }
+      .site-header { padding: 0.6rem 5%; }
+      .header-logo { height: 70px; }
+      .main-nav .nav-container { justify-content: space-between; padding: 0 3%; }
+      .main-nav .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 4.5rem 1.5rem 2rem;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+        transition: right 0.35s ease;
+        z-index: 999;
+        align-items: flex-start;
+        overflow-y: auto;
+      }
+      .main-nav .nav-links.active { right: 0; }
+      .main-nav .nav-links li { width: 100%; flex: none; }
+      .main-nav .nav-links a { font-size: 0.9rem; padding: 0.8rem 0; width: 100%; border-bottom: 1px solid #f0f0f0; justify-content: space-between; }
+      .main-nav .dropdown-menu { position: static; box-shadow: none; border: none; background: rgba(0,0,0,0.03); border-radius: 6px; margin-top: 0.25rem; min-width: auto; }
+      .main-nav .dropdown-menu li a { font-size: 0.85rem; padding: 0.5rem 1rem; }
+      .main-nav .has-dropdown.open > .dropdown-menu { display: block; }
+      .hamburger { display: flex; }
+      .bnys-hero { padding: 3rem 5% 3.5rem; }
+      .bnys-hero-title { font-size: 2rem; }
+      .bnys-hero-subtitle { font-size: 1.05rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stats-ribbon { margin-top: -1.5rem; }
+      .careers-grid { grid-template-columns: 1fr; }
+      .content-block { padding: 1.8rem 1.4rem; }
+      .footer-container { grid-template-columns: 1fr; }
+      .bnys-apply-banner { padding: 2.2rem 1.5rem; }
+      .bnys-apply-banner h2 { font-size: 1.7rem; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="tel:+911334261366"><i class="fas fa-phone"></i> +91-1334-261366</a>
+      <a href="mailto:registrar@devsanskritivishwavidyalaya.com"><i class="fas fa-envelope"></i> registrar@devsanskritivishwavidyalaya.com</a>
+      <a href="https://share.google/cZx3qMUfXMvfY8Rd2" target="_blank" rel="noopener noreferrer" aria-label="Follow DSVV on Facebook"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <div class="top-bar-right">
+      <a href="/portal/?view=admin" class="login-link admin-login"><i class="fas fa-user-shield"></i> Admin Portal</a>
+      <a href="/portal/?view=center" class="login-link center-login"><i class="fas fa-building"></i> Center Portal</a>
+      <a href="../../application-form.html"><i class="fas fa-file-alt"></i> Admission Form</a>
+      <a href="../../programs.html"><i class="fas fa-download"></i> Download</a>
+      <a href="/portal/?view=portal"><i class="fas fa-chart-bar"></i> Result</a>
+    </div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../../index.html"><img src="../../Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="header-logo"></a>
+    </div>
+  </header>
+
+  <!-- Sticky Main Navigation -->
+  <nav class="main-nav">
     <div class="nav-container">
-      <a href="../../index.html" class="logo">
-        <img src="../../Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="logo-img">
-        <span>DSVV</span>
-      </a>
-      <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="../../index.html">Home</a></li>
-        <li><a href="../../index.html#courses" class="active">Programs</a></li>
-        <li><a href="../../index.html#academics">Academics</a></li>
-        <li><a href="../../index.html#naac">NAAC</a></li>
-        <li><a href="../../index.html#ugc">UGC</a></li>
-        <li><a href="../../index.html#contact">Contact</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">About DSVV <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../../about.html">About Our University</a></li>
+            <li><a href="../../ugc.html">UGC 2F</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../../naac.html">NAAC Approved</a></li>
+            <li><a href="../../ugc.html">UGC Recognition</a></li>
+            <li><a href="../../ncte.html">NCTE Recognition</a></li>
+            <li><a href="../../nirf.html">NIRF Status</a></li>
+            <li><a href="../../aiu.html">AIU Membership</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Academics <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../../academics.html">Academic Structure</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle active">Programs <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../../programs.html">All Courses</a></li>
+            <li><a href="../../bnys.html" class="active">BNYS Program</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Gallery <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../../gallery.html">Photo Gallery</a></li>
+          </ul>
+        </li>
+        <li><a href="../../index.html#contact">Contact Us</a></li>
       </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="program-hero">
-    <div class="hero-badge"><i class="fas fa-spa"></i> Undergraduate Program</div>
-    <h1>Bachelor of Naturopathy & Yogic Sciences (B.N.Y.S.)</h1>
-    <p>A comprehensive 5.5-year integrated program combining naturopathy, yoga therapy, and holistic healing sciences with clinical training and 1-year mandatory internship.</p>
+  <section class="bnys-hero">
+    <div class="bnys-hero-inner">
+      <div class="bnys-breadcrumbs">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <span>/</span>
+        <a href="../../programs.html">Programs</a>
+        <span>/</span>
+        <span>BNYS</span>
+      </div>
+
+      <div class="badge-bar">
+        <span class="bnys-badge badge-gold"><i class="fas fa-stamp"></i> UGC Approved Program</span>
+        <span class="bnys-badge badge-green"><i class="fas fa-leaf"></i> Ministry of AYUSH Compliant</span>
+        <span class="bnys-badge badge-amber"><i class="fas fa-shield-halved"></i> NEET Not Required</span>
+        <span class="bnys-badge"><i class="fas fa-user-doctor"></i> Medical Undergraduate Degree</span>
+      </div>
+
+      <h1 class="bnys-hero-title">
+        Bachelor of Naturopathy & <span>Yogic Sciences (BNYS)</span>
+      </h1>
+      <p class="bnys-hero-subtitle">
+        A 5.5-year comprehensive professional medical degree program integrating natural therapeutics, drugless healing modalities, yoga therapy, and modern diagnostic sciences.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="../../application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-paper-plane"></i> Apply for Admission</a>
+        <a href="#objectives" class="btn-hero btn-hero-outline"><i class="fas fa-list-check"></i> Explore Curriculum & Objectives</a>
+      </div>
+    </div>
   </section>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fas fa-clock"></i></div>
-      <span class="stat-value">5.5 Years</span>
-      <span class="stat-label">11 Semesters + Internship</span>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
-      <span class="stat-value">10+2 Science</span>
-      <span class="stat-label">PCB Required</span>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
-      <span class="stat-value">&#8377;25,000</span>
-      <span class="stat-label">Per Semester Fee</span>
+  <!-- Quick Sub-Navigation Strip -->
+  <div class="quick-nav-bar">
+    <div class="quick-nav-container">
+      <a href="#statutory" class="quick-nav-pill"><i class="fas fa-award"></i> UGC & AYUSH Approvals</a>
+      <a href="#eligibility" class="quick-nav-pill"><i class="fas fa-graduation-cap"></i> Eligibility & Duration</a>
+      <a href="#internship" class="quick-nav-pill"><i class="fas fa-hospital-user"></i> Internship & Dissertation</a>
+      <a href="#outcomes" class="quick-nav-pill"><i class="fas fa-stethoscope"></i> Program Outcomes</a>
+      <a href="#careers" class="quick-nav-pill"><i class="fas fa-briefcase"></i> Career Opportunities</a>
+      <a href="#objectives" class="quick-nav-pill"><i class="fas fa-bullseye"></i> Programme Objectives</a>
+      <a href="#peos" class="quick-nav-pill"><i class="fas fa-star"></i> PEOs (17)</a>
+      <a href="#psos" class="quick-nav-pill"><i class="fas fa-check-double"></i> PSOs (18)</a>
     </div>
   </div>
 
-  <!-- Content -->
-  <div class="program-content">
-
-    <!-- Overview -->
-    <div class="content-card">
-      <h2><i class="fas fa-circle-info" style="color:var(--accent-color)"></i> Program Overview</h2>
-      <p>The Bachelor of Naturopathy & Yogic Sciences (B.N.Y.S.) at Dev Sanskriti Vishwavidyalaya is a professional degree program recognized by the Central Council of Indian Medicine (CCIM). This 5.5-year integrated program trains students in the principles and practice of naturopathy, yoga therapy, and traditional Indian healing sciences.</p>
-      <p>The curriculum combines modern medical sciences with traditional naturopathic and yogic practices, preparing graduates to become licensed naturopathy doctors capable of providing holistic healthcare using natural therapies, yoga, and drugless treatment modalities.</p>
-
-      <h3>Core Study Areas</h3>
-      <div class="specs-grid">
-        <div class="spec-item"><i class="fas fa-spa"></i> Naturopathy</div>
-        <div class="spec-item"><i class="fas fa-om"></i> Yoga Therapy</div>
-        <div class="spec-item"><i class="fas fa-heart-pulse"></i> Human Anatomy</div>
-        <div class="spec-item"><i class="fas fa-brain"></i> Human Physiology</div>
-        <div class="spec-item"><i class="fas fa-leaf"></i> Herbal Medicine</div>
-        <div class="spec-item"><i class="fas fa-hand-holding-heart"></i> Diet Therapy</div>
-        <div class="spec-item"><i class="fas fa-hands"></i> Manipulative Therapy</div>
-        <div class="spec-item"><i class="fas fa-bolt"></i> Hydrotherapy</div>
-        <div class="spec-item"><i class="fas fa-sun"></i> Chromotherapy</div>
+  <!-- Key Statistics Ribbon -->
+  <div class="stats-ribbon">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-box-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-box-value">5.5 Years</div>
+        <div class="stat-box-label">4.5 Yrs Academic + 1 Yr Internship</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><i class="fas fa-dna"></i></div>
+        <div class="stat-box-value">10+2 PCB / PCM</div>
+        <div class="stat-box-label">Science Stream Recognized Board</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><i class="fas fa-ban"></i></div>
+        <div class="stat-box-value">No NEET Req.</div>
+        <div class="stat-box-label">AYUSH Order Exempted</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-icon"><i class="fas fa-building-columns"></i></div>
+        <div class="stat-box-value">UGC Approved</div>
+        <div class="stat-box-label">Gazette Notification 2014</div>
       </div>
     </div>
-
-    <!-- Syllabus -->
-    <div class="content-card">
-      <h2><i class="fas fa-book-open" style="color:var(--accent-color)"></i> Semester-wise Curriculum</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <h4>Semester 1 & 2: Foundation Sciences</h4>
-          <p>Human Anatomy, Human Physiology, Basics of Biochemistry, fundamentals of Yoga, Sanskrit language, Community Medicine, and Environmental Studies. Introduction to naturopathy principles.</p>
-        </div>
-        <div class="timeline-item">
-          <h4>Semester 3 & 4: Core Naturopathy</h4>
-          <p>Pathology, Microbiology, Pharmacology, Yoga Philosophy & Practice, Naturopathic Diagnostics, Hydrotherapy, Manipulative Therapy, and Dietary Therapy principles.</p>
-        </div>
-        <div class="timeline-item">
-          <h4>Semester 5 & 6: Advanced Therapeutics</h4>
-          <p>Advanced Yoga Therapy, Herbal Medicine, Chromotherapy, Acupuncture, Clinical Naturopathy, Fasting Therapy, Mud Therapy, and Physiotherapy fundamentals.</p>
-        </div>
-        <div class="timeline-item">
-          <h4>Semester 7 & 8: Clinical Practice</h4>
-          <p>Clinical diagnosis & management, General Medicine, Surgery, Obstetrics & Gyneciatrics, Pediatrics, Dermatology, and Naturopathic case-taking methodology.</p>
-        </div>
-        <div class="timeline-item">
-          <h4>Semester 9 & 10: Specialization & Research</h4>
-          <p>Advanced clinical practice, Research methodology, Medical ethics, Yoga for specific diseases, Naturopathy in chronic diseases, and supervised clinical rotations.</p>
-        </div>
-        <div class="timeline-item">
-          <h4>Internship (1 Year): Supervised Clinical Training</h4>
-          <p>Mandatory 1-year rotating internship in naturopathy hospitals and yoga therapy centers with supervised patient care and clinical practice.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Fee Structure -->
-    <div class="content-card">
-      <h2><i class="fas fa-indian-rupee-sign" style="color:var(--accent-color)"></i> Fee Structure</h2>
-      <table class="fee-table">
-        <thead><tr><th>Period</th><th>Fee</th></tr></thead>
-        <tbody>
-          <tr><td>Semester 1</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 2</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 3</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 4</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 5</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 6</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 7</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 8</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 9</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Semester 10</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td>Internship (1 Year)</td><td class="fee-amt">&#8377;25,000</td></tr>
-          <tr><td><strong>Total</strong></td><td class="fee-amt"><strong>&#8377;5,50,000</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Career -->
-    <div class="content-card">
-      <h2><i class="fas fa-rocket" style="color:var(--accent-color)"></i> Career Pathways</h2>
-      <p>B.N.Y.S. graduates from DSVV are prepared for diverse career opportunities in holistic healthcare:</p>
-      <div class="career-grid">
-        <div class="career-item"><i class="fas fa-user-doctor"></i> Naturopathy Doctor</div>
-        <div class="career-item"><i class="fas fa-spa"></i> Yoga Therapist</div>
-        <div class="career-item"><i class="fas fa-hospital"></i> Naturopathy Hospital</div>
-        <div class="career-item"><i class="fas fa-leaf"></i> Herbal Medicine Practitioner</div>
-        <div class="career-item"><i class="fas fa-hand-holding-heart"></i> Wellness Consultant</div>
-        <div class="career-item"><i class="fas fa-graduation-cap"></i> Higher Studies (M.D. Naturopathy)</div>
-        <div class="career-item"><i class="fas fa-building"></i> Health Resorts & Spas</div>
-        <div class="career-item"><i class="fas fa-globe"></i> Research & Academics</div>
-      </div>
-      <div class="program-cta">
-        <a href="../../index.html#courses" class="btn"><i class="fas fa-arrow-left"></i> Back to Programs</a>
-        <a href="../../application-form.html" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Apply Now</a>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Footer -->
-  <footer>
+  <!-- Page Main Content -->
+  <main class="page-wrapper">
+
+    <!-- Statutory Approvals and Legal Recognitions -->
+    <section id="statutory" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-scale-balanced"></i> Statutory Recognition & Regulatory Approval</h2>
+        <span class="block-tag">Government of India Norms</span>
+      </div>
+
+      <div class="statutory-card">
+        <div class="statutory-badge-header">
+          <div class="seal-icon"><i class="fas fa-stamp"></i></div>
+          <div>
+            <h3>UGC Gazette Notification Approval</h3>
+            <span style="font-size:0.85rem; color:#88622c; font-weight:600;">Gazette Notification No. F.5-1/2013 (CPP-II) • July 5, 2014</span>
+          </div>
+        </div>
+        <div class="statutory-body">
+          <p>
+            The <strong>Bachelor of Naturopathy and Yogic Sciences (BNYS)</strong> program is duly approved by the <strong>University Grants Commission (UGC)</strong> as per <strong>Gazette Notification No. F.5-1/2013 (CPP-II)</strong>, published on <strong>July 5, 2014</strong>. The University is empowered to confer a BNYS degree in accordance with its statutory powers and the norms prescribed by the UGC.
+          </p>
+        </div>
+
+        <div class="statutory-notice-box">
+          <i class="fas fa-certificate"></i>
+          <div>
+            <h4 style="font-size: 1.05rem; color: var(--wellness-green); margin-bottom: 0.3rem;">
+              Ministry of AYUSH Exemption: NEET Is Not Required
+            </h4>
+            <p style="font-size: 0.95rem; color: #234225; margin: 0; line-height: 1.65;">
+              As per the <strong>Ministry of AYUSH Order No. R 14011/06/2018 EP II</strong>, dated <strong>25 February 2019</strong>, the <strong>National Eligibility cum Entrance Test (NEET) is not required</strong> for admission into the Bachelor of Naturopathy & Yogic Sciences (BNYS) program. Admissions are granted directly based on academic eligibility and merit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Eligibility Criteria & Duration -->
+    <section id="eligibility" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-graduation-cap"></i> Eligibility Criteria & Academic Duration</h2>
+        <span class="block-tag">Admission Guidelines</span>
+      </div>
+
+      <div class="info-dual-grid">
+        <!-- Eligibility Card -->
+        <div class="feature-card">
+          <div class="feature-card-icon"><i class="fas fa-user-check"></i></div>
+          <h4>Eligibility Criteria for BNYS</h4>
+          <p>
+            Students who have completed <strong>10+2</strong> in <strong>Physics, Chemistry, and Biology (PCB)</strong> or <strong>Physics, Chemistry, and Mathematics (PCM)</strong> from any recognized board/institute are eligible for Bachelor of Naturopathy and Yogic Sciences admission.
+          </p>
+          <ul class="feature-list">
+            <li>10+2 with PCB (Physics, Chemistry, Biology) <strong>OR</strong></li>
+            <li>10+2 with PCM (Physics, Chemistry, Mathematics)</li>
+            <li>Recognized Central / State Education Board or Equivalent</li>
+            <li>Merit-based direct admission (NEET exemption active)</li>
+          </ul>
+        </div>
+
+        <!-- Duration Card -->
+        <div class="feature-card">
+          <div class="feature-card-icon"><i class="fas fa-hourglass-half"></i></div>
+          <h4>Program Duration</h4>
+          <p>
+            The program shall be spread over <strong>five and half academic years (5.5 Years)</strong>, spread over <strong>four and half years (4.5 Years)</strong> comprising actual teaching for a minimum of <strong>180 days</strong> in each year, and <strong>Internship Training for one Year (1.0 Year)</strong> in the fifth year.
+          </p>
+          <ul class="feature-list">
+            <li><strong>Total Duration:</strong> 5.5 Academic Years</li>
+            <li><strong>Academic Instruction:</strong> 4.5 Years (9 Semesters / Annual Terms)</li>
+            <li><strong>Minimum Instruction Days:</strong> 180 Teaching Days per Academic Year</li>
+            <li><strong>Compulsory Rotatory Internship:</strong> 1 Full Year (12 Months)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Duration Visual Breakdown -->
+      <div class="duration-timeline">
+        <div class="timeline-card academic">
+          <span class="timeline-pill"><i class="fas fa-book"></i> Phase 1: 4.5 Academic Years</span>
+          <h4>Academic & Clinical Foundations</h4>
+          <p>
+            Comprising actual teaching for a minimum of 180 days in each year. Intensive classroom education, biochemical & physiological laboratory training, diagnostic methodologies, yogic therapies, pathology, naturopathic modalities, and supervised hospital clinical observations.
+          </p>
+        </div>
+
+        <div class="timeline-card internship">
+          <span class="timeline-pill"><i class="fas fa-user-doctor"></i> Phase 2: 1.0 Year (12 Months)</span>
+          <h4>Compulsory Rotatory Internship</h4>
+          <p>
+            Full-time clinical internship wherein candidates conduct actual clinical practice of Naturopathic Modalities, diagnostic management, and holistic patient care under the direct mentorship of experienced doctors and faculty members.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dissertation / Project Work & Internship Details -->
+    <section id="internship" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-notes-medical"></i> Internship & Dissertation / Project Work</h2>
+        <span class="block-tag">Practical Training</span>
+      </div>
+
+      <!-- Dissertation / Project Work -->
+      <div class="special-detail-box" style="background:#fffcf5; border-color:#eadbbd; margin-top:0;">
+        <h4 style="color:var(--primary-color);">
+          <i class="fas fa-file-lines" style="color:var(--accent-color);"></i> Dissertation / Project Work
+        </h4>
+        <p style="color:#4a3b2b;">
+          An elective course designed to acquire special/advanced knowledge, such as supplement study/support study to a project work, and candidate studies such a course on his/her own with an advisory support by a teacher/faculty member is called <strong>dissertation/project work</strong>. A Project/Dissertation work may be given in lieu of a discipline specific elective paper.
+        </p>
+      </div>
+
+      <!-- Internship Details -->
+      <div class="special-detail-box" style="margin-top:1.5rem;">
+        <h4>
+          <i class="fas fa-hospital-user"></i> Compulsory Rotatory Clinical Internship (12 Months)
+        </h4>
+        <p>
+          <strong>Internship duration: 12 months.</strong><br>
+          Internship is a phase of training wherein a graduate student is expected to conduct actual practice of Naturopathic Modalities and acquire skills under the supervision of a competent faculty member so that he/she may become capable of working independently. A project work is to be carried out by the student individually during this training phase.
+        </p>
+      </div>
+    </section>
+
+    <!-- Program Outcomes (POs) -->
+    <section id="outcomes" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-stethoscope"></i> Program Outcomes (POs)</h2>
+        <span class="block-tag">Graduate Competencies</span>
+      </div>
+
+      <p style="font-size:1.02rem; color:#555; margin-bottom:1rem;">
+        After completion of the BNYS program, the graduate student must:
+      </p>
+
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <div class="outcome-num">PO 1</div>
+          <div class="outcome-text">
+            <strong>Clinical Diagnostics & Health Management:</strong> Be able to expertly diagnose and manage common diseases and health problems of individuals as well as the community, work with the health team as a fully qualified doctor at primary, secondary and tertiary levels, with his/her clinical experience and skills.
+          </div>
+        </div>
+
+        <div class="outcome-card">
+          <div class="outcome-num">PO 2</div>
+          <div class="outcome-text">
+            <strong>Humane & Holistic Patient Orientation:</strong> Develop a humane attitude towards one’s clients and understand their economic, environmental, social, psychological and cultural factors that influence health.
+          </div>
+        </div>
+
+        <div class="outcome-card">
+          <div class="outcome-num">PO 3</div>
+          <div class="outcome-text">
+            <strong>Therapeutic & Preventative Medicine:</strong> Be proficient in promotive, preventive, curative and rehabilitative medicine and therapy for common health issues.
+          </div>
+        </div>
+
+        <div class="outcome-card">
+          <div class="outcome-num">PO 4</div>
+          <div class="outcome-text">
+            <strong>Healthcare Administration & Leadership:</strong> Possess management skills in human resources, materials and resources management in health care delivery.
+          </div>
+        </div>
+
+        <div class="outcome-card">
+          <div class="outcome-num">PO 5</div>
+          <div class="outcome-text">
+            <strong>Professional Ethics & Compassion:</strong> Develop integrity, responsibility, reliability, dependability and compassion, which are characteristics required for successful professional life.
+          </div>
+        </div>
+
+        <div class="outcome-card">
+          <div class="outcome-num">PO 6</div>
+          <div class="outcome-text">
+            <strong>Mastery of Therapeutic Modalities:</strong> Be adept in different therapeutic modalities and their administration in clinical and hospital environments.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Opportunities -->
+    <section id="careers" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-briefcase"></i> Career Opportunities & Professional Roles</h2>
+        <span class="block-tag">Professional Pathways</span>
+      </div>
+
+      <p style="font-size:1.02rem; color:#555; margin-bottom:1rem;">
+        BNYS graduates possess extensive career prospects across healthcare, wellness resorts, research establishments, corporate sectors, and independent medical practices:
+      </p>
+
+      <div class="careers-grid">
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-user-doctor"></i></div>
+          <div class="career-name">Naturopathic Practitioners in Private Clinics</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-spa"></i></div>
+          <div class="career-name">Consultants in Holistic Health Resorts or Spas</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-flask-vial"></i></div>
+          <div class="career-name">Researchers in the Field of Yoga, Naturopathy and Wellness</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-chalkboard-user"></i></div>
+          <div class="career-name">Educators and Trainers in Yoga and Holistic Health Practices</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-building"></i></div>
+          <div class="career-name">Health Advisors in Corporate Wellness Programs</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-person-running"></i></div>
+          <div class="career-name">Yoga Aerobics Instructor</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-om"></i></div>
+          <div class="career-name">Yoga Instructor</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-person-chalkboard"></i></div>
+          <div class="career-name">Yoga Teacher</div>
+        </div>
+
+        <div class="career-card">
+          <div class="career-icon-wrap"><i class="fas fa-heart-pulse"></i></div>
+          <div class="career-name">Yoga Therapist</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programme Objectives (18 Points) -->
+    <section id="objectives" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-bullseye"></i> Programme Objectives</h2>
+        <span class="block-tag">18 Core Objectives</span>
+      </div>
+
+      <div class="objectives-list">
+        <div class="obj-item">
+          <div class="obj-index">1</div>
+          <div class="obj-text">Recognize the health needs of the community, and carry out professional obligations ethically and in keeping with the objectives of the national health policy;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">2</div>
+          <div class="obj-text">Develop the skills in most of the competencies, and training that are required to deliver the Naturopathy and Yoga health care system;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">3</div>
+          <div class="obj-text">Become aware of the contemporary advances and developments in the discipline concerned;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">4</div>
+          <div class="obj-text">Acquire a spirit of scientific inquiry and is oriented to the principles of research methodology and epidemiology;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">5</div>
+          <div class="obj-text">Become proficient in their profession by developing scientific temper and improve educational experience;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">6</div>
+          <div class="obj-text">Identify social, economic, environmental, biological and emotional determinants of health in a given case and take them into account while planning therapeutic, rehabilitative, preventive and promotion measures/strategies;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">7</div>
+          <div class="obj-text">Plan and devise measures in Naturopathy and yoga for the prevention and rehabilitation of patients suffering from disease and disability;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">8</div>
+          <div class="obj-text">Demonstrate skills in documentation of individual case details as well as morbidity data relevant to the assigned situation;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">9</div>
+          <div class="obj-text">Demonstrate empathy and humane approach towards patients and their families and exhibit interpersonal behavior in accordance with the societal norms and expectations;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">10</div>
+          <div class="obj-text">Play the assigned role in the implementation of national health programs, effectively and responsibly;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">11</div>
+          <div class="obj-text">Organize and supervise the chosen/assigned health care services demonstrating adequate managerial skills in the clinic/hospital or the field Situation;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">12</div>
+          <div class="obj-text">Develop skills as a self-directed learner; recognize continuing educational needs, select and use appropriate learning resources;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">13</div>
+          <div class="obj-text">Demonstrate competence in basic concepts of research methodology and epidemiology, and be able to critically analyze relevant published research literature;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">14</div>
+          <div class="obj-text">To implement all National health policies;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">15</div>
+          <div class="obj-text">Work towards realization of ‘Health for all’, as a national goal through naturopathy and yoga;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">16</div>
+          <div class="obj-text">To follow the medical ethics and to fulfill the social and professional responsibilities as a Naturopathy and Yoga Physician through drugless therapies;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">17</div>
+          <div class="obj-text">Be competent in the practice of holistic medicine with expert knowledge and experience in Health promotion, preventive, curative and rehabilitative aspects of diseases;</div>
+        </div>
+
+        <div class="obj-item">
+          <div class="obj-index">18</div>
+          <div class="obj-text">Become proficient in their profession by developing scientific temper and improve educational experience.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Program Educational Objectives (PEOs) -->
+    <section id="peos" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-graduation-cap"></i> Program Educational Objectives (PEOs)</h2>
+        <span class="block-tag">PEO 1 - PEO 17</span>
+      </div>
+
+      <div class="peo-pso-container">
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 1</span>
+            <div class="peo-title-text">Recognize the health needs of the community, and carry out professional obligations ethically and in keeping with the objectives of the National Health Policy;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 2</span>
+            <div class="peo-title-text">Develop the skills in most of the competencies and training that are required to deliver the Naturopathy and Yoga health care system;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 3</span>
+            <div class="peo-title-text">Become aware of the contemporary advances and developments in the discipline concerned;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 4</span>
+            <div class="peo-title-text">Acquire a spirit of scientific inquiry and is oriented to the principles of research methodology and epidemiology;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 5</span>
+            <div class="peo-title-text">Become proficient in their profession by developing scientific temper and improve educational experience;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 6</span>
+            <div class="peo-title-text">Identify social, economic, environmental, biological and emotional determinants of health in a given case and take them into account while planning therapeutic, rehabilitative, preventive and promotive measures/strategies;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 7</span>
+            <div class="peo-title-text">Plan and devise measures in Naturopathy and yoga for the prevention and rehabilitation of patients suffering from disease and disability;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 8</span>
+            <div class="peo-title-text">Demonstrate skills in documentation of individual case details as well as morbidity data relevant to the assigned situation;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 9</span>
+            <div class="peo-title-text">Play the assigned role in the implementation of national health programs, effectively and responsibly;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 10</span>
+            <div class="peo-title-text">Organize and supervise the chosen/assigned health care services demonstrating adequate managerial skills in the clinic/hospital or the field Situation;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 11</span>
+            <div class="peo-title-text">Develop skills as a self-directed learner; recognize continuing educational needs, select and use appropriate learning resources;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 12</span>
+            <div class="peo-title-text">Demonstrate competence in basic concepts of research methodology and epidemiology, and be able to critically analyze relevant published research literature;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 13</span>
+            <div class="peo-title-text">To implement all National health policies;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 14</span>
+            <div class="peo-title-text">Work towards realization of Health for all, as a national goal through naturopathy and yoga;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 15</span>
+            <div class="peo-title-text">To follow the medical ethics and to fulfill the social and professional responsibilities as a Naturopathy and Yoga Physician through drugless therapies;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 16</span>
+            <div class="peo-title-text">Be competent in the practice of holistic medicine with expert knowledge and experience in promotive, preventive, curative and rehabilitative aspects of diseases;</div>
+          </div>
+        </div>
+
+        <div class="peo-card">
+          <div class="peo-header">
+            <span class="peo-badge">PEO 17</span>
+            <div class="peo-title-text">Become proficient in their profession by developing scientific temper and improve educational experience.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Program Specific Outcomes (PSOs) -->
+    <section id="psos" class="content-block">
+      <div class="block-header">
+        <h2 class="block-title"><i class="fas fa-check-double"></i> Program Specific Outcomes (PSOs)</h2>
+        <span class="block-tag">PSO 1 - PSO 18</span>
+      </div>
+
+      <p style="font-size:1.02rem; color:#555; margin-bottom:1.2rem;">
+        After the medical undergraduate program, the students must:
+      </p>
+
+      <div class="peo-pso-container">
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 1</span>
+            <div class="pso-title-text">Be able to expertly diagnose and manage common diseases and health problems of individuals as well as community, work with the health team as a fully qualified doctor at primary, secondary or tertiary levels, with his/her clinical experience and skills in history, physical examination and relevant investigations;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 2</span>
+            <div class="pso-title-text">Be proficient in promotive, preventive, curative and rehabilitative medicine and therapy for common health issues;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 3</span>
+            <div class="pso-title-text">Be adept in different therapeutic modalities and their administration;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 4</span>
+            <div class="pso-title-text">Develop a humane attitude towards one's clients and understand economic, environmental, social, psychological and cultural factors that influence health;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 5</span>
+            <div class="pso-title-text">Enjoy an urge for self-improvement, directed towards advanced expertise or research in any chosen area of health care;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 6</span>
+            <div class="pso-title-text">
+              Have enough knowledge about implementation of National Health Programs and the basic factors required for the same, which are as follows:
+              <ol class="sub-points-list">
+                <li>Family Welfare and Maternal and Child Health (MCH);</li>
+                <li>Sanitation and Water Supply;</li>
+                <li>Prevention and Control of communicable and non-communicable diseases;</li>
+                <li>Immunization;</li>
+                <li>Health education;</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 7</span>
+            <div class="pso-title-text">Possess management skills in human resources, materials and resource management in health care delivery;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 8</span>
+            <div class="pso-title-text">Be competent in recognizing community health issues and design, institute curative and preventive measures and evaluate the outcome of these measures, thus working towards resolving these issues;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 9</span>
+            <div class="pso-title-text">Be able to work successfully in a variety of health care settings;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 10</span>
+            <div class="pso-title-text">Develop integrity, responsibility, reliability, dependability and compassion, which are characteristics required for successful professional life;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 11</span>
+            <div class="pso-title-text">Develop leadership and communication skills to work as leading investigator or clinician in health care team.</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 12</span>
+            <div class="pso-title-text">Be able to effectively integrate the conventional basic sciences (e.g., human physiology) with the traditional medical systems and to enhance the understanding of their effects and therapeutic potential;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 13</span>
+            <div class="pso-title-text">Be able to provide state of the art learning facilities (e.g., audio visual aids, interactive learning systems) to conceptualize the ancient medical system;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 14</span>
+            <div class="pso-title-text">Be able to run advanced laboratories under each department (basic and clinical sciences) for effective experimental training and research;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 15</span>
+            <div class="pso-title-text">Be able explore the possibilities of promoting effective integrated medical practice at conventional medical facilities attached to the institute;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 16</span>
+            <div class="pso-title-text">Be able provide the best possible clinical setting for clinical training and research;</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 17</span>
+            <div class="pso-title-text">Be able prepare every Yoga and Naturopathic physician with an in depth understanding of</div>
+          </div>
+        </div>
+
+        <div class="pso-card">
+          <div class="pso-header">
+            <span class="pso-badge">PSO 18</span>
+            <div class="pso-title-text">Basic sciences, superior clinical training and with an outlook for research and development;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admission CTA Banner -->
+    <div class="bnys-apply-banner">
+      <h2>Begin Your Journey in Drugless Medical Sciences</h2>
+      <p>
+        Admissions are now open for the Bachelor of Naturopathy and Yogic Sciences (BNYS) program. Enroll today to build an impactful career in holistic healthcare.
+      </p>
+      <div class="apply-btn-group">
+        <a href="../../application-form.html" class="btn-hero btn-hero-primary"><i class="fas fa-file-signature"></i> Fill Admission Form Online</a>
+        <a href="tel:+911334261366" class="btn-hero btn-hero-outline"><i class="fas fa-phone"></i> Call Admission Helpdesk</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer role="contentinfo">
     <div class="footer-container">
       <div class="footer-col">
-        <h3>Dev Sanskriti Vishwavidyalaya</h3>
-        <p>A premier university in Raipur, Chhattisgarh, India dedicated to the integration of scientific education with cultural and spiritual values.</p>
+        <img src="../../Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="footer-logo">
+        <p>Dev Sanskriti Vishwavidyalaya - A premier university dedicated to the integration of scientific education with cultural and spiritual values.</p>
       </div>
       <div class="footer-col">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="../../index.html#courses"><i class="fas fa-angle-right"></i> All Programs</a></li>
-          <li><a href="../../index.html#naac"><i class="fas fa-angle-right"></i> NAAC Accreditation</a></li>
-          <li><a href="../../index.html#ugc"><i class="fas fa-angle-right"></i> UGC Recognition</a></li>
-          <li><a href="../../index.html#contact"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../programs.html">Academic Programs</a></li>
+          <li><a href="../../bnys.html">BNYS Program</a></li>
+          <li><a href="../../academics.html">Academics</a></li>
+          <li><a href="../../why-choose.html">Why Choose DSVV</a></li>
+          <li><a href="../../gallery.html">Campus Gallery</a></li>
+          <li><a href="../../about.html">About DSVV</a></li>
+          <li><a href="../../naac.html">NAAC Approved</a></li>
+          <li><a href="../../ncte.html">NCTE Recognition</a></li>
+          <li><a href="../../ugc.html">UGC Commission</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Contact</h3>
-        <p><i class="fas fa-map-marker-alt"></i> Raipur, Chhattisgarh - 492018, India</p>
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India</p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:registrar@devsanskritivishwavidyalaya.com">registrar@devsanskritivishwavidyalaya.com</a></p>
         <p><i class="fas fa-phone"></i> +91-1334-261366</p>
-        <p><i class="fas fa-envelope"></i> registrar@devsanskritivishwavidyalaya.com</p>
+      </div>
+      <div class="footer-col">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="https://share.google/cZx3qMUfXMvfY8Rd2" aria-label="Follow DSVV on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/dsvvofficial" target="_blank" aria-label="Follow DSVV on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/dsvvofficial/" target="_blank" aria-label="Follow DSVV on Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/channel/UC5OXRsDLXxKgIk9x11AwgqQ" target="_blank" aria-label="Follow DSVV on YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV). All Rights Reserved.</p>
+      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV), Chhattisgarh, India. All Rights Reserved.</p>
+      <p>A Premier University for Holistic Education | UGC Recognized | NAAC Accredited</p>
     </div>
   </footer>
 
+  <script>
+    // Mobile navigation toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    }
+
+    // Dropdown toggle on mobile
+    document.querySelectorAll('.main-nav .has-dropdown > a').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          toggle.parentElement.classList.toggle('open');
+        }
+      });
+    });
+
+    // Quick navigation highlight on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('main section[id]');
+      const scrollPos = window.scrollY + 120;
+      sections.forEach(sec => {
+        const top = sec.offsetTop;
+        const height = sec.offsetHeight;
+        const id = sec.getAttribute('id');
+        const pill = document.querySelector(`.quick-nav-pill[href="#${id}"]`);
+        if (pill) {
+          if (scrollPos >= top && scrollPos < top + height) {
+            document.querySelectorAll('.quick-nav-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>
