@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UGC Recognition - Dev Sanskriti Vishwavidyalaya</title>
-  <meta name="description" content="UGC recognition and compliance details for Dev Sanskriti Vishwavidyalaya.">
+  <title>AICTE Status & Regulatory Norms - Dev Sanskriti Vishwavidyalaya</title>
+  <meta name="description" content="AICTE status, regulatory norms, Supreme Court judgment, and technical education compliance framework for Dev Sanskriti Vishwavidyalaya.">
   <link rel="icon" type="image/png" href="Dev_Sanskriti_Vishwavidyalaya Logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    :root { --primary-color: #8B4513; --secondary-color: #D4AF37; --accent-color: #CD7037; --shadow: 0 8px 20px rgba(0, 0, 0, 0.15); --transition: all 0.3s ease; --topbar-bg: #1a1145; --nav-border: #2d1b69; }
+    :root { 
+      --primary-color: #8B4513; 
+      --secondary-color: #D4AF37; 
+      --accent-color: #CD7037; 
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+      --transition: all 0.3s ease; 
+      --topbar-bg: #1a1145; 
+      --nav-border: #2d1b69; 
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f8f8; color: #333; overflow-x: hidden; }
     .top-bar { background: var(--topbar-bg); color: white; padding: 0.6rem 5%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
@@ -25,7 +33,7 @@
     .main-nav .nav-links li { position: relative; flex: 1; }
     .main-nav .nav-links a { text-decoration: none; color: #333; font-weight: 600; font-size: 0.82rem; padding: 0.9rem 0.4rem; display: flex; align-items: center; justify-content: center; gap: 0.2rem; transition: all 0.3s; border-bottom: 3px solid transparent; text-transform: uppercase; white-space: nowrap; text-align: center; }
     .main-nav .nav-links a:hover, .main-nav .nav-links a.active { color: var(--primary-color); border-bottom-color: var(--secondary-color); }
-    .main-nav .dropdown-menu { position: absolute; top: 100%; left: 0; background: white; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-radius: 0 0 8px 8px; display: none; z-index: 1001; border-top: 3px solid var(--secondary-color); }
+    .main-nav .dropdown-menu { position: absolute; top: 100%; left: 0; background: white; min-width: 230px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-radius: 0 0 8px 8px; display: none; z-index: 1001; border-top: 3px solid var(--secondary-color); }
     .main-nav .has-dropdown:hover .dropdown-menu { display: block; }
     .main-nav .dropdown-menu li a { padding: 0.75rem 1.25rem; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; border-left: 3px solid transparent; }
     .main-nav .dropdown-menu li a:hover { background: #f8f8f8; border-left-color: var(--secondary-color); }
@@ -36,9 +44,9 @@
     .section-title h2 { font-size: 2.5rem; color: var(--primary-color); position: relative; display: inline-block; }
     .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--secondary-color); }
     .section-subtitle { color: #666; font-size: 1.1rem; margin-top: 1rem; font-style: italic; }
-    .article-container { max-width: 900px; margin: 0 auto; background: white; padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); border-top: 5px solid var(--secondary-color); border-bottom: 5px solid var(--primary-color); text-align: left; }
+    .article-container { max-width: 950px; margin: 0 auto; background: white; padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); border-top: 5px solid var(--secondary-color); border-bottom: 5px solid var(--primary-color); text-align: left; }
     .article-section { margin-bottom: 2.5rem; }
-    .article-section h3 { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; border-left: 4px solid var(--accent-color); padding-left: 12px; text-transform: uppercase; }
+    .article-section h3 { font-size: 1.35rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; border-left: 4px solid var(--accent-color); padding-left: 12px; text-transform: uppercase; }
     .article-section p { font-size: 1.02rem; line-height: 1.8; color: #444; margin-bottom: 1rem; }
     .article-list { list-style-type: none; padding-left: 0; margin: 1rem 0; }
     .article-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 1rem; line-height: 1.6; color: #444; }
@@ -49,6 +57,85 @@
     .article-table th { background: var(--primary-color); color: white; padding: 0.9rem 1.2rem; font-weight: 600; }
     .article-table td { padding: 0.9rem 1.2rem; border-bottom: 1px solid #eee; line-height: 1.6; color: #444; }
     .article-table tr:nth-child(even) td { background: #fafafa; }
+
+    /* Custom Highlight & Notice Cards */
+    .official-notice-box {
+      background: #fdfbf7;
+      border: 1px solid #e8dcbf;
+      border-left: 5px solid var(--secondary-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .official-notice-box h4 {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .official-notice-box p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #3d3d3d;
+      margin-bottom: 0.5rem;
+    }
+    .badge-pill {
+      display: inline-block;
+      background: #eef5ea;
+      color: #27672a;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid #c7e3c4;
+      margin-bottom: 0.5rem;
+    }
+    .verdict-box {
+      background: #f4f6fb;
+      border: 1px solid #d4def1;
+      border-left: 5px solid #2f5597;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .verdict-box h4 {
+      color: #1a365d;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .key-points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .key-point-card {
+      background: #fafafa;
+      padding: 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      border-top: 3px solid var(--accent-color);
+    }
+    .key-point-card h5 {
+      color: var(--primary-color);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .key-point-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 0;
+    }
+
     footer { background: #1a1a2e; color: white; padding: 4rem 5% 2rem; }
     .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
     .footer-col h3 { color: var(--secondary-color); margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.75rem; }
@@ -120,11 +207,11 @@
           </ul>
         </li>
         <li class="has-dropdown">
-          <a href="#" class="dropdown-toggle">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <a href="#" class="dropdown-toggle active">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
           <ul class="dropdown-menu">
             <li><a href="naac.html">NAAC Approved</a></li>
             <li><a href="ugc.html">UGC Recognition</a></li>
-            <li><a href="aicte.html">AICTE Status</a></li>
+            <li><a href="aicte.html" class="active">AICTE Status</a></li>
             <li><a href="agriculture.html">Agriculture / ICAR</a></li>
             <li><a href="ncte.html">NCTE Recognition</a></li>
             <li><a href="nirf.html">NIRF Status</a></li>
@@ -157,57 +244,149 @@
   </nav>
 
   <main>
-    <section id="ugc" aria-labelledby="ugc-heading">
+    <section id="aicte" aria-labelledby="aicte-heading">
       <div class="section-title">
-        <h2 id="ugc-heading">UGC Commission</h2>
-        <p class="section-subtitle">Core legislative acts, statutory recognitions, and compliance regulations</p>
+        <h2 id="aicte-heading">AICTE Status & Norms</h2>
+        <p class="section-subtitle">Statutory legal standing, Supreme Court mandate, and technical education compliance framework</p>
       </div>
       <div class="article-container reveal">
+
+        <!-- Section 1: Core Statutory Standing -->
         <div class="article-section">
-          <h3>1. Core UGC Act Provisions Governing DSVV</h3>
+          <span class="badge-pill"><i class="fas fa-gavel"></i> Statutory Position Under Law</span>
+          <h3>1. Legal Standing of Universities Under AICTE Act</h3>
+          <p>
+            As per the settled law of India, statutory Universities established under an Act of the State Legislature or Parliament do not require prior approval from the <strong>All India Council for Technical Education (AICTE)</strong> to commence or conduct courses in technical education, engineering, technology, computer applications, or management.
+          </p>
+          <div class="official-notice-box">
+            <h4><i class="fas fa-landmark"></i> Standing of Law Applicable to Dev Sanskriti Vishwavidyalaya</h4>
+            <p>
+              Only institutions which are affiliated to Universities require AICTE approval. As <strong>Dev Sanskriti Vishwavidyalaya</strong> is an autonomous University established under a State Legislative Act and duly recognized by the <strong>University Grants Commission (UGC)</strong> under Section 2(f) of the UGC Act, 1956, it does not require prior AICTE approval to offer technical, management, and degree programs.
+            </p>
+            <p style="margin-bottom: 0;">
+              This legal standing has been authoritatively affirmed by the <strong>Hon’ble Supreme Court of India</strong> in the landmark judgment of <em>Bharathidasan University & Anr. Vs All India Council for Technical Education & Ors.</em>
+            </p>
+          </div>
+          <div class="key-points-grid">
+            <div class="key-point-card">
+              <h5><i class="fas fa-university"></i> Statutory Autonomy</h5>
+              <p>Universities are autonomous degree-granting bodies constituted under legislative Acts and UGC regulations.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-check-circle"></i> Affiliated vs. University</h5>
+              <p>AICTE prior approval is mandated exclusively for affiliated institutions/colleges, not for statutory Universities.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-award"></i> Conformance to Norms</h5>
+              <p>While prior approval is not required, DSVV diligently adheres to the standards, syllabi, and norms laid down by AICTE.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Supreme Court Landmark Judgment -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-balance-scale"></i> Apex Court Ruling</span>
+          <h3>2. Supreme Court Landmark Judgment (Bharathidasan Case)</h3>
+          <p>
+            The statutory relationship between Universities and the AICTE was conclusively settled by the <strong>Hon’ble Supreme Court of India</strong>:
+          </p>
+          <div class="verdict-box">
+            <h4><i class="fas fa-file-contract"></i> Case Reference: Appeal (Civil) 2056 of 1999</h4>
+            <p><strong>Parties:</strong> Bharathidasan University & Anr. <em>Versus</em> All India Council for Technical Education & Ors.</p>
+            <p><strong>Date of Judgment:</strong> 24 September 2001</p>
+            <p><strong>Bench:</strong> Hon'ble Mr. Justice S. Rajendra Babu & Hon'ble Mr. Justice Doraiswamy Raju</p>
+            <p style="margin-top: 0.8rem; font-style: italic; color: #1e3a8a;">
+              "The AICTE Act maintains a complete dichotomy between a 'University' and a 'technical institution'. When by definition a 'University' is excluded from a 'technical institution', the power under Section 10(1)(k) to grant approval for starting new technical institutions and for introduction of new courses would not cover a 'University' but only a 'technical institution'."
+            </p>
+          </div>
+
+          <p><strong>Key Principles Declared by the Supreme Court:</strong></p>
           <ul class="article-list">
-            <li><strong>Section 2(f) of the UGC Act, 1956:</strong> DSVV is recognized under Section 2(f), which officially classifies it as a university established under a State Act and empowers it to grant degrees recognized across India.</li>
-            <li><strong>Section 22 of the UGC Act, 1956:</strong> Confers the statutory authority to award undergraduate, postgraduate, and doctoral degrees specified by the UGC.</li>
-            <li><strong>UGC (Establishment of and Maintenance of Standards in Private Universities) Regulations, 2003:</strong> Mandates adherence to UGC guidelines regarding campus infrastructure, teacher-student ratios, faculty qualifications, examination systems, and no off-campus study centers without central approval.</li>
+            <li>
+              <strong>Exclusion of Universities from Section 2(h):</strong> The Supreme Court observed that the definition of a "technical institution" under Section 2(h) of the AICTE Act expressly excludes a "University". Consequently, statutory provisions designed for technical institutions cannot be automatically extended to Universities.
+            </li>
+            <li>
+              <strong>Scope of Section 10(1)(k):</strong> The power conferred on AICTE under Section 10(1)(k) to grant approval specifically confines the limits of such power vis-à-vis technical institutions, and does not mandate prior approval for Universities to establish departments or launch new degree courses.
+            </li>
+            <li>
+              <strong>Regulations Ruled Ultra Vires:</strong> Regulations framed by AICTE under Section 23 of the AICTE Act (including Regulation 4), to the extent that they compelled Universities to seek and obtain prior approval, were declared null, void, and unenforceable.
+            </li>
+            <li>
+              <strong>Duty to Conform to Quality Standards:</strong> The Apex Court recorded that although a University does not require prior approval to establish a department or course in technical education, it holds a duty to conform to the standards and norms laid down by AICTE for ensuring coordinated development and quality maintenance.
+            </li>
           </ul>
         </div>
+
+        <!-- Section 3: AICTE Official RTI Clarification -->
         <div class="article-section">
-          <h3>2. State Legislative Acts of Establishment</h3>
-          <p>Because education is on the Concurrent List, DSVV entities are established via legislative Acts of respective state assemblies:</p>
+          <span class="badge-pill"><i class="fas fa-info-circle"></i> Official Clarification</span>
+          <h3>3. Official Clarification from AICTE under RTI Act, 2005</h3>
+          <p>
+            The All India Council for Technical Education (A Statutory Body of the Government of India) has formally reaffirmed this legal position in official correspondence under the Right to Information Act, 2005:
+          </p>
+
           <div class="article-table-container">
             <table class="article-table">
               <thead>
                 <tr>
-                  <th>Institution</th>
-                  <th>State Act</th>
-                  <th>Statutory Details</th>
+                  <th>Reference Number</th>
+                  <th>Issuing Authority</th>
+                  <th>Date</th>
+                  <th>Official Clarification</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Dev Sanskriti Vishwavidyalaya</strong> (Raipur, Chhattisgarh)</td>
-                  <td>Dev Sanskriti Vishwavidyalaya Act, 2002 (Act No. 4 of 2002 / Amendment Act 2009)</td>
-                  <td>Passed by the Uttarakhand Legislative Assembly; notified in the Official Gazette on 11 April 2002 (Notification No. 123/Vidhayi & Sansadiya Karya/2002).</td>
-                </tr>
-                <tr>
-                  <td><strong>Dev Sanskriti Vishwavidyalaya</strong> (Chhattisgarh)</td>
-                  <td>Chhattisgarh Private Universities (Establishment and Operation) Act, 2005 (Act No. 13 of 2005 & Amendments)</td>
-                  <td>Incorporated as a State Private University by the Government of Chhattisgarh under the overarching state regulatory framework.</td>
+                  <td><strong>F. No. 14-270/RTI/PIO/PC/2014</strong></td>
+                  <td>Assistant Director & PIO (PC), All India Council for Technical Education, Chanderlok Building, Janpath, New Delhi</td>
+                  <td>8th August, 2014</td>
+                  <td>
+                    <em>"It is not mandatory for the Universities/Deemed Universities to seek prior approval of AICTE for starting the Technical Programme/Course. However, universities have obligation or duty to conform to the standards and norms laid-down by the AICTE and in terms of the observations of the Hon’ble Supreme Court in Bharathidasan case."</em>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+
+        <!-- Section 4: AICTE Public Notice Provisions -->
         <div class="article-section">
-          <h3>3. Additional Statutory Recognitions & Affiliations</h3>
+          <span class="badge-pill"><i class="fas fa-bullhorn"></i> Public Notice</span>
+          <h3>4. AICTE Public Notice on Regulatory Framework</h3>
+          <p>
+            In its statutory Public Notice (Advt. No. UB/04(03)/2010), the All India Council for Technical Education clarified the legal scope for technical education across the nation:
+          </p>
           <ul class="article-list">
-            <li><strong>All India Council for Technical Education (AICTE) Norms:</strong> As established by the Hon’ble Supreme Court of India in the Bharathidasan University case, statutory Universities do not require prior AICTE approval to start technical, computing, and management courses. Dev Sanskriti Vishwavidyalaya adheres to AICTE curriculum frameworks and quality standards. <a href="aicte.html" style="color: var(--primary-color); font-weight: 600;">View AICTE Legal Status &amp; Norms &rarr;</a></li>
-            <li><strong>Indian Council of Agricultural Research (ICAR) Guidelines:</strong> Under Entry 14, List II of the Indian Constitution, agricultural education is a State subject. As a statutory University, DSVV is empowered to grant degrees in Agricultural Sciences while conforming strictly to ICAR Deans' Committee academic standards. <a href="agriculture.html" style="color: var(--primary-color); font-weight: 600;">View Agriculture &amp; ICAR Regulations &rarr;</a></li>
-            <li><strong>National Council for Teacher Education (NCTE):</strong> Approves education programs such as B.Ed. under the NCTE Act, 1993.</li>
-            <li><strong>National Assessment and Accreditation Council (NAAC):</strong> Duly accredited for institutional quality assurance and academic standard conformance.</li>
-            <li><strong>Association of Indian Universities (AIU):</strong> Member university, ensuring degree equivalence nationally and internationally.</li>
+            <li>
+              <strong>Definition of Technical Education (Section 2(g)):</strong> Encompasses programmes of education, research, and training in engineering, technology, architecture, town planning, management, pharmacy, applied arts and crafts.
+            </li>
+            <li>
+              <strong>Definition of Technical Institution (Section 2(h)):</strong> Defines a technical institution as an institution <em>not being a University</em> offering courses of technical education.
+            </li>
+            <li>
+              <strong>Mandatory Approval for Affiliated Institutions:</strong> Affiliated colleges, private polytechnics, and non-university institutions offering technical programmes or franchised arrangements are required to obtain prior AICTE approval.
+            </li>
+            <li>
+              <strong>Universities Governed by Apex Court Verdict:</strong> Autonomous Universities are governed by the Supreme Court holding in the <em>Bharathidasan University</em> case, operating under their respective statutory Acts while maintaining compliance with AICTE quality standards.
+            </li>
           </ul>
         </div>
+
+        <!-- Section 5: Academic Standards at DSVV -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-graduation-cap"></i> Quality Assurance</span>
+          <h3>5. Academic Quality & Standards at Dev Sanskriti Vishwavidyalaya</h3>
+          <p>
+            Dev Sanskriti Vishwavidyalaya strictly follows the academic standards, curriculum frameworks, and infrastructural recommendations formulated by AICTE across all technical, technological, and management programs:
+          </p>
+          <ul class="article-list">
+            <li><strong>AICTE Model Curriculum:</strong> Syllabi and course structures for technical and vocational offerings are updated in line with AICTE model curricula and NEP 2020 guidelines.</li>
+            <li><strong>Faculty Qualifications:</strong> Faculty members meet or exceed the eligibility criteria, qualifications, and cadre ratios prescribed by UGC and AICTE.</li>
+            <li><strong>Modern Laboratory Infrastructure:</strong> Well-equipped computer laboratories, engineering workshops, software suites, high-speed campus networking, and digital learning resources.</li>
+            <li><strong>Degree Recognition:</strong> All undergraduate, postgraduate, and diploma qualifications awarded by Dev Sanskriti Vishwavidyalaya are legally recognized throughout India for Central and State Government employment, public sector undertakings, and higher studies worldwide.</li>
+          </ul>
+        </div>
+
       </div>
     </section>
   </main>
@@ -251,7 +430,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV),  Chhattisgarh, India. All Rights Reserved.</p>
+      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV), Chhattisgarh, India. All Rights Reserved.</p>
       <p>A Premier University for Holistic Education | UGC Recognized | NAAC Accredited</p>
     </div>
   </footer>
