@@ -1692,6 +1692,8 @@
           <ul class="dropdown-menu" role="menu">
             <li role="none"><a href="naac.html" role="menuitem">NAAC Approved</a></li>
             <li role="none"><a href="ugc.html" role="menuitem">UGC Recognition</a></li>
+            <li role="none"><a href="aicte.html" role="menuitem">AICTE Status</a></li>
+            <li role="none"><a href="agriculture.html" role="menuitem">Agriculture / ICAR</a></li>
             <li role="none"><a href="ncte.html" role="menuitem">NCTE Recognition</a></li>
             <li role="none"><a href="nirf.html" role="menuitem">NIRF Status</a></li>
             <li role="none"><a href="aiu.html" role="menuitem">AIU Membership</a></li>
@@ -2122,6 +2124,8 @@
           </ul>
           <ul>
             <li><a href="naac.html">NAAC Approved</a></li>
+            <li><a href="aicte.html">AICTE Status</a></li>
+            <li><a href="agriculture.html">Agriculture / ICAR</a></li>
             <li><a href="ncte.html">NCTE Recognition</a></li>
             <li><a href="ugc.html">UGC Commission</a></li>
             <li><a href="nirf.html">NIRF Status</a></li>
@@ -2638,7 +2642,9 @@
       'admission': `To take admission at DSVV:\n\n1️⃣ Visit <strong>www.dsvv.ac.in</strong>\n2️⃣ Click on "Admissions Open"\n3️⃣ Fill the online application form\n4️⃣ Upload required documents\n5️⃣ Pay the application fee\n\n📞 Contact: +91-1334-261366\n📧 Email: registrar@devsanskritivishwavidyalaya.com\n\nShall I help with anything else?`,
       'campus': `DSVV campus life is vibrant! 🌿\n\n🏫 <strong>Location:</strong> 7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India\n🕉️ <strong>Spiritual:</strong> Daily prayer sessions, yoga, meditation\n📚 <strong>Academic:</strong> Modern labs, digital library, smart classrooms\n🎭 <strong>Cultural:</strong> Regular festivals, seminars, workshops\n🏃 <strong>Sports:</strong> Cricket, volleyball, indoor games\n🍽️ <strong>Dining:</strong> Hygienic vegetarian mess\n\nWant to know more?`,
       'fees': `DSVV Fee Overview:\n\n🎓 <strong>B.Sc/B.A/B.Com:</strong> ₹8,000-₹10,000/semester\n💻 <strong>BCA/BBA:</strong> ₹10,000/semester\n🔧 <strong>B.Tech:</strong> ₹20,000/semester\n📚 <strong>M.Sc:</strong> ₹18,000/semester\n📝 <strong>M.A.:</strong> ₹12,000/semester\n💼 <strong>MBA/MCA:</strong> ₹25,000/semester\n📜 <strong>Diploma & PG Diploma:</strong> ₹6,000-₹20,000/semester\n🔬 <strong>Ph.D.:</strong> ₹90,000/year\n\nAsk me about any specific course for exact fees!`,
-      'naac': `Yes! DSVV is NAAC Accredited ✅\n\n🏆 <strong>Accreditation:</strong> NAAC Accredited University\n📜 <strong>Recognition:</strong> UGC Recognized under Section 2(f)\n🏛️ <strong>Established:</strong> Under Uttarakhand State Act\n🌍 <strong>Ranked:</strong> Among top holistic universities in India\n\nAll degrees from DSVV are valid nationwide!`,
+      'naac': `Yes! DSVV is NAAC Accredited ✅\n\n🏆 <strong>Accreditation:</strong> NAAC Accredited University\n📜 <strong>Recognition:</strong> UGC Recognized under Section 2(f)\n🏛️ <strong>Established:</strong> Under State Legislative Act\n⚖️ <strong>AICTE Norms:</strong> Autonomous University status confirmed by Supreme Court\n🌱 <strong>Agriculture/ICAR:</strong> State subject authority under Entry 14 List II conforming to ICAR norms\n\nAll degrees from DSVV are valid nationwide!`,
+      'aicte': `AICTE Status for DSVV:\n\n⚖️ <strong>Supreme Court Mandate:</strong> As ruled in the Bharathidasan University case, statutory Universities established under State Acts do not require prior AICTE approval to run technical & management courses.\n🏛️ <strong>Autonomous Power:</strong> Section 2(h) of the AICTE Act excludes Universities from 'technical institutions'.\n📚 <strong>Quality Standards:</strong> DSVV strictly adheres to AICTE curriculum and infrastructure guidelines.`,
+      'agriculture': `Agriculture Sciences & ICAR Norms:\n\n🌱 <strong>Constitutional Jurisdiction:</strong> Agriculture & Agricultural Education are State subjects (Entry 14, List II). As a State University, DSVV has statutory degree-granting authority under UGC.\n📜 <strong>ICAR Public Notice:</strong> ICAR is a non-statutory society and does not grant statutory recognition/affiliation; ICAR accreditation is a voluntary quality assurance process once the first batch graduates.\n🌾 <strong>Syllabus Compliance:</strong> DSVV strictly adopts ICAR Deans' Committee curricula, RAWE, and modern farm training.`,
       'location': `DSVV is located at:\n\n📍 <strong>7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India</strong>\n\n📞 Phone: +91-1334-261366\n📧 Email: registrar@devsanskritivishwavidyalaya.com`,
       'contact': `📞 <strong>Phone:</strong> +91-1334-261366\n📧 <strong>Email:</strong> registrar@devsanskritivishwavidyalaya.com\n🌐 <strong>Website:</strong> www.dsvv.ac.in\n📍 <strong>Address:</strong> 7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India\n\n📱 <strong>Social Media:</strong>\n• Facebook: https://share.google/cZx3qMUfXMvfY8Rd2\n• Twitter: @dsvvofficial\n• Instagram: @dsvvofficial\n• YouTube: DSVV Official`
     };
@@ -2666,6 +2672,10 @@
         return staticResponses.campus;
       if (lower.includes('fee') || lower.includes('cost') || lower.includes('price') || lower.includes('scholarship'))
         return staticResponses.fees;
+      if (lower.includes('aicte'))
+        return staticResponses.aicte;
+      if (lower.includes('agriculture') || lower.includes('icar') || lower.includes('krishi') || lower.includes('agri'))
+        return staticResponses.agriculture;
       if (lower.includes('naac') || lower.includes('accredit') || lower.includes('recogni') || lower.includes('ugc'))
         return staticResponses.naac;
       if (lower.includes('where') || lower.includes('location') || lower.includes('address') || lower.includes('reach'))

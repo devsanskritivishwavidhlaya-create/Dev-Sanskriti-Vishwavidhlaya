@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AICTE Status & Regulatory Norms - Dev Sanskriti Vishwavidyalaya</title>
+  <meta name="description" content="AICTE status, regulatory norms, Supreme Court judgment, and technical education compliance framework for Dev Sanskriti Vishwavidyalaya.">
+  <link rel="icon" type="image/png" href="Dev_Sanskriti_Vishwavidyalaya Logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { 
+      --primary-color: #8B4513; 
+      --secondary-color: #D4AF37; 
+      --accent-color: #CD7037; 
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+      --transition: all 0.3s ease; 
+      --topbar-bg: #1a1145; 
+      --nav-border: #2d1b69; 
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f8f8; color: #333; overflow-x: hidden; }
+    .top-bar { background: var(--topbar-bg); color: white; padding: 0.6rem 5%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .top-bar-left, .top-bar-right { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .top-bar-left a, .top-bar-right a { color: white; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: opacity 0.3s; }
+    .top-bar-left a:hover, .top-bar-right a:hover { opacity: 0.8; }
+    .site-header { background: white; padding: 1rem 5%; border-bottom: 3px solid var(--nav-border); }
+    .header-container { display: flex; align-items: center; justify-content: center; max-width: 1200px; margin: 0 auto; }
+    .header-logo { height: 120px; width: auto; }
+    .main-nav { background: white; position: sticky; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-bottom: 2px solid #e8e8e8; }
+    .main-nav .nav-container { display: flex; justify-content: center; max-width: 100%; margin: 0 auto; padding: 0 2%; }
+    .main-nav .nav-links { display: flex; gap: 0; list-style: none; justify-content: center; width: 100%; }
+    .main-nav .nav-links li { position: relative; flex: 1; }
+    .main-nav .nav-links a { text-decoration: none; color: #333; font-weight: 600; font-size: 0.82rem; padding: 0.9rem 0.4rem; display: flex; align-items: center; justify-content: center; gap: 0.2rem; transition: all 0.3s; border-bottom: 3px solid transparent; text-transform: uppercase; white-space: nowrap; text-align: center; }
+    .main-nav .nav-links a:hover, .main-nav .nav-links a.active { color: var(--primary-color); border-bottom-color: var(--secondary-color); }
+    .main-nav .dropdown-menu { position: absolute; top: 100%; left: 0; background: white; min-width: 230px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-radius: 0 0 8px 8px; display: none; z-index: 1001; border-top: 3px solid var(--secondary-color); }
+    .main-nav .has-dropdown:hover .dropdown-menu { display: block; }
+    .main-nav .dropdown-menu li a { padding: 0.75rem 1.25rem; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; border-left: 3px solid transparent; }
+    .main-nav .dropdown-menu li a:hover { background: #f8f8f8; border-left-color: var(--secondary-color); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; z-index: 1001; }
+    .hamburger span { width: 28px; height: 3px; background: var(--primary-color); border-radius: 3px; }
+    section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title h2 { font-size: 2.5rem; color: var(--primary-color); position: relative; display: inline-block; }
+    .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--secondary-color); }
+    .section-subtitle { color: #666; font-size: 1.1rem; margin-top: 1rem; font-style: italic; }
+    .article-container { max-width: 950px; margin: 0 auto; background: white; padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); border-top: 5px solid var(--secondary-color); border-bottom: 5px solid var(--primary-color); text-align: left; }
+    .article-section { margin-bottom: 2.5rem; }
+    .article-section h3 { font-size: 1.35rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; border-left: 4px solid var(--accent-color); padding-left: 12px; text-transform: uppercase; }
+    .article-section p { font-size: 1.02rem; line-height: 1.8; color: #444; margin-bottom: 1rem; }
+    .article-list { list-style-type: none; padding-left: 0; margin: 1rem 0; }
+    .article-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 1rem; line-height: 1.6; color: #444; }
+    .article-list li::before { content: '\2022'; color: var(--accent-color); font-weight: bold; position: absolute; left: 0; top: -2px; font-size: 1.3rem; }
+    .article-list li strong { color: var(--primary-color); }
+    .article-table-container { width: 100%; overflow-x: auto; border-radius: 8px; border: 1px solid #eee; margin: 1.5rem 0; }
+    .article-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+    .article-table th { background: var(--primary-color); color: white; padding: 0.9rem 1.2rem; font-weight: 600; }
+    .article-table td { padding: 0.9rem 1.2rem; border-bottom: 1px solid #eee; line-height: 1.6; color: #444; }
+    .article-table tr:nth-child(even) td { background: #fafafa; }
+
+    /* Custom Highlight & Notice Cards */
+    .official-notice-box {
+      background: #fdfbf7;
+      border: 1px solid #e8dcbf;
+      border-left: 5px solid var(--secondary-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .official-notice-box h4 {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .official-notice-box p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #3d3d3d;
+      margin-bottom: 0.5rem;
+    }
+    .badge-pill {
+      display: inline-block;
+      background: #eef5ea;
+      color: #27672a;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid #c7e3c4;
+      margin-bottom: 0.5rem;
+    }
+    .verdict-box {
+      background: #f4f6fb;
+      border: 1px solid #d4def1;
+      border-left: 5px solid #2f5597;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .verdict-box h4 {
+      color: #1a365d;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .key-points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .key-point-card {
+      background: #fafafa;
+      padding: 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      border-top: 3px solid var(--accent-color);
+    }
+    .key-point-card h5 {
+      color: var(--primary-color);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .key-point-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 0;
+    }
+
+    footer { background: #1a1a2e; color: white; padding: 4rem 5% 2rem; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .footer-col h3 { color: var(--secondary-color); margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.75rem; }
+    .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: var(--secondary-color); }
+    .footer-col p { color: #ccc; line-height: 1.7; margin-bottom: 0.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--secondary-color); }
+    .footer-logo { height: 70px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+    .footer-bottom { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-bottom p { color: #aaa; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
+    .social-links a:hover { background: var(--secondary-color); transform: translateY(-3px); }
+    @media (max-width: 768px) {
+      .top-bar { flex-direction: column; }
+      .top-bar-left { justify-content: center; gap: 0.75rem; font-size: 0.75rem; }
+      .top-bar-left a { font-size: 0.75rem; }
+      .top-bar-right { justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+      .top-bar-right a { font-size: 0.72rem; padding: 0.3rem 0.5rem; background: rgba(255,255,255,0.12); border-radius: 4px; white-space: nowrap; }
+      .site-header { padding: 0.6rem 5%; }
+      .header-logo { height: 70px; }
+      .main-nav .nav-container { justify-content: space-between; padding: 0 3%; }
+      .main-nav .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: white; flex-direction: column; padding: 4.5rem 1.5rem 2rem; box-shadow: -5px 0 20px rgba(0,0,0,0.2); transition: right 0.35s ease; z-index: 999; align-items: flex-start; overflow-y: auto; }
+      .main-nav .nav-links.active { right: 0; }
+      .main-nav .nav-links li { width: 100%; flex: none; }
+      .main-nav .nav-links a { font-size: 0.9rem; padding: 0.8rem 0; width: 100%; border-bottom: 1px solid #f0f0f0; justify-content: space-between; }
+      .main-nav .dropdown-menu { position: static; box-shadow: none; border: none; background: rgba(0,0,0,0.03); border-radius: 6px; margin-top: 0.25rem; min-width: auto; }
+      .main-nav .dropdown-menu li a { font-size: 0.85rem; padding: 0.5rem 1rem; }
+      .main-nav .has-dropdown.open > .dropdown-menu { display: block; }
+      .hamburger { display: flex; }
+      .footer-container { grid-template-columns: 1fr; }
+      .article-container { padding: 1.5rem; }
+      section { padding: 3rem 5%; }
+      .section-title h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="tel:+911334261366"><i class="fas fa-phone"></i> +91-1334-261366</a>
+      <a href="mailto:registrar@devsanskritivishwavidyalaya.com"><i class="fas fa-envelope"></i> registrar@devsanskritivishwavidyalaya.com</a>
+      <a href="https://share.google/cZx3qMUfXMvfY8Rd2" target="_blank" rel="noopener noreferrer" aria-label="Follow DSVV on Facebook"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <div class="top-bar-right">
+      <a href="/portal/?view=admin" class="login-link admin-login"><i class="fas fa-user-shield"></i> Admin Portal</a>
+      <a href="/portal/?view=center" class="login-link center-login"><i class="fas fa-building"></i> Center Portal</a>
+      <a href="application-form.html"><i class="fas fa-file-alt"></i> Admission Form</a>
+      <a href="programs.html"><i class="fas fa-download"></i> Download</a>
+      <a href="/portal/?view=portal"><i class="fas fa-chart-bar"></i> Result</a>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html"><img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="header-logo"></a>
+    </div>
+  </header>
+  <nav class="main-nav">
+    <div class="nav-container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">About DSVV <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html">About Our University</a></li>
+            <li><a href="ugc.html">UGC 2F</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle active">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="naac.html">NAAC Approved</a></li>
+            <li><a href="ugc.html">UGC Recognition</a></li>
+            <li><a href="aicte.html" class="active">AICTE Status</a></li>
+            <li><a href="agriculture.html">Agriculture / ICAR</a></li>
+            <li><a href="ncte.html">NCTE Recognition</a></li>
+            <li><a href="nirf.html">NIRF Status</a></li>
+            <li><a href="aiu.html">AIU Membership</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Academics <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="academics.html">Academic Structure</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Programs <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="programs.html">Courses</a></li>
+            <li><a href="bnys.html">BNYS Program</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Gallery <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="gallery.html">Photo Gallery</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="aicte" aria-labelledby="aicte-heading">
+      <div class="section-title">
+        <h2 id="aicte-heading">AICTE Status & Norms</h2>
+        <p class="section-subtitle">Statutory legal standing, Supreme Court mandate, and technical education compliance framework</p>
+      </div>
+      <div class="article-container reveal">
+
+        <!-- Section 1: Core Statutory Standing -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-gavel"></i> Statutory Position Under Law</span>
+          <h3>1. Legal Standing of Universities Under AICTE Act</h3>
+          <p>
+            As per the settled law of India, statutory Universities established under an Act of the State Legislature or Parliament do not require prior approval from the <strong>All India Council for Technical Education (AICTE)</strong> to commence or conduct courses in technical education, engineering, technology, computer applications, or management.
+          </p>
+          <div class="official-notice-box">
+            <h4><i class="fas fa-landmark"></i> Standing of Law Applicable to Dev Sanskriti Vishwavidyalaya</h4>
+            <p>
+              Only institutions which are affiliated to Universities require AICTE approval. As <strong>Dev Sanskriti Vishwavidyalaya</strong> is an autonomous University established under a State Legislative Act and duly recognized by the <strong>University Grants Commission (UGC)</strong> under Section 2(f) of the UGC Act, 1956, it does not require prior AICTE approval to offer technical, management, and degree programs.
+            </p>
+            <p style="margin-bottom: 0;">
+              This legal standing has been authoritatively affirmed by the <strong>Hon’ble Supreme Court of India</strong> in the landmark judgment of <em>Bharathidasan University & Anr. Vs All India Council for Technical Education & Ors.</em>
+            </p>
+          </div>
+          <div class="key-points-grid">
+            <div class="key-point-card">
+              <h5><i class="fas fa-university"></i> Statutory Autonomy</h5>
+              <p>Universities are autonomous degree-granting bodies constituted under legislative Acts and UGC regulations.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-check-circle"></i> Affiliated vs. University</h5>
+              <p>AICTE prior approval is mandated exclusively for affiliated institutions/colleges, not for statutory Universities.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-award"></i> Conformance to Norms</h5>
+              <p>While prior approval is not required, DSVV diligently adheres to the standards, syllabi, and norms laid down by AICTE.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Supreme Court Landmark Judgment -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-balance-scale"></i> Apex Court Ruling</span>
+          <h3>2. Supreme Court Landmark Judgment (Bharathidasan Case)</h3>
+          <p>
+            The statutory relationship between Universities and the AICTE was conclusively settled by the <strong>Hon’ble Supreme Court of India</strong>:
+          </p>
+          <div class="verdict-box">
+            <h4><i class="fas fa-file-contract"></i> Case Reference: Appeal (Civil) 2056 of 1999</h4>
+            <p><strong>Parties:</strong> Bharathidasan University & Anr. <em>Versus</em> All India Council for Technical Education & Ors.</p>
+            <p><strong>Date of Judgment:</strong> 24 September 2001</p>
+            <p><strong>Bench:</strong> Hon'ble Mr. Justice S. Rajendra Babu & Hon'ble Mr. Justice Doraiswamy Raju</p>
+            <p style="margin-top: 0.8rem; font-style: italic; color: #1e3a8a;">
+              "The AICTE Act maintains a complete dichotomy between a 'University' and a 'technical institution'. When by definition a 'University' is excluded from a 'technical institution', the power under Section 10(1)(k) to grant approval for starting new technical institutions and for introduction of new courses would not cover a 'University' but only a 'technical institution'."
+            </p>
+          </div>
+
+          <p><strong>Key Principles Declared by the Supreme Court:</strong></p>
+          <ul class="article-list">
+            <li>
+              <strong>Exclusion of Universities from Section 2(h):</strong> The Supreme Court observed that the definition of a "technical institution" under Section 2(h) of the AICTE Act expressly excludes a "University". Consequently, statutory provisions designed for technical institutions cannot be automatically extended to Universities.
+            </li>
+            <li>
+              <strong>Scope of Section 10(1)(k):</strong> The power conferred on AICTE under Section 10(1)(k) to grant approval specifically confines the limits of such power vis-à-vis technical institutions, and does not mandate prior approval for Universities to establish departments or launch new degree courses.
+            </li>
+            <li>
+              <strong>Regulations Ruled Ultra Vires:</strong> Regulations framed by AICTE under Section 23 of the AICTE Act (including Regulation 4), to the extent that they compelled Universities to seek and obtain prior approval, were declared null, void, and unenforceable.
+            </li>
+            <li>
+              <strong>Duty to Conform to Quality Standards:</strong> The Apex Court recorded that although a University does not require prior approval to establish a department or course in technical education, it holds a duty to conform to the standards and norms laid down by AICTE for ensuring coordinated development and quality maintenance.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 3: AICTE Official RTI Clarification -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-info-circle"></i> Official Clarification</span>
+          <h3>3. Official Clarification from AICTE under RTI Act, 2005</h3>
+          <p>
+            The All India Council for Technical Education (A Statutory Body of the Government of India) has formally reaffirmed this legal position in official correspondence under the Right to Information Act, 2005:
+          </p>
+
+          <div class="article-table-container">
+            <table class="article-table">
+              <thead>
+                <tr>
+                  <th>Reference Number</th>
+                  <th>Issuing Authority</th>
+                  <th>Date</th>
+                  <th>Official Clarification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>F. No. 14-270/RTI/PIO/PC/2014</strong></td>
+                  <td>Assistant Director & PIO (PC), All India Council for Technical Education, Chanderlok Building, Janpath, New Delhi</td>
+                  <td>8th August, 2014</td>
+                  <td>
+                    <em>"It is not mandatory for the Universities/Deemed Universities to seek prior approval of AICTE for starting the Technical Programme/Course. However, universities have obligation or duty to conform to the standards and norms laid-down by the AICTE and in terms of the observations of the Hon’ble Supreme Court in Bharathidasan case."</em>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 4: AICTE Public Notice Provisions -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-bullhorn"></i> Public Notice</span>
+          <h3>4. AICTE Public Notice on Regulatory Framework</h3>
+          <p>
+            In its statutory Public Notice (Advt. No. UB/04(03)/2010), the All India Council for Technical Education clarified the legal scope for technical education across the nation:
+          </p>
+          <ul class="article-list">
+            <li>
+              <strong>Definition of Technical Education (Section 2(g)):</strong> Encompasses programmes of education, research, and training in engineering, technology, architecture, town planning, management, pharmacy, applied arts and crafts.
+            </li>
+            <li>
+              <strong>Definition of Technical Institution (Section 2(h)):</strong> Defines a technical institution as an institution <em>not being a University</em> offering courses of technical education.
+            </li>
+            <li>
+              <strong>Mandatory Approval for Affiliated Institutions:</strong> Affiliated colleges, private polytechnics, and non-university institutions offering technical programmes or franchised arrangements are required to obtain prior AICTE approval.
+            </li>
+            <li>
+              <strong>Universities Governed by Apex Court Verdict:</strong> Autonomous Universities are governed by the Supreme Court holding in the <em>Bharathidasan University</em> case, operating under their respective statutory Acts while maintaining compliance with AICTE quality standards.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 5: Academic Standards at DSVV -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-graduation-cap"></i> Quality Assurance</span>
+          <h3>5. Academic Quality & Standards at Dev Sanskriti Vishwavidyalaya</h3>
+          <p>
+            Dev Sanskriti Vishwavidyalaya strictly follows the academic standards, curriculum frameworks, and infrastructural recommendations formulated by AICTE across all technical, technological, and management programs:
+          </p>
+          <ul class="article-list">
+            <li><strong>AICTE Model Curriculum:</strong> Syllabi and course structures for technical and vocational offerings are updated in line with AICTE model curricula and NEP 2020 guidelines.</li>
+            <li><strong>Faculty Qualifications:</strong> Faculty members meet or exceed the eligibility criteria, qualifications, and cadre ratios prescribed by UGC and AICTE.</li>
+            <li><strong>Modern Laboratory Infrastructure:</strong> Well-equipped computer laboratories, engineering workshops, software suites, high-speed campus networking, and digital learning resources.</li>
+            <li><strong>Degree Recognition:</strong> All undergraduate, postgraduate, and diploma qualifications awarded by Dev Sanskriti Vishwavidyalaya are legally recognized throughout India for Central and State Government employment, public sector undertakings, and higher studies worldwide.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="footer-logo">
+        <p>Dev Sanskriti Vishwavidyalaya - A premier university dedicated to the integration of scientific education with cultural and spiritual values.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Academic Programs</a></li>
+          <li><a href="bnys.html">BNYS Program</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="why-choose.html">Why Choose DSVV</a></li>
+          <li><a href="gallery.html">Campus Gallery</a></li>
+          <li><a href="about.html">About DSVV</a></li>
+          <li><a href="naac.html">NAAC Approved</a></li>
+          <li><a href="aicte.html">AICTE Status</a></li>
+          <li><a href="agriculture.html">Agriculture / ICAR</a></li>
+          <li><a href="ncte.html">NCTE Recognition</a></li>
+          <li><a href="ugc.html">UGC Commission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India</p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:registrar@devsanskritivishwavidyalaya.com">registrar@devsanskritivishwavidyalaya.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="https://share.google/cZx3qMUfXMvfY8Rd2" aria-label="Follow DSVV on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/dsvvofficial" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/dsvvofficial/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/channel/UC5OXRsDLXxKgIk9x11AwgqQ" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV), Chhattisgarh, India. All Rights Reserved.</p>
+      <p>A Premier University for Holistic Education | UGC Recognized | NAAC Accredited</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

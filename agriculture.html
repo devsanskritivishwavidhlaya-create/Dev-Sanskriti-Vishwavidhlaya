@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Sciences & ICAR Norms - Dev Sanskriti Vishwavidyalaya</title>
+  <meta name="description" content="Agricultural education statutory framework, ICAR regulatory guidelines, constitutional status, and academic standards at Dev Sanskriti Vishwavidyalaya.">
+  <link rel="icon" type="image/png" href="Dev_Sanskriti_Vishwavidyalaya Logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root { 
+      --primary-color: #8B4513; 
+      --secondary-color: #D4AF37; 
+      --accent-color: #CD7037; 
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+      --transition: all 0.3s ease; 
+      --topbar-bg: #1a1145; 
+      --nav-border: #2d1b69; 
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f8f8; color: #333; overflow-x: hidden; }
+    .top-bar { background: var(--topbar-bg); color: white; padding: 0.6rem 5%; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .top-bar-left, .top-bar-right { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .top-bar-left a, .top-bar-right a { color: white; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: opacity 0.3s; }
+    .top-bar-left a:hover, .top-bar-right a:hover { opacity: 0.8; }
+    .site-header { background: white; padding: 1rem 5%; border-bottom: 3px solid var(--nav-border); }
+    .header-container { display: flex; align-items: center; justify-content: center; max-width: 1200px; margin: 0 auto; }
+    .header-logo { height: 120px; width: auto; }
+    .main-nav { background: white; position: sticky; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-bottom: 2px solid #e8e8e8; }
+    .main-nav .nav-container { display: flex; justify-content: center; max-width: 100%; margin: 0 auto; padding: 0 2%; }
+    .main-nav .nav-links { display: flex; gap: 0; list-style: none; justify-content: center; width: 100%; }
+    .main-nav .nav-links li { position: relative; flex: 1; }
+    .main-nav .nav-links a { text-decoration: none; color: #333; font-weight: 600; font-size: 0.82rem; padding: 0.9rem 0.4rem; display: flex; align-items: center; justify-content: center; gap: 0.2rem; transition: all 0.3s; border-bottom: 3px solid transparent; text-transform: uppercase; white-space: nowrap; text-align: center; }
+    .main-nav .nav-links a:hover, .main-nav .nav-links a.active { color: var(--primary-color); border-bottom-color: var(--secondary-color); }
+    .main-nav .dropdown-menu { position: absolute; top: 100%; left: 0; background: white; min-width: 230px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border-radius: 0 0 8px 8px; display: none; z-index: 1001; border-top: 3px solid var(--secondary-color); }
+    .main-nav .has-dropdown:hover .dropdown-menu { display: block; }
+    .main-nav .dropdown-menu li a { padding: 0.75rem 1.25rem; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; border-left: 3px solid transparent; }
+    .main-nav .dropdown-menu li a:hover { background: #f8f8f8; border-left-color: var(--secondary-color); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; z-index: 1001; }
+    .hamburger span { width: 28px; height: 3px; background: var(--primary-color); border-radius: 3px; }
+    section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title h2 { font-size: 2.5rem; color: var(--primary-color); position: relative; display: inline-block; }
+    .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--secondary-color); }
+    .section-subtitle { color: #666; font-size: 1.1rem; margin-top: 1rem; font-style: italic; }
+    .article-container { max-width: 950px; margin: 0 auto; background: white; padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); border-top: 5px solid var(--secondary-color); border-bottom: 5px solid var(--primary-color); text-align: left; }
+    .article-section { margin-bottom: 2.5rem; }
+    .article-section h3 { font-size: 1.35rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; border-left: 4px solid var(--accent-color); padding-left: 12px; text-transform: uppercase; }
+    .article-section p { font-size: 1.02rem; line-height: 1.8; color: #444; margin-bottom: 1rem; }
+    .article-list { list-style-type: none; padding-left: 0; margin: 1rem 0; }
+    .article-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 1rem; line-height: 1.6; color: #444; }
+    .article-list li::before { content: '\2022'; color: var(--accent-color); font-weight: bold; position: absolute; left: 0; top: -2px; font-size: 1.3rem; }
+    .article-list li strong { color: var(--primary-color); }
+    .article-table-container { width: 100%; overflow-x: auto; border-radius: 8px; border: 1px solid #eee; margin: 1.5rem 0; }
+    .article-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+    .article-table th { background: var(--primary-color); color: white; padding: 0.9rem 1.2rem; font-weight: 600; }
+    .article-table td { padding: 0.9rem 1.2rem; border-bottom: 1px solid #eee; line-height: 1.6; color: #444; }
+    .article-table tr:nth-child(even) td { background: #fafafa; }
+
+    /* Custom Notice & Info Components */
+    .official-notice-box {
+      background: #fdfbf7;
+      border: 1px solid #e8dcbf;
+      border-left: 5px solid var(--secondary-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .official-notice-box h4 {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .official-notice-box p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #3d3d3d;
+      margin-bottom: 0.5rem;
+    }
+    .badge-pill {
+      display: inline-block;
+      background: #eef5ea;
+      color: #27672a;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid #c7e3c4;
+      margin-bottom: 0.5rem;
+    }
+    .icar-box {
+      background: #f0f7f2;
+      border: 1px solid #cde5d3;
+      border-left: 5px solid #2e7d32;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .icar-box h4 {
+      color: #1b5e20;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .key-points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .key-point-card {
+      background: #fafafa;
+      padding: 1.25rem;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      border-top: 3px solid #2e7d32;
+    }
+    .key-point-card h5 {
+      color: #1b5e20;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .key-point-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 0;
+    }
+
+    footer { background: #1a1a2e; color: white; padding: 4rem 5% 2rem; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .footer-col h3 { color: var(--secondary-color); margin-bottom: 1.5rem; font-size: 1.2rem; position: relative; padding-bottom: 0.75rem; }
+    .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: var(--secondary-color); }
+    .footer-col p { color: #ccc; line-height: 1.7; margin-bottom: 0.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--secondary-color); }
+    .footer-logo { height: 70px; margin-bottom: 1rem; filter: brightness(0) invert(1); }
+    .footer-bottom { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-bottom p { color: #aaa; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .social-links { display: flex; gap: 1rem; margin-top: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
+    .social-links a:hover { background: var(--secondary-color); transform: translateY(-3px); }
+    @media (max-width: 768px) {
+      .top-bar { flex-direction: column; }
+      .top-bar-left { justify-content: center; gap: 0.75rem; font-size: 0.75rem; }
+      .top-bar-left a { font-size: 0.75rem; }
+      .top-bar-right { justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+      .top-bar-right a { font-size: 0.72rem; padding: 0.3rem 0.5rem; background: rgba(255,255,255,0.12); border-radius: 4px; white-space: nowrap; }
+      .site-header { padding: 0.6rem 5%; }
+      .header-logo { height: 70px; }
+      .main-nav .nav-container { justify-content: space-between; padding: 0 3%; }
+      .main-nav .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: white; flex-direction: column; padding: 4.5rem 1.5rem 2rem; box-shadow: -5px 0 20px rgba(0,0,0,0.2); transition: right 0.35s ease; z-index: 999; align-items: flex-start; overflow-y: auto; }
+      .main-nav .nav-links.active { right: 0; }
+      .main-nav .nav-links li { width: 100%; flex: none; }
+      .main-nav .nav-links a { font-size: 0.9rem; padding: 0.8rem 0; width: 100%; border-bottom: 1px solid #f0f0f0; justify-content: space-between; }
+      .main-nav .dropdown-menu { position: static; box-shadow: none; border: none; background: rgba(0,0,0,0.03); border-radius: 6px; margin-top: 0.25rem; min-width: auto; }
+      .main-nav .dropdown-menu li a { font-size: 0.85rem; padding: 0.5rem 1rem; }
+      .main-nav .has-dropdown.open > .dropdown-menu { display: block; }
+      .hamburger { display: flex; }
+      .footer-container { grid-template-columns: 1fr; }
+      .article-container { padding: 1.5rem; }
+      section { padding: 3rem 5%; }
+      .section-title h2 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="tel:+911334261366"><i class="fas fa-phone"></i> +91-1334-261366</a>
+      <a href="mailto:registrar@devsanskritivishwavidyalaya.com"><i class="fas fa-envelope"></i> registrar@devsanskritivishwavidyalaya.com</a>
+      <a href="https://share.google/cZx3qMUfXMvfY8Rd2" target="_blank" rel="noopener noreferrer" aria-label="Follow DSVV on Facebook"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <div class="top-bar-right">
+      <a href="/portal/?view=admin" class="login-link admin-login"><i class="fas fa-user-shield"></i> Admin Portal</a>
+      <a href="/portal/?view=center" class="login-link center-login"><i class="fas fa-building"></i> Center Portal</a>
+      <a href="application-form.html"><i class="fas fa-file-alt"></i> Admission Form</a>
+      <a href="programs.html"><i class="fas fa-download"></i> Download</a>
+      <a href="/portal/?view=portal"><i class="fas fa-chart-bar"></i> Result</a>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html"><img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="header-logo"></a>
+    </div>
+  </header>
+  <nav class="main-nav">
+    <div class="nav-container">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">About DSVV <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html">About Our University</a></li>
+            <li><a href="ugc.html">UGC 2F</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle active">Approvals & Recognitions <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="naac.html">NAAC Approved</a></li>
+            <li><a href="ugc.html">UGC Recognition</a></li>
+            <li><a href="aicte.html">AICTE Status</a></li>
+            <li><a href="agriculture.html" class="active">Agriculture / ICAR</a></li>
+            <li><a href="ncte.html">NCTE Recognition</a></li>
+            <li><a href="nirf.html">NIRF Status</a></li>
+            <li><a href="aiu.html">AIU Membership</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Academics <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="academics.html">Academic Structure</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Programs <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="programs.html">Courses</a></li>
+            <li><a href="bnys.html">BNYS Program</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Gallery <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="gallery.html">Photo Gallery</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#contact">Contact Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="agriculture" aria-labelledby="agriculture-heading">
+      <div class="section-title">
+        <h2 id="agriculture-heading">Agriculture Sciences & ICAR Norms</h2>
+        <p class="section-subtitle">Constitutional jurisdiction, statutory university authority, and ICAR regulatory guidelines</p>
+      </div>
+      <div class="article-container reveal">
+
+        <!-- Section 1: Constitutional Mandate & Statutory Authority -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-seedling"></i> Constitutional Framework</span>
+          <h3>1. Constitutional Framework & State Legislative Authority</h3>
+          <p>
+            Under the Constitution of India, <strong>agriculture and agricultural education are State subjects</strong> governed under <strong>Entry 14 of List II (State List) of the Seventh Schedule</strong>. The establishment, administration, and regulation of higher education institutions offering agricultural programs fall under the sovereign competence of State Legislative enactments.
+          </p>
+          <div class="official-notice-box">
+            <h4><i class="fas fa-university"></i> Statutory Authority of Dev Sanskriti Vishwavidyalaya</h4>
+            <p>
+              <strong>Dev Sanskriti Vishwavidyalaya</strong> is an autonomous State University established under an Act of the State Legislature and recognized by the <strong>University Grants Commission (UGC)</strong> under Section 2(f) and Section 22 of the UGC Act, 1956.
+            </p>
+            <p style="margin-bottom: 0;">
+              By virtue of its statutory incorporation and UGC degree-granting powers, Dev Sanskriti Vishwavidyalaya possesses full legal authority to institute departments, conduct comprehensive courses of study, and confer undergraduate, postgraduate, and diploma degrees in Agricultural Sciences and allied agricultural disciplines.
+            </p>
+          </div>
+          <div class="key-points-grid">
+            <div class="key-point-card">
+              <h5><i class="fas fa-gavel"></i> Entry 14, List II</h5>
+              <p>Agriculture & agricultural education are constitutional State subjects under the Seventh Schedule of India.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-graduation-cap"></i> UGC Degree Granting</h5>
+              <p>Section 22 of the UGC Act empowers DSVV to award recognized degrees in agricultural sciences across India.</p>
+            </div>
+            <div class="key-point-card">
+              <h5><i class="fas fa-check-double"></i> Complete Legal Validity</h5>
+              <p>Graduates are fully eligible for state & central government jobs, banking examinations, and higher research.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: ICAR Official Public Notice -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-bullhorn"></i> Official Regulatory Notice</span>
+          <h3>2. ICAR Public Notice on Recognition & Accreditation</h3>
+          <p>
+            The <strong>Indian Council of Agricultural Research (ICAR)</strong>, Krishi Bhawan, New Delhi, issued an official Public Notice to address queries from stakeholders, students, parents, and higher education institutions regarding the regulatory procedure for agricultural programs:
+          </p>
+
+          <div class="icar-box">
+            <h4><i class="fas fa-file-alt"></i> ICAR Official Public Notice: F.No.Edn.7/7/2017-EQR</h4>
+            <p><strong>Issuing Body:</strong> National Agricultural Education Accreditation Board (NAEAB), Indian Council of Agricultural Research (ICAR), Krishi Bhawan, New Delhi - 110012</p>
+            <p><strong>Parent Ministry:</strong> Department of Agricultural Research and Education (DARE), Ministry of Agriculture and Farmers Welfare, Government of India</p>
+            <p><strong>Date of Issue:</strong> 5th September, 2017</p>
+            <p style="margin-top: 0.8rem; font-style: italic; color: #1b5e20;">
+              "Because of its non-statutory status, ICAR does not give 'Recognition' or 'Affiliation' to any university/institution/organization or any course/programme/degree offered by such institution. The ICAR provides only 'Accreditation' to university/institution/organization or faculty/college/school of agriculture for quality assurance once first batch students of programme are passed out from the university/institution/college."
+            </p>
+          </div>
+
+          <p><strong>Key Clarifications Established by ICAR:</strong></p>
+          <ul class="article-list">
+            <li>
+              <strong>Non-Statutory Status of ICAR:</strong> ICAR is a Society established under the Societies Registration Act, 1860. It functions as an apex advisory and coordinating agency, not as a statutory regulatory body with degree-granting or statutory licensing powers.
+            </li>
+            <li>
+              <strong>No Power to Grant Recognition or Affiliation:</strong> Due to its non-statutory nature, ICAR does not give statutory "Recognition" or "Affiliation" to any university, college, or degree programme. Legal recognition of degrees is derived from the UGC Act and the parent University Act.
+            </li>
+            <li>
+              <strong>No Permission Required to Open/Start Programs:</strong> ICAR does not grant permission or approval to start, operate, or close universities or colleges offering agricultural science programmes in a State, as agriculture and agricultural education are constitutional State subjects (Entry 14 under List II).
+            </li>
+            <li>
+              <strong>Accreditation is a Voluntary Quality Assurance Process:</strong> ICAR provides "Accreditation" through the National Agricultural Education Accreditation Board (NAEAB). Accreditation is a voluntary self-regulation and peer-review mechanism aimed at quality improvement and international marketability.
+            </li>
+            <li>
+              <strong>Eligibility Criteria for ICAR Accreditation:</strong> In accordance with ICAR regulations, accreditation can only be applied for after the <em>first batch of students of the programme has successfully graduated and passed out</em> from the university or college.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 3: Compliance with ICAR Guidelines -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-clipboard-check"></i> Academic Compliance</span>
+          <h3>3. Compliance with ICAR Academic Regulations</h3>
+          <p>
+            While ICAR accreditation is voluntary, the ICAR Public Notice requires that all institutions offering agricultural programmes comply with the prescribed academic norms to achieve national uniformity and standard quality:
+          </p>
+          <div class="article-table-container">
+            <table class="article-table">
+              <thead>
+                <tr>
+                  <th>ICAR Academic Requirement</th>
+                  <th>Implementation at Dev Sanskriti Vishwavidyalaya</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ICAR Deans' Committee Curricula</strong></td>
+                  <td>The B.Sc. (Hons.) Agriculture and allied syllabi strictly incorporate the standardized curriculum, course credits, and guidelines recommended by the ICAR Deans' Committee.</td>
+                </tr>
+                <tr>
+                  <td><strong>Rural Agricultural Work Experience (RAWE)</strong></td>
+                  <td>Mandatory hands-on semester-long rural attachment allowing students to work directly with farming communities, local Krishi Vigyan Kendras (KVKs), and agro-industries.</td>
+                </tr>
+                <tr>
+                  <td><strong>Experiential Learning Programme (ELP)</strong></td>
+                  <td>Hands-on commercial agricultural modules, seed production, organic input preparation, and bio-fertilizer manufacturing units on campus.</td>
+                </tr>
+                <tr>
+                  <td><strong>Qualified Agricultural Faculty</strong></td>
+                  <td>Faculty appointments adhere to UGC and ICAR norms with Ph.D./NET qualifications across Agronomy, Soil Science, Horticulture, Entomology, and Genetics.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 4: Agricultural Education at DSVV -->
+        <div class="article-section">
+          <span class="badge-pill"><i class="fas fa-leaf"></i> Campus Infrastructure</span>
+          <h3>4. Agricultural Education & Research at Dev Sanskriti Vishwavidyalaya</h3>
+          <p>
+            Dev Sanskriti Vishwavidyalaya blends modern agricultural science and technology with traditional sustainable practices to train future-ready agricultural graduates:
+          </p>
+          <ul class="article-list">
+            <li><strong>Experimental Research Farm:</strong> Designated agricultural acreage dedicated to crop cafeterias, agro-forestry, medicinal plant cultivation, and crop variety trials.</li>
+            <li><strong>Specialized Laboratories:</strong> State-of-the-art labs for Soil & Water Testing, Plant Pathology, Agricultural Microbiology, Entomology, and Tissue Culture.</li>
+            <li><strong>Pioneering Natural & Vedic Agriculture:</strong> Extensive research and practical training in cow-based organic farming (Panchgavya, Jeevamrit), Rishi Krishi, biodynamic farming, and chemical-free sustainable food systems.</li>
+            <li><strong>Nationwide Career Scope:</strong> DSVV agricultural graduates are fully qualified to appear in competitive examinations including UPSC, State Public Service Commission (State PSC / ADO / RAEO), Banking (IBPS AFO), ICAR-JRF, seed & fertilizer corporate sectors, and agricultural entrepreneurship.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="Dev_Sanskriti_Vishwavidyalaya Logo.png" alt="DSVV Logo" class="footer-logo">
+        <p>Dev Sanskriti Vishwavidyalaya - A premier university dedicated to the integration of scientific education with cultural and spiritual values.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Academic Programs</a></li>
+          <li><a href="bnys.html">BNYS Program</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="why-choose.html">Why Choose DSVV</a></li>
+          <li><a href="gallery.html">Campus Gallery</a></li>
+          <li><a href="about.html">About DSVV</a></li>
+          <li><a href="naac.html">NAAC Approved</a></li>
+          <li><a href="aicte.html">AICTE Status</a></li>
+          <li><a href="agriculture.html">Agriculture / ICAR</a></li>
+          <li><a href="ncte.html">NCTE Recognition</a></li>
+          <li><a href="ugc.html">UGC Commission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 7GH8+VJG, Village Sankara, Khapri, Kumhari, District Durg, Chhattisgarh – 490042, India</p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:registrar@devsanskritivishwavidyalaya.com">registrar@devsanskritivishwavidyalaya.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+          <a href="https://share.google/cZx3qMUfXMvfY8Rd2" aria-label="Follow DSVV on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/dsvvofficial" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/dsvvofficial/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/channel/UC5OXRsDLXxKgIk9x11AwgqQ" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Dev Sanskriti Vishwavidyalaya (DSVV), Chhattisgarh, India. All Rights Reserved.</p>
+      <p>A Premier University for Holistic Education | UGC Recognized | NAAC Accredited</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
