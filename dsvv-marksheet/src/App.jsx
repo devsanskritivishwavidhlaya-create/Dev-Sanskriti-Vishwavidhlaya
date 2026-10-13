@@ -65,27 +65,52 @@ export default function App() {
     });
   };
 
+  const normalizeSpace = (val) => String(val ?? '').trim().replace(/\s+/g, ' ');
+
   const sanitizeStudents = (studentList) => {
     if (!Array.isArray(studentList)) return [];
     return studentList.map(st => {
       const updatedMarksheets = {};
-      if (st.marksheets) {
-        Object.keys(st.marksheets).forEach(t => {
-          const ms = st.marksheets[t] || {};
-          const updatedSubs = Array.isArray(ms.subjects) ? ms.subjects.map(s => ({
-            ...s,
-            code: (s.code || '').toUpperCase(),
-            name: (s.name || '').toUpperCase()
-          })) : undefined;
-          updatedMarksheets[t] = {
-            ...ms,
-            ...(updatedSubs ? { subjects: updatedSubs } : {})
-          };
+      const termKeys = st.marksheets ? Object.keys(st.marksheets) : [];
+      termKeys.forEach(t => {
+        const ms = st.marksheets[t] || {};
+        const updatedSubs = Array.isArray(ms.subjects) ? ms.subjects.map(s => ({
+          ...s,
+          code: (s.code || '').toUpperCase(),
+          name: (s.name || '').toUpperCase()
+        })) : undefined;
+        updatedMarksheets[t] = {
+          ...ms,
+          ...(updatedSubs ? { subjects: updatedSubs } : {})
+        };
+      });
+
+      const pd = st.publishedDocs || {};
+      const hasExplicitPubSettings = ['marksheets', 'admitCards', 'results', 'idCards'].some(
+        k => pd[k] && Object.keys(pd[k]).length > 0
+      );
+      let normalizedPublishedDocs = pd;
+      if (st.isPublished !== false && termKeys.length > 0 && !hasExplicitPubSettings) {
+        normalizedPublishedDocs = { marksheets: {}, admitCards: {}, results: {}, idCards: {} };
+        termKeys.forEach(t => {
+          normalizedPublishedDocs.marksheets[t] = true;
+          normalizedPublishedDocs.admitCards[t] = true;
+          normalizedPublishedDocs.results[t] = true;
+          normalizedPublishedDocs.idCards[t] = true;
         });
       }
+
       return {
         ...st,
-        marksheets: updatedMarksheets
+        name: normalizeSpace(st.name).toUpperCase(),
+        fatherName: normalizeSpace(st.fatherName).toUpperCase(),
+        motherName: normalizeSpace(st.motherName).toUpperCase(),
+        rollNo: normalizeSpace(st.rollNo),
+        enrollmentNo: normalizeSpace(st.enrollmentNo),
+        course: normalizeSpace(st.course),
+        session: normalizeSpace(st.session).toUpperCase(),
+        marksheets: updatedMarksheets,
+        publishedDocs: normalizedPublishedDocs
       };
     });
   };
@@ -262,8 +287,8 @@ export default function App() {
     setCloudSyncMsg({ type: 'info', text: 'Pulling latest database backup from Google Drive...' });
     try {
       const data = await pullFromGoogleDrive(googleDriveUrl.trim());
-      if (data.students) setStudents(data.students);
-      if (data.courses) setCourses(data.courses);
+      if (data.students) setStudents(sanitizeStudents(data.students));
+      if (data.courses) setCourses(sanitizeCourses(data.courses));
       if (data.centers) setCenters(data.centers);
       const timeStr = new Date().toLocaleString();
       setLastSyncTime(timeStr);
@@ -289,9 +314,11 @@ export default function App() {
       const data = await importDatabaseJson(file);
       if (!confirm(`Restore ${data.students?.length || 0} students from backup file?`)) return;
       setCloudSyncLoading(true);
-      await api.importData(data);
-      if (data.students && data.students.length > 0) setStudents(data.students);
-      if (data.courses && data.courses.length > 0) setCourses(data.courses);
+      const cleanedStudents = data.students ? sanitizeStudents(data.students) : [];
+      const cleanedCourses = data.courses ? sanitizeCourses(data.courses) : [];
+      await api.importData({ ...data, students: cleanedStudents, courses: cleanedCourses });
+      if (cleanedStudents.length > 0) setStudents(cleanedStudents);
+      if (cleanedCourses.length > 0) setCourses(cleanedCourses);
       if (data.centers && data.centers.length > 0) setCenters(data.centers);
       setCloudSyncMsg({ type: 'success', text: `Successfully restored ${data.students?.length || 0} students to server & database!` });
       confetti({ particleCount: 70, spread: 60 });
@@ -390,17 +417,19 @@ export default function App() {
         setServerOnline(true);
         setServerErrorMsg('');
         if (db.students && Array.isArray(db.students) && db.students.length > 0) {
+          const cleaned = sanitizeStudents(db.students);
           setStudents(prev => {
-            if (JSON.stringify(prev) !== JSON.stringify(db.students)) {
-              return db.students;
+            if (JSON.stringify(prev) !== JSON.stringify(cleaned)) {
+              return cleaned;
             }
             return prev;
           });
         }
         if (db.courses && Array.isArray(db.courses) && db.courses.length > 0) {
+          const cleanedCourses = sanitizeCourses(db.courses);
           setCourses(prev => {
-            if (JSON.stringify(prev) !== JSON.stringify(db.courses)) {
-              return db.courses;
+            if (JSON.stringify(prev) !== JSON.stringify(cleanedCourses)) {
+              return cleanedCourses;
             }
             return prev;
           });
@@ -429,10 +458,21 @@ export default function App() {
   }, [dbLoaded]);
 
   const getNextSequentialNumbers = (sessionStr) => {
-    const lastRoll = students.reduce((max, s) => Math.max(max, parseInt(s.rollNo) || 230000), 232150);
-    const nextRoll = lastRoll + 1;
-    const sessionYear = parseInt((sessionStr || '').match(/\b(20\d{2})\b/)?.[0] || '2024');
-    const nextEnroll = `${sessionYear - 1}${nextRoll}`;
+    const maxSeq = students.reduce((max, s) => {
+      const rStr = String(s.rollNo || '').trim();
+      const eStr = String(s.enrollmentNo || '').trim();
+      const rSeq = rStr.length >= 4 ? parseInt(rStr.slice(-4), 10) : 0;
+      const eSeq = eStr.length >= 4 ? parseInt(eStr.slice(-4), 10) : 0;
+      return Math.max(max, isNaN(rSeq) ? 0 : rSeq, isNaN(eSeq) ? 0 : eSeq);
+    }, 2150);
+    const nextSeq = maxSeq + 1;
+    const years = (sessionStr || '').match(/\b(20\d{2})\b/g);
+    const startYear = years && years.length >= 1 ? parseInt(years[0], 10) : 2024;
+    const endYear = years && years.length >= 2 ? parseInt(years[years.length - 1], 10) : startYear + 2;
+    const rollPrefix = String(endYear).slice(-2);
+    const nextRoll = `${rollPrefix}${String(nextSeq).padStart(4, '0')}`;
+    const enrollYear = years && years.length >= 2 ? startYear : (startYear - 1);
+    const nextEnroll = `${enrollYear}${nextRoll}`;
     const lastDmc = students.reduce((max, s) => {
       Object.values(s.marksheets || {}).forEach(m => {
         const d = parseInt(m.dmcNo) || 0;
@@ -644,8 +684,10 @@ export default function App() {
   const startPublishDocs = (student) => {
     setPublishingStudent(student);
     const defaults = { marksheets: {}, admitCards: {}, results: {}, idCards: {} };
-    const course = courses.find(c => c.name.toLowerCase() === student.course.toLowerCase());
-    const terms = course ? getTermNames(course) : Object.keys(student.marksheets || {});
+    const course = courses.find(c => normalizeSpace(c.name).toLowerCase() === normalizeSpace(student.course).toLowerCase());
+    const courseTerms = course ? getTermNames(course) : [];
+    const msTerms = Object.keys(student.marksheets || {});
+    const terms = Array.from(new Set([...msTerms, ...courseTerms]));
     terms.forEach(t => {
       defaults.marksheets[t] = student.publishedDocs?.marksheets?.[t] !== undefined ? student.publishedDocs.marksheets[t] : true;
       defaults.admitCards[t] = student.publishedDocs?.admitCards?.[t] !== undefined ? student.publishedDocs.admitCards[t] : true;
@@ -719,15 +761,15 @@ export default function App() {
     setEditingStudentId(student.id);
     setIsCompleteEdit(complete);
     setFormData({
-      name: student.name,
-      fatherName: student.fatherName,
-      motherName: student.motherName,
+      name: normalizeSpace(student.name).toUpperCase(),
+      fatherName: normalizeSpace(student.fatherName).toUpperCase(),
+      motherName: normalizeSpace(student.motherName).toUpperCase(),
       dob: student.dob,
       courseName: student.course,
-      session: student.session,
+      session: normalizeSpace(student.session).toUpperCase(),
       email: student.email || '',
-      rollNo: student.rollNo,
-      enrollmentNo: student.enrollmentNo,
+      rollNo: normalizeSpace(student.rollNo),
+      enrollmentNo: normalizeSpace(student.enrollmentNo),
       schoolCollege: student.schoolCollege || '',
       photo: student.photo,
       centerCode: student.centerCode || ''
@@ -941,7 +983,20 @@ export default function App() {
 
   const handleSaveStudent = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.fatherName || !formData.motherName || !formData.dob || !formData.courseName || !formData.session) {
+    const cleanedForm = {
+      ...formData,
+      name: normalizeSpace(formData.name).toUpperCase(),
+      fatherName: normalizeSpace(formData.fatherName).toUpperCase(),
+      motherName: normalizeSpace(formData.motherName).toUpperCase(),
+      courseName: normalizeSpace(formData.courseName),
+      session: normalizeSpace(formData.session).toUpperCase(),
+      rollNo: normalizeSpace(formData.rollNo),
+      enrollmentNo: normalizeSpace(formData.enrollmentNo),
+      email: String(formData.email || '').trim(),
+      schoolCollege: String(formData.schoolCollege || '').trim()
+    };
+
+    if (!cleanedForm.name || !cleanedForm.fatherName || !cleanedForm.motherName || !cleanedForm.dob || !cleanedForm.courseName || !cleanedForm.session) {
       alert('Please fill all required fields.');
       return;
     }
@@ -956,13 +1011,13 @@ export default function App() {
       }
     }
 
-    const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
+    const course = courses.find(c => normalizeSpace(c.name).toLowerCase() === cleanedForm.courseName.toLowerCase());
     const terms = getTermNames(course);
     const marksheetsData = {};
-    const { nextDmc } = getNextSequentialNumbers(formData.session || '2024-2026');
+    const { nextDmc } = getNextSequentialNumbers(cleanedForm.session || '2024-2026');
 
     terms.forEach((t, idx) => {
-      const autoDate = getAutoIssueDate(formData.session, formData.courseName, t);
+      const autoDate = getAutoIssueDate(cleanedForm.session, cleanedForm.courseName, t);
       const autoDmc = nextDmc + idx;
       const termSubjects = (formSubjects[t] && formSubjects[t].length > 0)
         ? formSubjects[t]
@@ -985,37 +1040,53 @@ export default function App() {
 
     if (editingStudentId) {
       const existing = students.find(s => s.id === editingStudentId);
+      const existingPd = existing?.publishedDocs;
+      const mergedPd = existingPd ? {
+        ...existingPd,
+        marksheets: { ...publishedDocs.marksheets, ...(existingPd.marksheets || {}) },
+        admitCards: { ...publishedDocs.admitCards, ...(existingPd.admitCards || {}) },
+        results: { ...publishedDocs.results, ...(existingPd.results || {}) },
+        idCards: { ...publishedDocs.idCards, ...(existingPd.idCards || {}) }
+      } : publishedDocs;
       const updated = {
         ...existing,
-        ...formData,
-        course: formData.courseName,
+        ...cleanedForm,
+        course: cleanedForm.courseName,
         marksheets: marksheetsData,
-        publishedDocs: existing?.publishedDocs || publishedDocs
+        publishedDocs: mergedPd,
+        isPublished: existing?.isPublished !== undefined ? existing.isPublished : true
       };
       setStudents(prev => prev.map(s => s.id === editingStudentId ? updated : s));
-      api.updateStudent(editingStudentId, { ...formData, marksheetsData, isCompleteEdit }).catch(err => console.error('API update failed:', err));
+      api.updateStudent(editingStudentId, {
+        ...cleanedForm,
+        course: cleanedForm.courseName,
+        marksheetsData,
+        publishedDocs: mergedPd,
+        isPublished: updated.isPublished,
+        isCompleteEdit
+      }).catch(err => console.error('API update failed:', err));
     } else {
       const newStudent = {
         id: `std-${Date.now()}`,
-        name: formData.name,
-        fatherName: formData.fatherName,
-        motherName: formData.motherName,
-        dob: formData.dob,
-        course: formData.courseName,
-        session: formData.session,
-        email: formData.email,
-        photo: formData.photo,
-        rollNo: formData.rollNo,
-        enrollmentNo: formData.enrollmentNo,
-        schoolCollege: formData.schoolCollege,
-        centerCode: isCenterAction ? loggedCenter.centerCode : (formData.centerCode || 'DSVV-MAIN'),
+        name: cleanedForm.name,
+        fatherName: cleanedForm.fatherName,
+        motherName: cleanedForm.motherName,
+        dob: cleanedForm.dob,
+        course: cleanedForm.courseName,
+        session: cleanedForm.session,
+        email: cleanedForm.email,
+        photo: cleanedForm.photo,
+        rollNo: cleanedForm.rollNo,
+        enrollmentNo: cleanedForm.enrollmentNo,
+        schoolCollege: cleanedForm.schoolCollege,
+        centerCode: isCenterAction ? loggedCenter.centerCode : (cleanedForm.centerCode || 'DSVV-MAIN'),
         isPublished: true,
         marksheets: marksheetsData,
         publishedDocs
       };
 
       setStudents(prev => [newStudent, ...prev]);
-      api.createStudent({ ...formData, marksheetsData }).catch(err => console.error('API create failed:', err));
+      api.createStudent({ ...newStudent, courseName: cleanedForm.courseName, marksheetsData }).catch(err => console.error('API create failed:', err));
 
       if (isCenterAction) {
         const newBal = (loggedCenter.walletBalance || 0) - admissionFee;
@@ -1024,7 +1095,7 @@ export default function App() {
           date: new Date().toISOString().replace('T', ' ').slice(0, 16),
           type: 'debit',
           amount: admissionFee,
-          description: `Candidate Admission Fee (${formData.name} - Roll: ${formData.rollNo})`,
+          description: `Candidate Admission Fee (${cleanedForm.name} - Roll: ${cleanedForm.rollNo})`,
           balanceAfter: newBal
         };
 
@@ -1122,19 +1193,23 @@ export default function App() {
     setPortalError('');
     setPortalStudent(null);
     setPortalCourse(null);
-    if (!portalName.trim() && !portalSearchVal.trim()) {
+    const cleanName = normalizeSpace(portalName);
+    const cleanVal = normalizeSpace(portalSearchVal).replace(/\s+/g, '');
+
+    if (!cleanName && !cleanVal) {
       setPortalError('Please enter Student Name and/or Roll/Enrollment Number.');
       return;
     }
 
-    const n = portalName.trim().toLowerCase();
-    const q = portalSearchVal.trim().toLowerCase();
-
-    const setupPortalStudent = (student, course) => {
+    const setupPortalStudent = (rawStudent, courseObj) => {
+      const student = sanitizeStudents([rawStudent])[0] || rawStudent;
+      const resolvedCourse = courseObj || courses.find(c => normalizeSpace(c.name).toLowerCase() === normalizeSpace(student.course).toLowerCase()) || { name: student.course, terms: {} };
       setPortalStudent(student);
-      setPortalCourse(course || { name: student.course, terms: {} });
+      setPortalCourse(resolvedCourse);
       const pd = student.publishedDocs || {};
-      const allTerms = Object.keys(student.marksheets || {});
+      const msTerms = Object.keys(student.marksheets || {});
+      const cTerms = getTermNames(resolvedCourse);
+      const allTerms = Array.from(new Set([...msTerms, ...cTerms]));
       const publishedTerms = allTerms.filter(t => 
         pd.marksheets?.[t] === true || 
         pd.admitCards?.[t] === true || 
@@ -1155,25 +1230,58 @@ export default function App() {
       }
     };
 
+    const findMatchingStudent = (list) => {
+      if (!Array.isArray(list)) return null;
+      return list.find(s => {
+        if (s.isPublished === false) return false;
+        const sName = normalizeSpace(s.name).toLowerCase();
+        const sRoll = normalizeSpace(s.rollNo).replace(/\s+/g, '').toLowerCase();
+        const sEnroll = normalizeSpace(s.enrollmentNo).replace(/\s+/g, '').toLowerCase();
+        const nameOk = cleanName ? sName === cleanName.toLowerCase() : true;
+        const valOk = cleanVal ? (sRoll === cleanVal.toLowerCase() || sEnroll === cleanVal.toLowerCase()) : true;
+        return nameOk && valOk;
+      });
+    };
+
     if (!serverOnline) {
       setPortalError('Server Error: University server is currently offline. Please contact the administrator.');
       return;
     }
 
-    // Try API search
-    api.searchPublic(portalName.trim(), portalSearchVal.trim()).then(result => {
+    // Try API search first, with automatic normalized fallback against live database state
+    api.searchPublic(cleanName, cleanVal).then(result => {
       if (result.student) {
-        const course = courses.find(c => c.name.toLowerCase() === (result.student.course || '').toLowerCase());
-        setupPortalStudent(result.student, course);
+        setupPortalStudent(result.student, result.course);
       } else {
-        setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
+        const localMatch = findMatchingStudent(students);
+        if (localMatch) {
+          setupPortalStudent(localMatch);
+        } else {
+          setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
+        }
       }
     }).catch(err => {
       if (!serverOnline || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError') || err.message?.includes('502') || err.message?.includes('503') || err.message?.includes('500') || err.message?.includes('530')) {
         setPortalError('Server Error: University server is currently offline. Please contact the administrator.');
-      } else {
-        setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
+        return;
       }
+      const localMatch = findMatchingStudent(students);
+      if (localMatch) {
+        setupPortalStudent(localMatch);
+        return;
+      }
+      api.getDb().then(db => {
+        const freshStudents = sanitizeStudents(db.students || []);
+        if (freshStudents.length > 0) setStudents(freshStudents);
+        const freshMatch = findMatchingStudent(freshStudents);
+        if (freshMatch) {
+          setupPortalStudent(freshMatch);
+        } else {
+          setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
+        }
+      }).catch(() => {
+        setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
+      });
     });
   };
 
@@ -1527,7 +1635,8 @@ export default function App() {
                         <input 
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px' }}
                           value={formData.name} 
-                          onChange={e => setFormData(p => ({ ...p, name: e.target.value.toUpperCase() }))} 
+                          onChange={e => setFormData(p => ({ ...p, name: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} 
+                          onBlur={() => setFormData(p => ({ ...p, name: normalizeSpace(p.name).toUpperCase() }))}
                           required 
                         />
                       </div>
@@ -1536,7 +1645,8 @@ export default function App() {
                         <input 
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px' }}
                           value={formData.fatherName} 
-                          onChange={e => setFormData(p => ({ ...p, fatherName: e.target.value.toUpperCase() }))} 
+                          onChange={e => setFormData(p => ({ ...p, fatherName: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} 
+                          onBlur={() => setFormData(p => ({ ...p, fatherName: normalizeSpace(p.fatherName).toUpperCase() }))}
                           required 
                         />
                       </div>
@@ -1545,7 +1655,8 @@ export default function App() {
                         <input 
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px' }}
                           value={formData.motherName} 
-                          onChange={e => setFormData(p => ({ ...p, motherName: e.target.value.toUpperCase() }))} 
+                          onChange={e => setFormData(p => ({ ...p, motherName: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} 
+                          onBlur={() => setFormData(p => ({ ...p, motherName: normalizeSpace(p.motherName).toUpperCase() }))}
                           required 
                         />
                       </div>
@@ -1601,7 +1712,15 @@ export default function App() {
                           value={formData.session} 
                           onChange={e => {
                             const newSession = e.target.value.toUpperCase();
-                            setFormData(p => ({ ...p, session: newSession }));
+                            setFormData(p => {
+                              const nextState = { ...p, session: newSession };
+                              if (!editingStudentId && /\b20\d{2}\b/.test(newSession)) {
+                                const { nextRoll, nextEnroll } = getNextSequentialNumbers(newSession);
+                                nextState.rollNo = nextRoll;
+                                nextState.enrollmentNo = nextEnroll;
+                              }
+                              return nextState;
+                            });
                             if (formData.courseName) {
                               const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
                               const terms = course ? getTermNames(course) : [];
@@ -1634,7 +1753,18 @@ export default function App() {
                         <input 
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px', background: '#f8fafc' }}
                           value={formData.rollNo} 
-                          onChange={e => setFormData(p => ({ ...p, rollNo: e.target.value }))} 
+                          onChange={e => {
+                            const newRoll = e.target.value.trim();
+                            setFormData(p => {
+                              const oldRoll = String(p.rollNo || '').trim();
+                              const oldEnroll = String(p.enrollmentNo || '').trim();
+                              let updatedEnroll = p.enrollmentNo;
+                              if (!editingStudentId && oldRoll && oldEnroll.endsWith(oldRoll) && newRoll) {
+                                updatedEnroll = oldEnroll.slice(0, oldEnroll.length - oldRoll.length) + newRoll;
+                              }
+                              return { ...p, rollNo: newRoll, enrollmentNo: updatedEnroll };
+                            });
+                          }} 
                           required 
                         />
                       </div>
@@ -1643,7 +1773,7 @@ export default function App() {
                         <input 
                           style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', fontSize: '14px', background: '#f8fafc' }}
                           value={formData.enrollmentNo} 
-                          onChange={e => setFormData(p => ({ ...p, enrollmentNo: e.target.value }))} 
+                          onChange={e => setFormData(p => ({ ...p, enrollmentNo: e.target.value.trim() }))} 
                           required 
                         />
                       </div>
@@ -2485,15 +2615,15 @@ export default function App() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: '20px', marginBottom: '20px' }}>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>STUDENT NAME</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value.toUpperCase() }))} required />
+                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.name} onChange={e => setFormData(p => ({ ...p, name: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} onBlur={() => setFormData(p => ({ ...p, name: normalizeSpace(p.name).toUpperCase() }))} required />
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>FATHER'S NAME</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.fatherName} onChange={e => setFormData(p => ({ ...p, fatherName: e.target.value.toUpperCase() }))} required />
+                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.fatherName} onChange={e => setFormData(p => ({ ...p, fatherName: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} onBlur={() => setFormData(p => ({ ...p, fatherName: normalizeSpace(p.fatherName).toUpperCase() }))} required />
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>MOTHER'S NAME</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.motherName} onChange={e => setFormData(p => ({ ...p, motherName: e.target.value.toUpperCase() }))} required />
+                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1' }} value={formData.motherName} onChange={e => setFormData(p => ({ ...p, motherName: e.target.value.toUpperCase().replace(/\s{2,}/g, ' ') }))} onBlur={() => setFormData(p => ({ ...p, motherName: normalizeSpace(p.motherName).toUpperCase() }))} required />
                     </div>
                   </div>
 
@@ -2532,7 +2662,15 @@ export default function App() {
                         value={formData.session} 
                         onChange={e => {
                           const newSession = e.target.value.toUpperCase();
-                          setFormData(p => ({ ...p, session: newSession }));
+                          setFormData(p => {
+                            const nextState = { ...p, session: newSession };
+                            if (!editingStudentId && /\b20\d{2}\b/.test(newSession)) {
+                              const { nextRoll, nextEnroll } = getNextSequentialNumbers(newSession);
+                              nextState.rollNo = nextRoll;
+                              nextState.enrollmentNo = nextEnroll;
+                            }
+                            return nextState;
+                          });
                           if (formData.courseName) {
                             const course = courses.find(c => c.name.toLowerCase() === formData.courseName.toLowerCase());
                             const terms = course ? getTermNames(course) : [];
@@ -2556,11 +2694,22 @@ export default function App() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: '20px', marginBottom: '24px' }}>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>ROLL NUMBER</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#f8fafc' }} value={formData.rollNo} onChange={e => setFormData(p => ({ ...p, rollNo: e.target.value }))} required />
+                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#f8fafc' }} value={formData.rollNo} onChange={e => {
+                        const newRoll = e.target.value.trim();
+                        setFormData(p => {
+                          const oldRoll = String(p.rollNo || '').trim();
+                          const oldEnroll = String(p.enrollmentNo || '').trim();
+                          let updatedEnroll = p.enrollmentNo;
+                          if (!editingStudentId && oldRoll && oldEnroll.endsWith(oldRoll) && newRoll) {
+                            updatedEnroll = oldEnroll.slice(0, oldEnroll.length - oldRoll.length) + newRoll;
+                          }
+                          return { ...p, rollNo: newRoll, enrollmentNo: updatedEnroll };
+                        });
+                      }} required />
                     </div>
                     <div className="form-group">
                       <label style={{ fontSize: '11px', fontWeight: '700', color: '#475569' }}>ENROLLMENT NUMBER</label>
-                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#f8fafc' }} value={formData.enrollmentNo} onChange={e => setFormData(p => ({ ...p, enrollmentNo: e.target.value }))} required />
+                      <input style={{ padding: '12px 14px', borderRadius: '8px', border: '1.5px solid #cbd5e1', background: '#f8fafc' }} value={formData.enrollmentNo} onChange={e => setFormData(p => ({ ...p, enrollmentNo: e.target.value.trim() }))} required />
                     </div>
                   </div>
 
@@ -2745,11 +2894,21 @@ export default function App() {
               <div className="portal-form">
                 <div className="input-group">
                   <User size={20} />
-                  <input placeholder="Student Full Name (e.g. AASHISH BAGH)" value={portalName} onChange={e => setPortalName(e.target.value)} />
+                  <input
+                    placeholder="Student Full Name (e.g. AASHISH BAGH)"
+                    value={portalName}
+                    onChange={e => setPortalName(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') handlePortalSearch(); }}
+                  />
                 </div>
                 <div className="input-group">
                   <FileText size={20} />
-                  <input placeholder="Roll Number or Enrollment Number" value={portalSearchVal} onChange={e => setPortalSearchVal(e.target.value)} />
+                  <input
+                    placeholder="Roll Number or Enrollment Number"
+                    value={portalSearchVal}
+                    onChange={e => setPortalSearchVal(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') handlePortalSearch(); }}
+                  />
                 </div>
                 <button className="btn-primary" onClick={handlePortalSearch}>
                   <Search size={18} /> Search Record
@@ -2943,7 +3102,7 @@ export default function App() {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {Object.keys(publishingStudent.marksheets || {}).map(term => (
+              {Object.keys(localPublishDocs.results || publishingStudent.marksheets || {}).map(term => (
                 <div key={term} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
                   <strong style={{ fontSize: '13.5px', color: '#0d2149', display: 'block', marginBottom: '12px' }}>
                     {term.toUpperCase()}
