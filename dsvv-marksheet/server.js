@@ -35,15 +35,36 @@ if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 const dbPath = path.join(dataDir, 'db.json');
 
+function normalizeText(val) {
+  return String(val ?? '').trim().replace(/\s+/g, ' ');
+}
+
+function sanitizeStudentRecord(s) {
+  if (!s || typeof s !== 'object') return s;
+  return {
+    ...s,
+    name: normalizeText(s.name).toUpperCase(),
+    fatherName: normalizeText(s.fatherName).toUpperCase(),
+    motherName: normalizeText(s.motherName).toUpperCase(),
+    rollNo: normalizeText(s.rollNo),
+    enrollmentNo: normalizeText(s.enrollmentNo),
+    session: normalizeText(s.session).toUpperCase()
+  };
+}
+
 function readDB() {
   try {
-    return JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    const raw = fs.readFileSync(dbPath, 'utf8').replace(/^\uFEFF/, '');
+    return JSON.parse(raw);
   } catch {
     return { students: [], courses: [], settings: { lastRollNo: null, lastEnrollSuffix: null, lastDmcNo: null } };
   }
 }
 
 function writeDB(data) {
+  if (data && Array.isArray(data.students)) {
+    data.students = data.students.map(sanitizeStudentRecord);
+  }
   fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), 'utf8');
 }
 
@@ -205,21 +226,28 @@ app.post('/api/students', (req, res) => {
     const db = readDB();
 
     if (data.name && (data.rollNo || data.courseName || data.course)) {
-      const courseName = data.course || data.courseName || '';
+      const courseName = normalizeText(data.course || data.courseName || '');
       const yearMatch = (data.session || '').match(/\b(20\d{2})\b/g);
       const finalYear = yearMatch ? parseInt(yearMatch[yearMatch.length - 1]) : new Date().getFullYear();
-      const rollNo = (data.rollNo || generateRollNumber(db)).toString();
-      const enrollmentNo = (data.enrollmentNo || generateEnrollmentNumber(db, finalYear)).toString();
+      const rollNo = normalizeText(data.rollNo || generateRollNumber(db));
+      const enrollmentNo = normalizeText(data.enrollmentNo || generateEnrollmentNumber(db, finalYear));
       const marksheets = data.marksheets || data.marksheetsData || {};
-      const publishedDocs = data.publishedDocs || {
+      const defaultPublishedDocs = {
         idCard: true,
         marksheets: {},
         admitCards: {},
         results: {},
         idCards: {}
       };
+      Object.keys(marksheets).forEach(t => {
+        defaultPublishedDocs.marksheets[t] = true;
+        defaultPublishedDocs.admitCards[t] = true;
+        defaultPublishedDocs.results[t] = true;
+        defaultPublishedDocs.idCards[t] = true;
+      });
+      const publishedDocs = data.publishedDocs || defaultPublishedDocs;
 
-      const student = {
+      const student = sanitizeStudentRecord({
         id: data.id || `std-${Date.now()}`,
         name: data.name,
         fatherName: data.fatherName || '',
@@ -237,9 +265,9 @@ app.post('/api/students', (req, res) => {
         publishedDocs,
         isPublished: data.isPublished !== undefined ? data.isPublished : true,
         createdAt: data.createdAt || new Date().toISOString()
-      };
+      });
 
-      const existingIdx = db.students.findIndex(s => s.id === student.id || (student.rollNo && s.rollNo == student.rollNo));
+      const existingIdx = db.students.findIndex(s => s.id === student.id || (student.rollNo && String(s.rollNo).trim() === student.rollNo));
       if (existingIdx >= 0) {
         db.students[existingIdx] = { ...db.students[existingIdx], ...student };
       } else {
@@ -260,48 +288,46 @@ app.post('/api/students', (req, res) => {
 app.put('/api/students/:id', (req, res) => {
   try {
     const { id } = req.params;
-    const { name, fatherName, motherName, dob, photo, marksheetsData, isCompleteEdit, courseName, session } = req.body;
+    const {
+      name, fatherName, motherName, dob, photo,
+      rollNo, enrollmentNo, email, schoolCollege, centerCode,
+      marksheetsData, publishedDocs, isPublished, isCompleteEdit, courseName, course, session
+    } = req.body;
     const db = readDB();
     const idx = db.students.findIndex(s => s.id === id);
     if (idx < 0) return res.status(404).json({ error: 'Student not found' });
 
     const student = db.students[idx];
-    if (name) student.name = name;
-    if (fatherName) student.fatherName = fatherName;
-    if (motherName) student.motherName = motherName;
-    if (dob) student.dob = dob;
+    if (name !== undefined) student.name = normalizeText(name).toUpperCase();
+    if (fatherName !== undefined) student.fatherName = normalizeText(fatherName).toUpperCase();
+    if (motherName !== undefined) student.motherName = normalizeText(motherName).toUpperCase();
+    if (dob !== undefined) student.dob = dob;
     if (photo !== undefined) student.photo = photo;
+    if (rollNo !== undefined) student.rollNo = normalizeText(rollNo);
+    if (enrollmentNo !== undefined) student.enrollmentNo = normalizeText(enrollmentNo);
+    if (email !== undefined) student.email = String(email || '').trim();
+    if (schoolCollege !== undefined) student.schoolCollege = String(schoolCollege || '').trim();
+    if (centerCode !== undefined) student.centerCode = String(centerCode || '').trim();
+    if (courseName || course) student.course = normalizeText(courseName || course);
+    if (session !== undefined) student.session = normalizeText(session).toUpperCase();
+    if (publishedDocs !== undefined) student.publishedDocs = publishedDocs;
+    if (isPublished !== undefined) student.isPublished = isPublished;
 
     if (isCompleteEdit) {
-      if (courseName && courseName !== student.course) {
-        const course = db.courses.find(c => c.name.toLowerCase() === courseName.toLowerCase());
-        if (!course) return res.status(404).json({ error: 'Course not found' });
-        student.course = courseName;
-        const sessStr = session || student.session;
-        const ym = sessStr.match(/\b(20\d{2})\b/g);
-        const fy = ym ? parseInt(ym[ym.length - 1]) : new Date().getFullYear();
-        const terms = Object.keys(course.terms);
-        const newMs = {}, newPd = { idCard: student.publishedDocs?.idCard || false, marksheets: {}, admitCards: {}, results: {} };
-        terms.forEach((t, i) => {
-          newMs[t] = { dmcNo: generateDmcNumber(db).toString(), issueDate: calculateIssueDate(sessStr, course.type, t, i, terms.length), marks: {}, isPublished: false };
-          newPd.marksheets[t] = false; newPd.admitCards[t] = false; newPd.results[t] = false;
-        });
-        student.marksheets = newMs;
-        student.publishedDocs = newPd;
-      }
-      if (session && session !== student.session) {
-        student.session = session;
-        const ym = session.match(/\b(20\d{2})\b/g);
-        if (ym) {
-          const fy = parseInt(ym[ym.length - 1]);
-          student.enrollmentNo = `${fy - 1}${student.enrollmentNo.slice(4)}`;
-          const course = db.courses.find(c => c.name.toLowerCase() === student.course.toLowerCase());
-          if (course) {
-            const terms = Object.keys(course.terms);
-            terms.forEach((t, i) => {
-              if (student.marksheets[t]) student.marksheets[t].issueDate = calculateIssueDate(session, course.type, t, i, terms.length);
-            });
-          }
+      const targetCourseName = courseName || course;
+      if (targetCourseName && targetCourseName !== student.course) {
+        const courseObj = db.courses.find(c => c.name.toLowerCase() === targetCourseName.toLowerCase());
+        if (courseObj) {
+          student.course = targetCourseName;
+          const sessStr = session || student.session;
+          const terms = Object.keys(courseObj.terms);
+          const newMs = {}, newPd = { idCard: student.publishedDocs?.idCard ?? true, marksheets: {}, admitCards: {}, results: {}, idCards: {} };
+          terms.forEach((t, i) => {
+            newMs[t] = { dmcNo: generateDmcNumber(db).toString(), issueDate: calculateIssueDate(sessStr, courseObj.type, t, i, terms.length), marks: {}, isPublished: true };
+            newPd.marksheets[t] = true; newPd.admitCards[t] = true; newPd.results[t] = true; newPd.idCards[t] = true;
+          });
+          student.marksheets = newMs;
+          if (!publishedDocs) student.publishedDocs = newPd;
         }
       }
     }
@@ -332,9 +358,9 @@ app.put('/api/students/:id', (req, res) => {
       });
     }
 
-    db.students[idx] = student;
+    db.students[idx] = sanitizeStudentRecord(student);
     writeDB(db);
-    res.json({ message: 'Student updated successfully', student });
+    res.json({ message: 'Student updated successfully', student: db.students[idx] });
   } catch (err) {
     console.error('Edit error:', err);
     res.status(500).json({ error: 'Failed to update student' });
@@ -371,7 +397,7 @@ app.post('/api/students/:id/publish', (req, res) => {
 
     db.students[idx].publishedDocs = publishedDocs;
     db.students[idx].isPublished = any;
-    Object.keys(db.students[idx].marksheets).forEach(t => {
+    Object.keys(db.students[idx].marksheets || {}).forEach(t => {
       db.students[idx].marksheets[t].isPublished = !!(publishedDocs.marksheets?.[t]);
     });
     writeDB(db);
@@ -385,17 +411,21 @@ app.post('/api/students/:id/publish', (req, res) => {
 app.get('/api/public/student', (req, res) => {
   try {
     const { name, searchVal } = req.query;
-    if (!name || !searchVal) return res.status(400).json({ error: 'Name and Roll/Enrollment required' });
+    if (!name && !searchVal) return res.status(400).json({ error: 'Name and Roll/Enrollment required' });
     const db = readDB();
-    const cleanName = String(name).trim().toLowerCase();
-    const cleanSearch = String(searchVal).trim().toLowerCase();
-    const student = db.students.find(s =>
-      s.isPublished &&
-      String(s.name || '').trim().toLowerCase() === cleanName &&
-      (String(s.rollNo || '').trim().toLowerCase() === cleanSearch || String(s.enrollmentNo || '').trim().toLowerCase() === cleanSearch)
-    );
+    const cleanName = normalizeText(name).toLowerCase();
+    const cleanSearch = normalizeText(searchVal).replace(/\s+/g, '').toLowerCase();
+    const student = db.students.find(s => {
+      if (!s.isPublished) return false;
+      const sName = normalizeText(s.name).toLowerCase();
+      const sRoll = normalizeText(s.rollNo).replace(/\s+/g, '').toLowerCase();
+      const sEnroll = normalizeText(s.enrollmentNo).replace(/\s+/g, '').toLowerCase();
+      const nameMatch = cleanName ? sName === cleanName : true;
+      const valMatch = cleanSearch ? (sRoll === cleanSearch || sEnroll === cleanSearch) : true;
+      return nameMatch && valMatch;
+    });
     if (!student) return res.status(404).json({ error: 'No matching published records found.' });
-    const course = db.courses.find(c => String(c.name || '').toLowerCase() === String(student.course || '').toLowerCase());
+    const course = db.courses.find(c => normalizeText(c.name).toLowerCase() === normalizeText(student.course).toLowerCase());
     res.json({ student, course });
   } catch (err) {
     console.error('Public search error:', err);
@@ -408,7 +438,7 @@ app.post('/api/import', (req, res) => {
   try {
     const { students, courses, centers } = req.body;
     const db = readDB();
-    if (students && Array.isArray(students)) db.students = students;
+    if (students && Array.isArray(students)) db.students = students.map(sanitizeStudentRecord);
     if (courses && Array.isArray(courses)) db.courses = courses;
     if (centers && Array.isArray(centers)) db.centers = centers;
     writeDB(db);
