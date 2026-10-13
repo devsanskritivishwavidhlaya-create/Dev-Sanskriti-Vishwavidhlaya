@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://wiring-hourly-respondents-radiation.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://wiring-hourly-respondents-radiation.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://olive-tracker-skirts-ascii.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://olive-tracker-skirts-ascii.trycloudflare.com/uploads/:path*" }
   ]
 }
