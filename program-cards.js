@@ -26,6 +26,19 @@ const programCards = [
     pageLink: 'bnys.html'
   },
   {
+    id: 'bachelor-of-acupuncture',
+    category: 'ug',
+    title: 'Bachelor of Acupuncture (B.Ac.)',
+    icon: 'fa-hand-holding-medical',
+    badge: '6 Semesters \u2022 UG Degree',
+    description: 'Professional undergraduate degree in acupuncture, moxibustion, and holistic healing sciences. Integrates human anatomy and physiology with traditional meridian theory, clinical point location, needling techniques, and pain management.',
+    eligibility: '10+2 with Science (PCB / PCM)',
+    feePerSem: '\u20b915,000',
+    totalFee: '\u20b990,000',
+    specializations: ['Acupuncture & Moxibustion', 'Clinical Acupuncture', 'Pain Management Therapy', 'Auricular & Scalp Acupuncture'],
+    pageLink: 'programs/acupuncture/index.html'
+  },
+  {
     id: 'ba',
     category: 'ug',
     title: 'Bachelor of Arts (B.A.)',
