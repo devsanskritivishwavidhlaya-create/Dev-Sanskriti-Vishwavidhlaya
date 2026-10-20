@@ -3,7 +3,7 @@ const courseCategories = {
   11: 'diploma', 12: 'diploma', 13: 'ug', 14: 'cert', 15: 'cert', 16: 'cert', 17: 'diploma', 18: 'diploma',
   19: 'pg', 20: 'pg', 21: 'pg', 22: 'pg', 23: 'pg', 24: 'pg', 25: 'pg', 26: 'pg', 27: 'diploma', 28: 'pg',
   29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg', 36: 'diploma',
-  37: 'diploma', 38: 'diploma', 39: 'diploma', 40: 'diploma', 41: 'diploma', 42: 'diploma', 43: 'ug'
+  37: 'diploma', 38: 'diploma', 39: 'diploma', 40: 'diploma', 41: 'diploma', 42: 'diploma', 43: 'ug', 44: 'ug'
 };
 
 const courses = [
@@ -2180,7 +2180,7 @@ const courses = [
   },
   {
     id: 43,
-    name: "Bachelor of Acupuncture (B.Ac.)",
+    name: "Bachelor of Acupuncture (B.Ac. - 3 Years)",
     code: "B.Ac. - 43",
     duration: "6 - Semester's",
     icon: "fa-hand-holding-medical",
@@ -2195,6 +2195,29 @@ const courses = [
           { name: "Semester - 4", fee: 15000.00 },
           { name: "Semester - 5", fee: 15000.00 },
           { name: "Semester - 6", fee: 15000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 44,
+    name: "Bachelor of Acupuncture (B.Ac. - 4 Years)",
+    code: "B.Ac. - 44",
+    duration: "8 - Semester's (4 Years)",
+    icon: "fa-hand-holding-medical",
+    subcourses: [
+      {
+        name: "Acupuncture & Clinical Internship",
+        code: "B.Ac. - 44",
+        semesters: [
+          { name: "Semester - 1", fee: 15000.00 },
+          { name: "Semester - 2", fee: 15000.00 },
+          { name: "Semester - 3", fee: 15000.00 },
+          { name: "Semester - 4", fee: 15000.00 },
+          { name: "Semester - 5", fee: 15000.00 },
+          { name: "Semester - 6", fee: 15000.00 },
+          { name: "Semester - 7", fee: 15000.00 },
+          { name: "Semester - 8", fee: 15000.00 }
         ]
       }
     ]

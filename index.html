@@ -2546,7 +2546,8 @@
     // === FULL COURSE KNOWLEDGE BASE ===
     const courseList = {
       'ug': [
-        { name: 'Bachelor of Acupuncture (B.Ac.)', fee: '₹15,000/semester', total: '₹90,000', duration: '3 years (6 semesters)', code: 'B.Ac.-43' },
+        { name: 'Bachelor of Acupuncture (B.Ac. - 3 Years)', fee: '₹15,000/semester', total: '₹90,000', duration: '3 years (6 semesters)', code: 'B.Ac.-43' },
+        { name: 'Bachelor of Acupuncture (B.Ac. - 4 Years)', fee: '₹15,000/semester', total: '₹1,20,000', duration: '4 years (8 semesters)', code: 'B.Ac.-44' },
         { name: 'B.Sc. Yoga', fee: '₹10,000/semester', total: '₹60,000', duration: '3 years (6 semesters)', code: 'B.Sc. (Yoga)-03' },
         { name: 'B.Sc. (I.T./C.S./P.C.B./P.C.M./Microbiology)', fee: '₹10,000/semester', total: '₹60,000', duration: '3 years (6 semesters)', code: 'B.Sc.-07' },
         { name: 'B.Sc. Food Nutrition & Dietetics', fee: '₹10,000/semester', total: '₹60,000', duration: '3 years (6 semesters)', code: 'B.Sc.-05' },
@@ -2669,7 +2670,7 @@
       if (courseResp) return courseResp;
 
       if (lower.includes('course') || lower.includes('program') || lower.includes('offer') || lower.includes('degree')) {
-        return `DSVV offers 50+ programs across 5 levels:\n\n🎓 <strong>Undergraduate (13):</strong> B.Sc, BNYS, Bachelor of Acupuncture, B.A, B.Com, B.Tech, BBA, BCA, BSW, BHM, B.Lib\n📚 <strong>Postgraduate (8):</strong> M.Sc, M.A, M.Com, MBA, MCA, MSW, M.Lib\n🔧 <strong>Diploma (4):</strong> DCA, PGDCA, DHM, PGDBM\n📜 <strong>Certificate (3):</strong> Life Management, Yoga, Sanskrit\n🔬 <strong>Research (2):</strong> M.Phil, Ph.D\n\nAsk about any specific course for fees & duration!`;
+        return `DSVV offers 50+ programs across 5 levels:\n\n🎓 <strong>Undergraduate (14):</strong> B.Sc, BNYS, Bachelor of Acupuncture (3 & 4 Yrs), B.A, B.Com, B.Tech, BBA, BCA, BSW, BHM, B.Lib\n📚 <strong>Postgraduate (8):</strong> M.Sc, M.A, M.Com, MBA, MCA, MSW, M.Lib\n🔧 <strong>Diploma (4):</strong> DCA, PGDCA, DHM, PGDBM\n📜 <strong>Certificate (3):</strong> Life Management, Yoga, Sanskrit\n🔬 <strong>Research (2):</strong> M.Phil, Ph.D\n\nAsk about any specific course for fees & duration!`;
       }
       if (lower.includes('admit') || lower.includes('apply') || lower.includes('enroll') || lower.includes('join'))
         return staticResponses.admission;
