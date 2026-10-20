@@ -151,7 +151,10 @@ function openCourseModal(programId) {
     if (title.includes('bachelor of library') && c.name.includes('Bachelor of Library')) return true;
     if (title.includes('b.n.y.s') && c.name.includes('B.N.Y.S.')) return true;
     if (title.includes('b.ed') && c.name.includes('Bachelor of Education')) return true;
-    if ((title.includes('acupuncture') || title.includes('b.ac')) && c.name.toLowerCase().includes('acupuncture')) return true;
+    if ((title.includes('acupuncture') || title.includes('b.ac')) && c.name.toLowerCase().includes('acupuncture')) {
+      if (title.includes('4 year') || title.includes('4-year')) return c.name.includes('4 Year') || c.duration.includes('8');
+      return !c.name.includes('4 Year') && !c.duration.includes('8');
+    }
     return false;
   });
 

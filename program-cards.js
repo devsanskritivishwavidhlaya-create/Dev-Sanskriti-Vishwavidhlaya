@@ -28,14 +28,27 @@ const programCards = [
   {
     id: 'bachelor-of-acupuncture',
     category: 'ug',
-    title: 'Bachelor of Acupuncture (B.Ac.)',
+    title: 'Bachelor of Acupuncture (B.Ac. - 3 Years)',
     icon: 'fa-hand-holding-medical',
     badge: '6 Semesters \u2022 UG Degree',
-    description: 'Professional undergraduate degree in acupuncture, moxibustion, and holistic healing sciences. Integrates human anatomy and physiology with traditional meridian theory, clinical point location, needling techniques, and pain management.',
+    description: 'Professional 3-year undergraduate degree in acupuncture, moxibustion, and holistic healing sciences. Integrates human anatomy and physiology with traditional meridian theory, clinical point location, needling techniques, and pain management.',
     eligibility: '10+2 with Science (PCB / PCM)',
     feePerSem: '\u20b915,000',
     totalFee: '\u20b990,000',
     specializations: ['Acupuncture & Moxibustion', 'Clinical Acupuncture', 'Pain Management Therapy', 'Auricular & Scalp Acupuncture'],
+    pageLink: 'programs/acupuncture/index.html'
+  },
+  {
+    id: 'bachelor-of-acupuncture-4yr',
+    category: 'ug',
+    title: 'Bachelor of Acupuncture (B.Ac. - 4 Years)',
+    icon: 'fa-hand-holding-medical',
+    badge: '8 Semesters \u2022 4 Years UG Degree',
+    description: 'Comprehensive 4-year undergraduate professional degree in acupuncture featuring intensive clinical hospital rotations, neuro-acupuncture, palliative therapeutics, evidence-based research, and clinical dissertation.',
+    eligibility: '10+2 with Science (PCB / PCM)',
+    feePerSem: '\u20b915,000',
+    totalFee: '\u20b91,20,000',
+    specializations: ['Acupuncture & Moxibustion', 'Clinical Internship & Hospital Residency', 'Neuro-Acupuncture & Rehabilitation', 'Clinical Pain Management'],
     pageLink: 'programs/acupuncture/index.html'
   },
   {
