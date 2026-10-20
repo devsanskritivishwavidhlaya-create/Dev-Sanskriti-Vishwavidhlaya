@@ -151,6 +151,7 @@ function openCourseModal(programId) {
     if (title.includes('bachelor of library') && c.name.includes('Bachelor of Library')) return true;
     if (title.includes('b.n.y.s') && c.name.includes('B.N.Y.S.')) return true;
     if (title.includes('b.ed') && c.name.includes('Bachelor of Education')) return true;
+    if ((title.includes('acupuncture') || title.includes('b.ac')) && c.name.toLowerCase().includes('acupuncture')) return true;
     return false;
   });
 
