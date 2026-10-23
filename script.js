@@ -155,6 +155,7 @@ function openCourseModal(programId) {
       if (title.includes('4 year') || title.includes('4-year')) return c.name.includes('4 Year') || c.duration.includes('8');
       return !c.name.includes('4 Year') && !c.duration.includes('8');
     }
+    if ((title.includes('veterinary pharmacy') || title.includes('d.v.p') || title.includes('dvp')) && c.name.toLowerCase().includes('veterinary pharmacy')) return true;
     return false;
   });
 

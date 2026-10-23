@@ -481,6 +481,19 @@ const programCards = [
     pageLink: 'programs/diploma-cse/index.html'
   },
   {
+    id: 'diploma-veterinary-pharmacy',
+    category: 'diploma',
+    title: 'Diploma in Veterinary Pharmacy (D.V.P.)',
+    icon: 'fa-paw',
+    badge: '4 Semesters • Diploma',
+    description: 'Professional 2-year diploma in veterinary pharmacy covering animal pharmacology, veterinary dispensary practice, livestock healthcare, drug formulations, and clinical hospital training.',
+    eligibility: '10+2 with Science (PCB / PCM)',
+    feePerSem: '₹12,000',
+    totalFee: '₹48,000',
+    specializations: ['Veterinary Pharmacy', 'Animal Pharmacology & Toxicology', 'Veterinary Dispensary Practice', 'Livestock Health & Disease Control'],
+    pageLink: 'programs/veterinary-pharmacy/index.html'
+  },
+  {
     id: 'cert-life',
     category: 'cert',
     title: 'Certificate in Life Management & Bhagwat Gita',
