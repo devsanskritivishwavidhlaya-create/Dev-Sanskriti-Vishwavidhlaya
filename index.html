@@ -1711,6 +1711,7 @@
             <li role="none"><a href="programs.html" role="menuitem">Courses</a></li>
             <li role="none"><a href="bnys.html" role="menuitem">BNYS Program</a></li>
             <li role="none"><a href="programs/acupuncture/index.html" role="menuitem">Bachelor of Acupuncture</a></li>
+            <li role="none"><a href="programs/veterinary-pharmacy/index.html" role="menuitem">Diploma in Veterinary Pharmacy</a></li>
           </ul>
         </li>
         <li role="none" class="has-dropdown">
@@ -2119,6 +2120,7 @@
             <li><a href="programs.html">Academic Programs</a></li>
             <li><a href="bnys.html">BNYS Program</a></li>
             <li><a href="programs/acupuncture/index.html">Bachelor of Acupuncture</a></li>
+            <li><a href="programs/veterinary-pharmacy/index.html">Diploma in Veterinary Pharmacy</a></li>
             <li><a href="academics.html">Academics</a></li>
             <li><a href="why-choose.html">Why Choose DSVV</a></li>
             <li><a href="gallery.html">Campus Gallery</a></li>
@@ -2574,7 +2576,8 @@
         { name: 'D.C.A.', fee: '₹6,000/semester', total: '₹12,000', duration: '1 year (2 semesters)', code: 'D.C.A.-15' },
         { name: 'P.G.D.C.A.', fee: '₹7,500/semester', total: '₹15,000', duration: '1 year (2 semesters)', code: 'P.G.D.C.A.-16' },
         { name: 'D.H.M.', fee: '₹8,000-₹90,000/semester', total: 'Varies', duration: '2 years (4 semesters)', code: 'D.H.M.-21' },
-        { name: 'P.G.D.B.M.', fee: '₹20,000/semester', total: '₹40,000', duration: '1 year (2 semesters)', code: 'P.G.D.B.M.-25' }
+        { name: 'P.G.D.B.M.', fee: '₹20,000/semester', total: '₹40,000', duration: '1 year (2 semesters)', code: 'P.G.D.B.M.-25' },
+        { name: 'Diploma in Veterinary Pharmacy (D.V.P.)', fee: '₹12,000/semester', total: '₹48,000', duration: '2 years (4 semesters)', code: 'D.V.P.-45' }
       ],
       'cert': [
         { name: 'Certificate in Life Management & Bhagwat Gita', fee: '₹6,000', total: '₹6,000', duration: '6 months', code: 'Certificate-30' },
@@ -2629,6 +2632,8 @@
         return formatCourseList('Certificate Courses', courseList.cert);
       if (lower.includes('acupuncture') || lower.includes('acupressure') || lower.includes('b.ac'))
         return formatCourseList('Bachelor of Acupuncture', courseList.ug.filter(c => c.name.toLowerCase().includes('acupuncture')));
+      if (lower.includes('veterinary') || lower.includes('vet pharmacy') || lower.includes('dvp') || lower.includes('d.v.p'))
+        return formatCourseList('Diploma in Veterinary Pharmacy', courseList.diploma.filter(c => c.name.toLowerCase().includes('veterinary')));
       if (lower.includes('yoga'))
         return `🧘 <strong>Yoga & Naturopathy Programs at DSVV:</strong>\n\n• B.Sc. Yoga — ₹10,000/sem (3 yrs)\n• B.N.Y.S. — ₹25,000/sem (5.5 yrs)\n• B.A. Yoga Studies & Sports — ₹10,000/sem (3 yrs)\n• M.Sc. Yoga & Nephropathy — ₹18,000/sem (2 yrs)\n• M.A. Yoga Studies — ₹12,000/sem (2 yrs)\n• Certificate in Yoga & Science — ₹6,000 (6 months)\n• Ph.D. in Yoga — ₹90,000/year (3 yrs)\n\nDSVV is renowned for its Yoga programs! Want more details?`;
       return null;
@@ -2670,7 +2675,7 @@
       if (courseResp) return courseResp;
 
       if (lower.includes('course') || lower.includes('program') || lower.includes('offer') || lower.includes('degree')) {
-        return `DSVV offers 50+ programs across 5 levels:\n\n🎓 <strong>Undergraduate (14):</strong> B.Sc, BNYS, Bachelor of Acupuncture (3 & 4 Yrs), B.A, B.Com, B.Tech, BBA, BCA, BSW, BHM, B.Lib\n📚 <strong>Postgraduate (8):</strong> M.Sc, M.A, M.Com, MBA, MCA, MSW, M.Lib\n🔧 <strong>Diploma (4):</strong> DCA, PGDCA, DHM, PGDBM\n📜 <strong>Certificate (3):</strong> Life Management, Yoga, Sanskrit\n🔬 <strong>Research (2):</strong> M.Phil, Ph.D\n\nAsk about any specific course for fees & duration!`;
+        return `DSVV offers 50+ programs across 5 levels:\n\n🎓 <strong>Undergraduate (14):</strong> B.Sc, BNYS, Bachelor of Acupuncture (3 & 4 Yrs), B.A, B.Com, B.Tech, BBA, BCA, BSW, BHM, B.Lib\n📚 <strong>Postgraduate (8):</strong> M.Sc, M.A, M.Com, MBA, MCA, MSW, M.Lib\n🔧 <strong>Diploma (5):</strong> DCA, PGDCA, DHM, PGDBM, DVP\n📜 <strong>Certificate (3):</strong> Life Management, Yoga, Sanskrit\n🔬 <strong>Research (2):</strong> M.Phil, Ph.D\n\nAsk about any specific course for fees & duration!`;
       }
       if (lower.includes('admit') || lower.includes('apply') || lower.includes('enroll') || lower.includes('join'))
         return staticResponses.admission;
