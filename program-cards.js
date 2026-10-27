@@ -122,11 +122,11 @@ const programCards = [
     title: 'Bachelor of Technology (B.Tech.)',
     icon: 'fa-cogs',
     badge: '8 Semesters \u2022 UG Degree',
-    description: 'Engineering programs in Electrical, Computer Science, Civil, Mining, Chemical, Electronics & Telecommunication, and Mechanical with practical lab training.',
+    description: 'Engineering programs in Electrical, Computer Science, Civil, Mining, Chemical, Electronics & Telecommunication, Mechanical, and Fire & Safety with practical lab training.',
     eligibility: '10+2 with PCM (50% marks)',
     feePerSem: '\u20b920,000',
     totalFee: '\u20b91,60,000',
-    specializations: ['Electrical', 'Computer Science', 'Electrical & Electronics', 'Mining', 'Civil', 'Chemical Engineering', 'Electronics & Tele-Communication', 'Electronics Engineering', 'Environmental Science', 'Mechanical Engineering'],
+    specializations: ['Electrical', 'Computer Science', 'Electrical & Electronics', 'Mining', 'Civil', 'Chemical Engineering', 'Electronics & Tele-Communication', 'Electronics Engineering', 'Environmental Science', 'Mechanical Engineering', 'Fire & Safety Engineering'],
     pageLink: 'programs/btech/index.html'
   },
   {
@@ -141,6 +141,32 @@ const programCards = [
     totalFee: '\u20b91,60,000',
     specializations: ['Mechanical Engineering'],
     pageLink: 'programs/btech-mechanical/index.html'
+  },
+  {
+    id: 'btech-fire-safety',
+    category: 'ug',
+    title: 'B.Tech Fire & Safety Engineering',
+    icon: 'fa-fire-extinguisher',
+    badge: '8 Semesters \u2022 UG Degree',
+    description: 'Comprehensive 4-year engineering program covering fire dynamics, industrial safety, risk assessment, disaster management, explosion prevention, and emergency response with regular and lateral entry options.',
+    eligibility: '10+2 with PCM (50%) / Diploma in Fire & Safety / Engg.',
+    feePerSem: '\u20b920,000',
+    totalFee: '\u20b91,60,000',
+    specializations: ['Fire & Safety Engineering', 'Industrial Safety & Hazard Management', 'Disaster Response & Emergency Planning'],
+    pageLink: 'programs/btech-fire-safety/index.html'
+  },
+  {
+    id: 'btech-mining',
+    category: 'ug',
+    title: 'B.Tech Mining Engineering',
+    icon: 'fa-hard-hat',
+    badge: '8 Semesters \u2022 UG Degree',
+    description: 'Comprehensive 4-year engineering program covering surface and underground mining, mine surveying, mineral processing, drilling & blasting, rock mechanics, and mine safety with regular and lateral entry options.',
+    eligibility: '10+2 with PCM (50%) / Diploma in Mining Engg.',
+    feePerSem: '\u20b920,000',
+    totalFee: '\u20b91,60,000',
+    specializations: ['Mining Engineering', 'Surface & Underground Mining', 'Mine Ventilation & Safety', 'Mineral Processing'],
+    pageLink: 'programs/btech-mining/index.html'
   },
   {
     id: 'bed',

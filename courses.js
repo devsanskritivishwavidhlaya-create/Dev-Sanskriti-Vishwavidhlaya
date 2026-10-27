@@ -3,7 +3,8 @@ const courseCategories = {
   11: 'diploma', 12: 'diploma', 13: 'ug', 14: 'cert', 15: 'cert', 16: 'cert', 17: 'diploma', 18: 'diploma',
   19: 'pg', 20: 'pg', 21: 'pg', 22: 'pg', 23: 'pg', 24: 'pg', 25: 'pg', 26: 'pg', 27: 'diploma', 28: 'pg',
   29: 'phd', 30: 'ug', 31: 'pg', 32: 'ug', 33: 'ug', 34: 'pg', 35: 'pg', 36: 'diploma',
-  37: 'diploma', 38: 'diploma', 39: 'diploma', 40: 'diploma', 41: 'diploma', 42: 'diploma', 43: 'ug', 44: 'ug', 45: 'diploma'
+  37: 'diploma', 38: 'diploma', 39: 'diploma', 40: 'diploma', 41: 'diploma', 42: 'diploma', 43: 'ug', 44: 'ug', 45: 'diploma',
+  46: 'ug', 47: 'ug'
 };
 
 const courses = [
@@ -687,6 +688,20 @@ const courses = [
       {
         name: "Mechanical Engineering",
         code: "B.Tech. - 24(I)",
+        semesters: [
+          { name: "Semester - 1", fee: 20000.00 },
+          { name: "Semester - 2", fee: 20000.00 },
+          { name: "Semester - 3", fee: 20000.00 },
+          { name: "Semester - 4", fee: 20000.00 },
+          { name: "Semester - 5", fee: 20000.00 },
+          { name: "Semester - 6", fee: 20000.00 },
+          { name: "Semester - 7", fee: 20000.00 },
+          { name: "Semester - 8", fee: 20000.00 }
+        ]
+      },
+      {
+        name: "Fire & Safety Engineering",
+        code: "B.Tech. - 24(J)",
         semesters: [
           { name: "Semester - 1", fee: 20000.00 },
           { name: "Semester - 2", fee: 20000.00 },
@@ -2237,6 +2252,52 @@ const courses = [
           { name: "Semester - 2", fee: 12000.00 },
           { name: "Semester - 3", fee: 12000.00 },
           { name: "Semester - 4", fee: 12000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 46,
+    name: "B.Tech Fire & Safety Engineering",
+    code: "B.Tech. - 46",
+    duration: "8 - Semester's",
+    icon: "fa-fire-extinguisher",
+    subcourses: [
+      {
+        name: "Fire & Safety Engineering",
+        code: "B.Tech. - 46",
+        semesters: [
+          { name: "Semester - 1", fee: 20000.00 },
+          { name: "Semester - 2", fee: 20000.00 },
+          { name: "Semester - 3", fee: 20000.00 },
+          { name: "Semester - 4", fee: 20000.00 },
+          { name: "Semester - 5", fee: 20000.00 },
+          { name: "Semester - 6", fee: 20000.00 },
+          { name: "Semester - 7", fee: 20000.00 },
+          { name: "Semester - 8", fee: 20000.00 }
+        ]
+      }
+    ]
+  },
+  {
+    id: 47,
+    name: "B.Tech Mining Engineering",
+    code: "B.Tech. - 47",
+    duration: "8 - Semester's",
+    icon: "fa-hard-hat",
+    subcourses: [
+      {
+        name: "Mining Engineering",
+        code: "B.Tech. - 47",
+        semesters: [
+          { name: "Semester - 1", fee: 20000.00 },
+          { name: "Semester - 2", fee: 20000.00 },
+          { name: "Semester - 3", fee: 20000.00 },
+          { name: "Semester - 4", fee: 20000.00 },
+          { name: "Semester - 5", fee: 20000.00 },
+          { name: "Semester - 6", fee: 20000.00 },
+          { name: "Semester - 7", fee: 20000.00 },
+          { name: "Semester - 8", fee: 20000.00 }
         ]
       }
     ]

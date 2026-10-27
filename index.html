@@ -2159,8 +2159,8 @@
     </div>
   </footer>
 
-  <script src="program-cards.js?v=20260929-v2"></script>
-  <script src="courses.js?v=20260929-v2"></script>
+  <script src="program-cards.js?v=20261027"></script>
+  <script src="courses.js?v=20261027"></script>
   <script src="script.js?v=20260929-v2"></script>
 
   <!-- DSVV Chatbot -->
@@ -2560,7 +2560,9 @@
         { name: 'B.H.M.', fee: '₹10,000/semester', total: '₹80,000', duration: '4 years (8 semesters)', code: 'B.H.M.-22' },
         { name: 'B.B.A.', fee: '₹10,000/semester', total: '₹60,000', duration: '3 years (6 semesters)', code: 'B.B.A.-23' },
         { name: 'B.Lib.', fee: '₹6,000/semester', total: '₹12,000', duration: '1 year (2 semesters)', code: 'B.Lib-11' },
-        { name: 'B.Tech (CSE/EEE/Mining/Civil/Chemical/IT)', fee: '₹20,000/semester', total: '₹1,60,000', duration: '4 years (8 semesters)', code: 'B.Tech-24' }
+        { name: 'B.Tech (CSE/EEE/Civil/Chemical/IT/Mechanical)', fee: '₹20,000/semester', total: '₹1,60,000', duration: '4 years (8 semesters)', code: 'B.Tech-24' },
+        { name: 'B.Tech Fire & Safety Engineering', fee: '₹20,000/semester', total: '₹1,60,000', duration: '4 years (8 semesters)', code: 'B.Tech.-46' },
+        { name: 'B.Tech Mining Engineering', fee: '₹20,000/semester', total: '₹1,60,000', duration: '4 years (8 semesters)', code: 'B.Tech.-47' }
       ],
       'pg': [
         { name: 'M.Sc. (Physics/Chemistry/Botany/Maths/Zoology/Statistics/Electronics/Bio-Chem/Biotech/Microbiology/CS&IT/Nanotech/Environmental/Neuroscience/Plant Science/Soil Science/Astronomy etc.)', fee: '₹18,000/semester', total: '₹72,000', duration: '2 years (4 semesters)', code: 'M.Sc.-08' },
@@ -2634,6 +2636,10 @@
         return formatCourseList('Bachelor of Acupuncture', courseList.ug.filter(c => c.name.toLowerCase().includes('acupuncture')));
       if (lower.includes('veterinary') || lower.includes('vet pharmacy') || lower.includes('dvp') || lower.includes('d.v.p'))
         return formatCourseList('Diploma in Veterinary Pharmacy', courseList.diploma.filter(c => c.name.toLowerCase().includes('veterinary')));
+      if (lower.includes('fire') && (lower.includes('safety') || lower.includes('btech') || lower.includes('b.tech') || lower.includes('engineer')))
+        return formatCourseList('B.Tech Fire & Safety Engineering', courseList.ug.filter(c => c.name.toLowerCase().includes('fire')));
+      if (lower.includes('mining') && (lower.includes('btech') || lower.includes('b.tech') || lower.includes('engineer') || lower.includes('mine')))
+        return formatCourseList('B.Tech Mining Engineering', courseList.ug.filter(c => c.name.toLowerCase().includes('mining')));
       if (lower.includes('yoga'))
         return `🧘 <strong>Yoga & Naturopathy Programs at DSVV:</strong>\n\n• B.Sc. Yoga — ₹10,000/sem (3 yrs)\n• B.N.Y.S. — ₹25,000/sem (5.5 yrs)\n• B.A. Yoga Studies & Sports — ₹10,000/sem (3 yrs)\n• M.Sc. Yoga & Nephropathy — ₹18,000/sem (2 yrs)\n• M.A. Yoga Studies — ₹12,000/sem (2 yrs)\n• Certificate in Yoga & Science — ₹6,000 (6 months)\n• Ph.D. in Yoga — ₹90,000/year (3 yrs)\n\nDSVV is renowned for its Yoga programs! Want more details?`;
       return null;

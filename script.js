@@ -118,7 +118,9 @@ function openCourseModal(programId) {
     if (title.includes('b.com') && c.name.includes('Bachelor of Commerce')) return true;
     if (title.includes('b.c.a') && c.name.includes('Bachelor of Computer')) return true;
     if (title.includes('b.b.a') && c.name.includes('Bachelor of Business')) return true;
-    if (title.includes('b.tech') && c.name.includes('Bachelor of Technology')) return true;
+    if ((title.includes('fire') || title.includes('safety')) && c.name.toLowerCase().includes('fire')) return true;
+    if (title.includes('mining') && c.name.toLowerCase().includes('mining')) return true;
+    if (title.includes('b.tech') && !title.includes('fire') && !title.includes('mining') && c.name.includes('Bachelor of Technology')) return true;
     if (title.includes('b.s.w') && c.name.includes('Bachelor of Social')) return true;
     if (title.includes('b.h.m') && c.name.includes('Bachelor of Hotel')) return true;
     if (title.includes('m.sc') && c.name.includes('Master of Science')) return true;
