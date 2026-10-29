@@ -144,7 +144,7 @@ export default function App() {
 
   // Admin Auth State
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
-    return sessionStorage.getItem('dsvv_admin_logged_in') === 'true';
+    return sessionStorage.getItem('dsvv_admin_logged_in') === 'true' && !!sessionStorage.getItem('dsvv_auth_token');
   });
   const [adminUsernameInput, setAdminUsernameInput] = useState('');
   const [adminPasswordInput, setAdminPasswordInput] = useState('');
@@ -153,7 +153,7 @@ export default function App() {
   // Center Auth State
   const [loggedCenter, setLoggedCenter] = useState(() => {
     const saved = sessionStorage.getItem('dsvv_center_logged_in');
-    return saved ? JSON.parse(saved) : null;
+    return saved && sessionStorage.getItem('dsvv_auth_token') ? JSON.parse(saved) : null;
   });
   const [centerCodeInput, setCenterCodeInput] = useState('');
   const [centerPasswordInput, setCenterPasswordInput] = useState('');
@@ -523,62 +523,59 @@ export default function App() {
   // ============================================================
   // AUTHENTICATION HANDLERS
   // ============================================================
-  const handleAdminLogin = (e) => {
+  const handleAdminLogin = async (e) => {
     e.preventDefault();
     setAdminLoginError('');
     const u = adminUsernameInput.trim();
     const p = adminPasswordInput.trim();
 
-    if (u.toUpperCase() === 'DEV SANSKRITI VISHWAVIDYALAYA' && p === 'dsvv@2026') {
-      setIsAdminLoggedIn(true);
-      sessionStorage.setItem('dsvv_admin_logged_in', 'true');
-      setAdminUsernameInput('');
-      setAdminPasswordInput('');
-    } else {
-      setAdminLoginError('Invalid Administrator Username or Password.');
+    try {
+      const res = await api.login(u, p, 'admin');
+      if (res.token) {
+        sessionStorage.setItem('dsvv_auth_token', res.token);
+        sessionStorage.setItem('dsvv_admin_logged_in', 'true');
+        setIsAdminLoggedIn(true);
+        setAdminUsernameInput('');
+        setAdminPasswordInput('');
+        fetchInitialData();
+      }
+    } catch (err) {
+      setAdminLoginError(err.message || 'Invalid Administrator Username or Password.');
     }
   };
 
   const handleAdminSignOut = () => {
     setIsAdminLoggedIn(false);
+    sessionStorage.removeItem('dsvv_auth_token');
     sessionStorage.removeItem('dsvv_admin_logged_in');
     setAdminTab('dashboard');
   };
 
-  const handleCenterLogin = (e) => {
+  const handleCenterLogin = async (e) => {
     e.preventDefault();
     setCenterLoginError('');
     const q = centerCodeInput.trim().toUpperCase();
     const p = centerPasswordInput.trim();
 
-    const center = centers.find(c => 
-      (c.centerCode.toUpperCase() === q || c.email.toUpperCase() === q) && c.password === p
-    );
-
-    if (!center) {
-      setCenterLoginError('Invalid Center ID / Email or Password.');
-      return;
+    try {
+      const res = await api.login(q, p, 'center');
+      if (res.token) {
+        sessionStorage.setItem('dsvv_auth_token', res.token);
+        sessionStorage.setItem('dsvv_center_logged_in', JSON.stringify(res.center));
+        setLoggedCenter(res.center);
+        setCenterCodeInput('');
+        setCenterPasswordInput('');
+        setCenterTab('candidates');
+        fetchInitialData();
+      }
+    } catch (err) {
+      setCenterLoginError(err.message || 'Invalid Center ID / Email or Password.');
     }
-
-    if (center.status === 'pending') {
-      setCenterLoginError('Your Center account is currently pending approval by the University Administrator.');
-      return;
-    }
-
-    if (center.status === 'rejected') {
-      setCenterLoginError('Your Center registration was rejected by the University Administrator.');
-      return;
-    }
-
-    setLoggedCenter(center);
-    sessionStorage.setItem('dsvv_center_logged_in', JSON.stringify(center));
-    setCenterCodeInput('');
-    setCenterPasswordInput('');
-    setCenterTab('candidates');
   };
 
   const handleCenterSignOut = () => {
     setLoggedCenter(null);
+    sessionStorage.removeItem('dsvv_auth_token');
     sessionStorage.removeItem('dsvv_center_logged_in');
   };
 

@@ -91,7 +91,10 @@ export async function pushToGoogleDrive(endpointUrl, database) {
     data: {
       students: database.students || [],
       courses: database.courses || [],
-      centers: database.centers || [],
+      centers: (database.centers || []).map(c => {
+        const { password, passwordHash, ...safe } = c;
+        return safe;
+      }),
       timestamp: new Date().toISOString()
     }
   };
@@ -161,7 +164,10 @@ export function exportDatabaseJson(database) {
     exportedAt: d.toISOString(),
     students: database.students || [],
     courses: database.courses || [],
-    centers: database.centers || []
+    centers: (database.centers || []).map(c => {
+      const { password, passwordHash, ...safe } = c;
+      return safe;
+    })
   };
 
   const jsonStr = JSON.stringify(fullData, null, 2);

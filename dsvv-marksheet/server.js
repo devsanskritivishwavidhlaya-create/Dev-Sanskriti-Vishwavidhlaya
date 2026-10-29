@@ -4,16 +4,100 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Load environment variables from .env if present
+const envPath = path.join(__dirname, '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  envContent.split(/\r?\n/).forEach(line => {
+    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+    if (match && !process.env[match[1]]) {
+      process.env[match[1]] = (match[2] || '').trim().replace(/^['"]|['"]$/g, '');
+    }
+  });
+}
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'dsvv_jwt_secret_secure_key_2026_default_replace';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'DEV SANSKRITI VISHWAVIDYALAYA';
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || '$2b$10$2WPuyERzYaovzSXvBAkwq.Pvz65W8hhNgyqSLscdGqPTnSpIUAtoq';
 
-app.use(cors());
+// Security Headers
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
+// CORS Configuration - Restrict to university domains and trusted origins
+const allowedOrigins = [
+  'https://www.devsanskritivishwavidyalaya.com',
+  'https://devsanskritivishwavidyalaya.com',
+  'https://www.dsvv.ac.in',
+  'https://dsvv.ac.in',
+  'http://localhost:5000',
+  'http://localhost:5001',
+  'http://localhost:5173',
+  'http://127.0.0.1:5000',
+  'http://127.0.0.1:5001',
+  'http://127.0.0.1:5173'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.trycloudflare.com') || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(new Error('Blocked by CORS policy'));
+  },
+  credentials: true
+}));
+
+// Body Parsers with limits
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Rate Limiters
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  message: { error: 'Too many requests from this IP, please try again after 15 minutes.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', generalLimiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 15,
+  message: { error: 'Too many login attempts. Please try again after 15 minutes.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const publicSearchLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 60,
+  message: { error: 'Too many search requests. Please slow down.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  message: { error: 'Too many upload attempts. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const staticOptions = {
   setHeaders: (res, filePath) => {
@@ -23,8 +107,8 @@ const staticOptions = {
   }
 };
 
+// Static file serving - ONLY built dist and public assets, NEVER current directory '.'
 app.use(express.static('dist', staticOptions));
-app.use(express.static('.', staticOptions));
 app.use(express.static('public', staticOptions));
 
 const uploadsDir = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'uploads');
@@ -57,22 +141,56 @@ function readDB() {
     const raw = fs.readFileSync(dbPath, 'utf8').replace(/^\uFEFF/, '');
     return JSON.parse(raw);
   } catch {
-    return { students: [], courses: [], settings: { lastRollNo: null, lastEnrollSuffix: null, lastDmcNo: null } };
+    return { students: [], courses: [], centers: [], settings: { lastRollNo: null, lastEnrollSuffix: null, lastDmcNo: null } };
   }
 }
 
+// Atomic file write to avoid race condition corruption
 function writeDB(data) {
   if (data && Array.isArray(data.students)) {
     data.students = data.students.map(sanitizeStudentRecord);
   }
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), 'utf8');
+  const tempPath = `${dbPath}.${Date.now()}.tmp`;
+  fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8');
+  fs.renameSync(tempPath, dbPath);
 }
+
+// Remove sensitive credentials before serving db to client
+function sanitizeDbForClient(db) {
+  return {
+    ...db,
+    centers: (db.centers || []).map(c => {
+      const { password, passwordHash, ...safeCenter } = c;
+      return safeCenter;
+    })
+  };
+}
+
+// File Upload with Strict Whitelist & MIME Validation
+const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp'];
+const ALLOWED_EXT = ['.jpg', '.jpeg', '.png', '.webp'];
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => cb(null, uploadsDir),
-  filename: (_, file, cb) => cb(null, file.fieldname + '-' + Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname))
+  filename: (_, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    cb(null, 'photo-' + Date.now() + '-' + Math.round(Math.random() * 1E9) + ext);
+  }
 });
-const upload = multer({ storage });
+
+const fileFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+  if (!ALLOWED_EXT.includes(ext) || !ALLOWED_MIME.includes(file.mimetype)) {
+    return cb(new Error('Invalid file type. Only JPEG, PNG, and WebP images are permitted.'));
+  }
+  cb(null, true);
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+});
 
 function parseCSV(text) {
   const lines = text.split(/\r?\n/);
@@ -122,18 +240,15 @@ function calculateIssueDate(session, termType, termName, termIndex, totalTerms) 
 
   if (isSemester) {
     if (termIndex % 2 === 0) {
-      // 1st, 3rd, 5th sem: exam in Dec, marksheet in Feb next year
       const examYear = startYear + Math.floor(termIndex / 2);
       issueMonthIndex = 1; // February
       issueYear = examYear + 1;
     } else {
-      // 2nd, 4th, 6th sem: exam in June, marksheet in Aug
       const examYear = startYear + Math.floor(termIndex / 2) + 1;
       issueMonthIndex = 7; // August
       issueYear = examYear;
     }
   } else {
-    // Year courses: exam in June, marksheet in Aug
     issueMonthIndex = 7; // August
     issueYear = startYear + termIndex + 1;
   }
@@ -162,11 +277,109 @@ function generateDmcNumber(db) {
   return d;
 }
 
-// Get full database
-app.get('/api/db', (_, res) => res.json(readDB()));
+// ============================================================
+// AUTHENTICATION & ACCESS CONTROL MIDDLEWARE
+// ============================================================
 
-// Upload CSV courses
-app.post('/api/courses/upload', upload.single('csvFile'), (req, res) => {
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+  if (!token) {
+    return res.status(401).json({ error: 'Authentication required. Please log in.' });
+  }
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ error: 'Invalid or expired session. Please log in again.' });
+    req.user = user;
+    next();
+  });
+}
+
+function requireAdmin(req, res, next) {
+  authenticateToken(req, res, () => {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ error: 'Access denied: Administrator privileges required.' });
+    }
+    next();
+  });
+}
+
+function requireCenterOrAdmin(req, res, next) {
+  authenticateToken(req, res, () => {
+    if (req.user.role !== 'admin' && req.user.role !== 'center') {
+      return res.status(403).json({ error: 'Access denied: Valid account required.' });
+    }
+    next();
+  });
+}
+
+// ============================================================
+// API ROUTES
+// ============================================================
+
+// Authentication Login Endpoint
+app.post('/api/auth/login', authLimiter, (req, res) => {
+  try {
+    const { username, password, role } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required.' });
+    }
+    const u = String(username).trim();
+    const p = String(password).trim();
+
+    // 1. Verify Admin
+    if (role === 'admin' || u.toUpperCase() === ADMIN_USERNAME.toUpperCase()) {
+      const match = (u.toUpperCase() === ADMIN_USERNAME.toUpperCase()) && bcrypt.compareSync(p, ADMIN_PASSWORD_HASH);
+      if (match) {
+        const token = jwt.sign({ role: 'admin', username: u }, JWT_SECRET, { expiresIn: '12h' });
+        return res.json({ token, role: 'admin', user: { name: 'Administrator' } });
+      }
+      return res.status(401).json({ error: 'Invalid Administrator Username or Password.' });
+    }
+
+    // 2. Verify Center
+    const db = readDB();
+    const q = u.toUpperCase();
+    const center = (db.centers || []).find(c =>
+      (c.centerCode && c.centerCode.toUpperCase() === q) || (c.email && c.email.toUpperCase() === q)
+    );
+
+    if (!center) {
+      return res.status(401).json({ error: 'Invalid Center ID / Email or Password.' });
+    }
+
+    const match = center.passwordHash
+      ? bcrypt.compareSync(p, center.passwordHash)
+      : (center.password === p);
+
+    if (!match) {
+      return res.status(401).json({ error: 'Invalid Center ID / Email or Password.' });
+    }
+
+    if (center.status === 'pending') {
+      return res.status(403).json({ error: 'Your Center account is currently pending approval by the University Administrator.' });
+    }
+
+    if (center.status === 'rejected') {
+      return res.status(403).json({ error: 'Your Center registration was rejected by the University Administrator.' });
+    }
+
+    const token = jwt.sign({ role: 'center', centerId: center.id, centerCode: center.centerCode }, JWT_SECRET, { expiresIn: '12h' });
+    const { password: _, passwordHash: __, ...safeCenter } = center;
+    return res.json({ token, role: 'center', center: safeCenter });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Authentication failed.' });
+  }
+});
+
+// Get Database (Protected: Admin or Center)
+app.get('/api/db', requireCenterOrAdmin, (req, res) => {
+  const db = readDB();
+  res.json(sanitizeDbForClient(db));
+});
+
+// Upload CSV Courses (Protected: Admin)
+app.post('/api/courses/upload', requireAdmin, upload.single('csvFile'), (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
     const parsed = parseCSV(fs.readFileSync(req.file.path, 'utf8'));
@@ -199,15 +412,20 @@ app.post('/api/courses/upload', upload.single('csvFile'), (req, res) => {
   }
 });
 
-// Get courses
-app.get('/api/courses', (_, res) => res.json(readDB().courses));
+// Get Public Courses (Public syllabus information)
+app.get('/api/courses', (_, res) => res.json(readDB().courses || []));
 
-// Upload photo
-app.post('/api/upload-photo', upload.single('photo'), (req, res) => {
+// Upload Student Photo (Protected: Admin or Center, with rate limit & type check)
+app.post('/api/upload-photo', requireCenterOrAdmin, uploadLimiter, upload.single('photo'), (req, res) => {
   try {
     if (req.body.image) {
+      const match = req.body.image.match(/^data:image\/(jpeg|png|webp);base64,/i);
+      if (!match) {
+        return res.status(400).json({ error: 'Invalid image format. Only JPEG, PNG, and WebP are allowed.' });
+      }
       const base64 = req.body.image.replace(/^data:image\/\w+;base64,/, '');
-      const filename = `photo-${Date.now()}-${Math.round(Math.random() * 1E9)}.png`;
+      const ext = match[1].toLowerCase() === 'jpeg' ? 'jpg' : match[1].toLowerCase();
+      const filename = `photo-${Date.now()}-${Math.round(Math.random() * 1E9)}.${ext}`;
       fs.writeFileSync(path.join(uploadsDir, filename), base64, { encoding: 'base64' });
       return res.json({ photoUrl: `/uploads/${filename}` });
     }
@@ -219,8 +437,8 @@ app.post('/api/upload-photo', upload.single('photo'), (req, res) => {
   }
 });
 
-// Register student
-app.post('/api/students', (req, res) => {
+// Register Student (Protected: Admin or Center)
+app.post('/api/students', requireCenterOrAdmin, (req, res) => {
   try {
     const data = req.body;
     const db = readDB();
@@ -260,7 +478,7 @@ app.post('/api/students', (req, res) => {
         email: data.email || '',
         photo: data.photo || '',
         schoolCollege: data.schoolCollege || '',
-        centerCode: data.centerCode || 'DSVV-MAIN',
+        centerCode: req.user.role === 'center' ? req.user.centerCode : (data.centerCode || 'DSVV-MAIN'),
         marksheets,
         publishedDocs,
         isPublished: data.isPublished !== undefined ? data.isPublished : true,
@@ -284,8 +502,8 @@ app.post('/api/students', (req, res) => {
   }
 });
 
-// Edit student
-app.put('/api/students/:id', (req, res) => {
+// Edit Student (Protected: Admin or Center)
+app.put('/api/students/:id', requireCenterOrAdmin, (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -298,6 +516,12 @@ app.put('/api/students/:id', (req, res) => {
     if (idx < 0) return res.status(404).json({ error: 'Student not found' });
 
     const student = db.students[idx];
+
+    // If center, ensure they only edit their own students
+    if (req.user.role === 'center' && student.centerCode !== req.user.centerCode) {
+      return res.status(403).json({ error: 'Access denied: You can only edit candidates of your own center.' });
+    }
+
     if (name !== undefined) student.name = normalizeText(name).toUpperCase();
     if (fatherName !== undefined) student.fatherName = normalizeText(fatherName).toUpperCase();
     if (motherName !== undefined) student.motherName = normalizeText(motherName).toUpperCase();
@@ -307,7 +531,7 @@ app.put('/api/students/:id', (req, res) => {
     if (enrollmentNo !== undefined) student.enrollmentNo = normalizeText(enrollmentNo);
     if (email !== undefined) student.email = String(email || '').trim();
     if (schoolCollege !== undefined) student.schoolCollege = String(schoolCollege || '').trim();
-    if (centerCode !== undefined) student.centerCode = String(centerCode || '').trim();
+    if (centerCode !== undefined && req.user.role === 'admin') student.centerCode = String(centerCode || '').trim();
     if (courseName || course) student.course = normalizeText(courseName || course);
     if (session !== undefined) student.session = normalizeText(session).toUpperCase();
     if (publishedDocs !== undefined) student.publishedDocs = publishedDocs;
@@ -367,8 +591,8 @@ app.put('/api/students/:id', (req, res) => {
   }
 });
 
-// Delete student
-app.delete('/api/students/:id', (req, res) => {
+// Delete Student (Protected: Admin)
+app.delete('/api/students/:id', requireAdmin, (req, res) => {
   try {
     const db = readDB();
     const idx = db.students.findIndex(s => s.id === req.params.id);
@@ -381,8 +605,8 @@ app.delete('/api/students/:id', (req, res) => {
   }
 });
 
-// Publish documents
-app.post('/api/students/:id/publish', (req, res) => {
+// Publish Documents (Protected: Admin)
+app.post('/api/students/:id/publish', requireAdmin, (req, res) => {
   try {
     const { publishedDocs } = req.body;
     if (!publishedDocs) return res.status(400).json({ error: 'Missing publish config' });
@@ -407,8 +631,8 @@ app.post('/api/students/:id/publish', (req, res) => {
   }
 });
 
-// Public portal search
-app.get('/api/public/student', (req, res) => {
+// Public Portal Search (Public, Rate Limited)
+app.get('/api/public/student', publicSearchLimiter, (req, res) => {
   try {
     const { name, searchVal } = req.query;
     if (!name && !searchVal) return res.status(400).json({ error: 'Name and Roll/Enrollment required' });
@@ -433,16 +657,46 @@ app.get('/api/public/student', (req, res) => {
   }
 });
 
-// Bulk import database (for migration)
-app.post('/api/import', (req, res) => {
+// Bulk Import Database / Sync (Protected: Admin or Center)
+app.post('/api/import', requireCenterOrAdmin, (req, res) => {
   try {
     const { students, courses, centers } = req.body;
     const db = readDB();
-    if (students && Array.isArray(students)) db.students = students.map(sanitizeStudentRecord);
-    if (courses && Array.isArray(courses)) db.courses = courses;
-    if (centers && Array.isArray(centers)) db.centers = centers;
+
+    if (req.user.role === 'admin') {
+      if (students && Array.isArray(students)) db.students = students.map(sanitizeStudentRecord);
+      if (courses && Array.isArray(courses)) db.courses = courses;
+      if (centers && Array.isArray(centers)) {
+        db.centers = centers.map(c => {
+          if (c.password) {
+            c.passwordHash = bcrypt.hashSync(c.password, 10);
+            delete c.password;
+          }
+          return c;
+        });
+      }
+    } else if (req.user.role === 'center') {
+      // Center can only sync / update their own students or center details
+      if (students && Array.isArray(students)) {
+        students.forEach(st => {
+          if (st.centerCode === req.user.centerCode) {
+            const idx = db.students.findIndex(s => s.id === st.id);
+            if (idx >= 0) db.students[idx] = sanitizeStudentRecord(st);
+            else db.students.unshift(sanitizeStudentRecord(st));
+          }
+        });
+      }
+    }
+
     writeDB(db);
-    res.json({ message: 'Database imported successfully', counts: { students: db.students.length, courses: db.courses.length, centers: db.centers.length } });
+    res.json({
+      message: 'Database imported successfully',
+      counts: {
+        students: db.students.length,
+        courses: db.courses.length,
+        centers: (db.centers || []).length
+      }
+    });
   } catch (err) {
     console.error('Import error:', err);
     res.status(500).json({ error: 'Failed to import database' });
@@ -467,7 +721,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-const server = app.listen(PORT, '0.0.0.0', () => console.log(`DSVV Server running on http://localhost:${PORT}`));
+const server = app.listen(PORT, '0.0.0.0', () => console.log(`DSVV Server running securely on http://localhost:${PORT}`));
 
 server.keepAliveTimeout = 120000;
 server.headersTimeout = 125000;

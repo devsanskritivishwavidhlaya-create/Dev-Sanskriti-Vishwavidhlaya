@@ -1,9 +1,15 @@
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
 async function request(url, options = {}) {
+  const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    ...options.headers,
+  };
   const res = await fetch(`${API_BASE}${url}`, {
-    headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
+    headers,
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: 'Request failed' }));
@@ -13,6 +19,13 @@ async function request(url, options = {}) {
 }
 
 export const api = {
+  login: (username, password, role) => request('/api/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ username, password, role }),
+  }),
+
+  getCourses: () => request('/api/courses'),
+
   getDb: () => request('/api/db'),
   
   createStudent: (data) => request('/api/students', { method: 'POST', body: JSON.stringify(data) }),
@@ -24,21 +37,27 @@ export const api = {
   publishStudent: (id, publishedDocs) => request(`/api/students/${id}/publish`, { method: 'POST', body: JSON.stringify({ publishedDocs }) }),
   
   uploadCsv: async (file) => {
+    const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
     const formData = new FormData();
     formData.append('csvFile', file);
-    const res = await fetch(`${API_BASE}/api/courses/upload`, { method: 'POST', body: formData });
-    if (!res.ok) throw new Error('CSV upload failed');
+    const res = await fetch(`${API_BASE}/api/courses/upload`, {
+      method: 'POST',
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+      body: formData
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'CSV upload failed' }));
+      throw new Error(err.error || 'CSV upload failed');
+    }
     return res.json();
   },
 
   uploadPhoto: async (base64) => {
-    const res = await fetch(`${API_BASE}/api/upload-photo`, {
+    const res = await request('/api/upload-photo', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ image: base64 }),
     });
-    if (!res.ok) throw new Error('Photo upload failed');
-    return res.json();
+    return res;
   },
 
   searchPublic: (name, searchVal) => request(`/api/public/student?name=${encodeURIComponent(name)}&searchVal=${encodeURIComponent(searchVal)}`),

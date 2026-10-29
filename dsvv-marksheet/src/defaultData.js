@@ -1832,7 +1832,6 @@ export const DEFAULT_CENTERS = [
     "coordinatorName": "DR. SURESH SHARMA",
     "email": "center.raipur@devsanskritivishwavidyalaya.com",
     "phone": "+91-9876543210",
-    "password": "center@2026",
     "status": "approved",
     "walletBalance": 15000,
     "createdAt": "2026-08-20",

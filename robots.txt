@@ -1,4 +1,9 @@
 User-agent: *
+Disallow: /admin
+Disallow: /portal/
+Disallow: /api/
+Disallow: /Backup/
+Disallow: /dsvv-marksheet/
 Allow: /
 
 Sitemap: https://www.dsvv.ac.in/sitemap.xml
