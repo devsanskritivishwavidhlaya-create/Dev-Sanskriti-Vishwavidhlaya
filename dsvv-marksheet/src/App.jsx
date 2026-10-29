@@ -118,16 +118,34 @@ export default function App() {
   const fetchInitialData = async () => {
     setIsRetrying(true);
     setServerErrorMsg('');
+    const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
     try {
-      const db = await api.getDb();
-      const serverStudents = sanitizeStudents(db.students || []);
-      setStudents(serverStudents);
-      setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
-      setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      if (token) {
+        const db = await api.getDb();
+        const serverStudents = sanitizeStudents(db.students || []);
+        setStudents(serverStudents);
+        setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
+        setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+      } else {
+        const crs = await api.getCourses();
+        if (crs && crs.length > 0) {
+          setCourses(sanitizeCourses(crs));
+        }
+      }
       setServerOnline(true);
       setServerErrorMsg('');
       setDbLoaded(true);
     } catch (err) {
+      if (err.message && (err.message.includes('401') || err.message.includes('403') || err.message.includes('Authentication required') || err.message.includes('Invalid or expired') || err.message.includes('Access denied'))) {
+        try {
+          const crs = await api.getCourses();
+          if (crs && crs.length > 0) setCourses(sanitizeCourses(crs));
+        } catch (_) {}
+        setServerOnline(true);
+        setServerErrorMsg('');
+        setDbLoaded(true);
+        return;
+      }
       console.error('Server offline or unreachable:', err);
       setServerOnline(false);
       setServerErrorMsg('Server Error: University server is currently offline. Please contact the administrator.');
@@ -398,21 +416,26 @@ export default function App() {
     }
   }, [centers, dbLoaded]);
 
-  // Auto-sync any state changes to Live Cloud Database
+  // Auto-sync any state changes to Live Cloud Database (Admin only)
   useEffect(() => {
     if (!dbLoaded || !serverOnline) return;
+    const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
+    if (!token || !isAdminLoggedIn) return;
     const timeout = setTimeout(() => {
       api.importData({ students, courses, centers }).catch(err => {
         console.warn('Live Cloud auto-sync notice:', err);
       });
     }, 600);
     return () => clearTimeout(timeout);
-  }, [students, courses, centers, dbLoaded, serverOnline]);
+  }, [students, courses, centers, dbLoaded, serverOnline, isAdminLoggedIn]);
 
   // Live real-time background sync across all devices
   useEffect(() => {
     if (!dbLoaded) return;
     const fetchLatestFromServer = () => {
+      const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
+      if (!token) return;
+
       api.getDb().then(db => {
         setServerOnline(true);
         setServerErrorMsg('');
@@ -443,6 +466,9 @@ export default function App() {
           });
         }
       }).catch(err => {
+        if (err.message && (err.message.includes('401') || err.message.includes('403') || err.message.includes('Authentication required') || err.message.includes('Invalid or expired'))) {
+          return;
+        }
         console.warn('Backend server poll unreachable (server offline):', err);
         setServerOnline(false);
         setServerErrorMsg('Server Error: University server is currently offline. Please contact the administrator.');
@@ -548,6 +574,7 @@ export default function App() {
     setIsAdminLoggedIn(false);
     sessionStorage.removeItem('dsvv_auth_token');
     sessionStorage.removeItem('dsvv_admin_logged_in');
+    setStudents([]);
     setAdminTab('dashboard');
   };
 
@@ -577,6 +604,7 @@ export default function App() {
     setLoggedCenter(null);
     sessionStorage.removeItem('dsvv_auth_token');
     sessionStorage.removeItem('dsvv_center_logged_in');
+    setStudents([]);
   };
 
   const handleRegisterCenterSubmit = (e) => {
