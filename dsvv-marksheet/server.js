@@ -137,15 +137,32 @@ function sanitizeStudentRecord(s) {
 }
 
 function readDB() {
+  const backupPath = path.join(dataDir, 'db.backup.json');
   try {
     const raw = fs.readFileSync(dbPath, 'utf8').replace(/^\uFEFF/, '');
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if ((!parsed.students || parsed.students.length === 0) && fs.existsSync(backupPath)) {
+      const bRaw = fs.readFileSync(backupPath, 'utf8').replace(/^\uFEFF/, '');
+      const bParsed = JSON.parse(bRaw);
+      if (bParsed.students && bParsed.students.length > 0) {
+        writeDB(bParsed);
+        return bParsed;
+      }
+    }
+    return parsed;
   } catch {
+    if (fs.existsSync(backupPath)) {
+      try {
+        const bRaw = fs.readFileSync(backupPath, 'utf8').replace(/^\uFEFF/, '');
+        const bParsed = JSON.parse(bRaw);
+        if (bParsed.students && bParsed.students.length > 0) return bParsed;
+      } catch (_) {}
+    }
     return { students: [], courses: [], centers: [], settings: { lastRollNo: null, lastEnrollSuffix: null, lastDmcNo: null } };
   }
 }
 
-// Atomic file write to avoid race condition corruption
+// Atomic file write to avoid race condition corruption + automated redundant backup
 function writeDB(data) {
   if (data && Array.isArray(data.students)) {
     data.students = data.students.map(sanitizeStudentRecord);
@@ -153,6 +170,14 @@ function writeDB(data) {
   const tempPath = `${dbPath}.${Date.now()}.tmp`;
   fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8');
   fs.renameSync(tempPath, dbPath);
+
+  // If database contains students, maintain a permanent safety backup copy
+  if (data && Array.isArray(data.students) && data.students.length > 0) {
+    try {
+      const backupPath = path.join(dataDir, 'db.backup.json');
+      fs.writeFileSync(backupPath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (_) {}
+  }
 }
 
 // Remove sensitive credentials before serving db to client
@@ -664,9 +689,9 @@ app.post('/api/import', requireCenterOrAdmin, (req, res) => {
     const db = readDB();
 
     if (req.user.role === 'admin') {
-      if (students && Array.isArray(students)) db.students = students.map(sanitizeStudentRecord);
-      if (courses && Array.isArray(courses)) db.courses = courses;
-      if (centers && Array.isArray(centers)) {
+      if (students && Array.isArray(students) && students.length > 0) db.students = students.map(sanitizeStudentRecord);
+      if (courses && Array.isArray(courses) && courses.length > 0) db.courses = courses;
+      if (centers && Array.isArray(centers) && centers.length > 0) {
         db.centers = centers.map(c => {
           if (c.password) {
             c.passwordHash = bcrypt.hashSync(c.password, 10);

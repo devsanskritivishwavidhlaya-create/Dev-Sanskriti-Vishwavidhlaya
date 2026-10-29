@@ -421,6 +421,7 @@ export default function App() {
     if (!dbLoaded || !serverOnline) return;
     const token = typeof window !== 'undefined' ? sessionStorage.getItem('dsvv_auth_token') : null;
     if (!token || !isAdminLoggedIn) return;
+    if (!students || students.length === 0) return;
     const timeout = setTimeout(() => {
       api.importData({ students, courses, centers }).catch(err => {
         console.warn('Live Cloud auto-sync notice:', err);
@@ -560,10 +561,19 @@ export default function App() {
       if (res.token) {
         sessionStorage.setItem('dsvv_auth_token', res.token);
         sessionStorage.setItem('dsvv_admin_logged_in', 'true');
-        setIsAdminLoggedIn(true);
         setAdminUsernameInput('');
         setAdminPasswordInput('');
-        fetchInitialData();
+        try {
+          const db = await api.getDb();
+          const serverStudents = sanitizeStudents(db.students || []);
+          setStudents(serverStudents);
+          setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
+          setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+        } catch (_) {}
+        setIsAdminLoggedIn(true);
+        setServerOnline(true);
+        setServerErrorMsg('');
+        setDbLoaded(true);
       }
     } catch (err) {
       setAdminLoginError(err.message || 'Invalid Administrator Username or Password.');
@@ -593,7 +603,16 @@ export default function App() {
         setCenterCodeInput('');
         setCenterPasswordInput('');
         setCenterTab('candidates');
-        fetchInitialData();
+        try {
+          const db = await api.getDb();
+          const serverStudents = sanitizeStudents(db.students || []);
+          setStudents(serverStudents);
+          setCourses(sanitizeCourses(db.courses && db.courses.length > 0 ? db.courses : DEFAULT_COURSES));
+          setCenters(db.centers && db.centers.length > 0 ? db.centers : DEFAULT_CENTERS);
+        } catch (_) {}
+        setServerOnline(true);
+        setServerErrorMsg('');
+        setDbLoaded(true);
       }
     } catch (err) {
       setCenterLoginError(err.message || 'Invalid Center ID / Email or Password.');
