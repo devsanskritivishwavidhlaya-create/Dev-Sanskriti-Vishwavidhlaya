@@ -54,16 +54,30 @@ get_url() {
     echo "$url"
 }
 
-echo "Searching for active trycloudflare.com URL for DSVV..."
+is_url_alive() {
+    local test_url="$1"
+    if [ -z "$test_url" ]; then return 1; fi
+    local status
+    status=$(curl -k -s -o /dev/null -w "%{http_code}" "$test_url/api/courses" --max-time 5 2>/dev/null || echo "000")
+    if [ "$status" = "200" ] || [ "$status" = "404" ] || [ "$status" = "401" ]; then
+        return 0
+    fi
+    return 1
+}
+
+echo "Checking active trycloudflare.com URL for DSVV..."
 NEW_URL=$(get_url)
 
-# 5. Check if URL is detected, if not wait a few seconds
-if [ -z "$NEW_URL" ]; then
-    echo "Waiting for URL in PM2 logs..."
-    for i in {1..15}; do
+# 5. Check if URL is detected and live; if stale or dead, restart tunnel cleanly
+if [ -z "$NEW_URL" ] || ! is_url_alive "$NEW_URL"; then
+    echo "Stale or inactive tunnel detected. Restarting $PM2_NAME with clean logs..."
+    pm2 flush "$PM2_NAME" > /dev/null 2>&1 || true
+    pm2 restart "$PM2_NAME" > /dev/null 2>&1 || true
+    echo "Waiting for fresh tunnel connection to establish..."
+    for i in {1..20}; do
         sleep 2
         NEW_URL=$(get_url)
-        if [ -n "$NEW_URL" ]; then
+        if [ -n "$NEW_URL" ] && is_url_alive "$NEW_URL"; then
             break
         fi
     done
@@ -79,7 +93,7 @@ if [ -z "$NEW_URL" ]; then
     exit 1
 fi
 
-echo "[OK] Active Live DSVV Tunnel Detected: $NEW_URL"
+echo "[OK] Active Live DSVV Tunnel Detected and Verified: $NEW_URL"
 
 # Sync latest changes from remote before updating
 git fetch origin main > /dev/null 2>&1 || true
