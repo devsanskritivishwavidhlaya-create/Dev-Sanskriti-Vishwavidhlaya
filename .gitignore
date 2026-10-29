@@ -15,6 +15,9 @@ dsvv-marksheet/dist/
 
 # Sensitive files - NEVER commit
 Login Details.txt
+Backup/
+dsvv-marksheet/data/*.json
+!dsvv-marksheet/data/default*.json
 
 # Personal files
 portal/student_photo.jpg
