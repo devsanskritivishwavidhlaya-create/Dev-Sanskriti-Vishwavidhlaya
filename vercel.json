@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://buttons-anchor-expansion-mls.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://buttons-anchor-expansion-mls.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://photos-looks-funk-orientation.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://photos-looks-funk-orientation.trycloudflare.com/uploads/:path*" }
   ]
 }
