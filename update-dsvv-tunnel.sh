@@ -3,7 +3,7 @@ set -e
 
 # Export standard environment paths so cron has access to pm2, cloudflared, git, etc.
 export HOME="${HOME:-/home/gurukul}"
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.nvm/versions/node/$(ls $HOME/.nvm/versions/node 2>/dev/null | tail -n 1)/bin:$HOME/.npm-global/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:$HOME/.nvm/versions/node/$(ls $HOME/.nvm/versions/node 2>/dev/null | tail -n 1)/bin:$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
@@ -20,11 +20,24 @@ if [ -z "$(git config user.name 2>/dev/null)" ]; then
     git config user.name "Dev Sanskriti Vishwavidyalaya"
 fi
 
+# Locate absolute path of cloudflared binary
+CF_BIN=$(which cloudflared 2>/dev/null || true)
+if [ -z "$CF_BIN" ] && [ -x "/usr/local/bin/cloudflared" ]; then
+    CF_BIN="/usr/local/bin/cloudflared"
+fi
+if [ -z "$CF_BIN" ] && [ -x "/usr/bin/cloudflared" ]; then
+    CF_BIN="/usr/bin/cloudflared"
+fi
+if [ -z "$CF_BIN" ]; then
+    CF_BIN="cloudflared"
+fi
+
 # 2. Write permanent stable runner script
 RUNNER_SCRIPT="$HOME/run-dsvv-tunnel.sh"
-cat << 'EOF' > "$RUNNER_SCRIPT"
+cat << EOF > "$RUNNER_SCRIPT"
 #!/bin/bash
-exec cloudflared tunnel --url http://127.0.0.1:5001
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:\$HOME/.local/bin:\$PATH"
+exec $CF_BIN tunnel --url http://127.0.0.1:5001
 EOF
 chmod +x "$RUNNER_SCRIPT"
 
@@ -44,40 +57,33 @@ PM2_NAME="dsvv-tunnel"
 # 4. Helper to extract real tunnel URL (ignoring api.trycloudflare.com)
 get_url() {
     local url=""
-    # First priority: live PM2 stream (last 100 lines of current process)
     url=$(pm2 logs "$PM2_NAME" --lines 100 --nostream 2>/dev/null | grep -a -oE 'https://[a-z0-9]+(-[a-z0-9]+)+\.trycloudflare\.com' | grep -v 'api\.trycloudflare\.com' | tail -n 1 | tr -d ' ' || true)
-    
-    # Second priority: direct error log where cloudflared outputs
     if [ -z "$url" ] && [ -f "$HOME/.pm2/logs/${PM2_NAME}-error.log" ]; then
         url=$(grep -a -oE 'https://[a-z0-9]+(-[a-z0-9]+)+\.trycloudflare\.com' "$HOME/.pm2/logs/${PM2_NAME}-error.log" 2>/dev/null | grep -v 'api\.trycloudflare\.com' | tail -n 1 | tr -d ' ' || true)
+    fi
+    if [ -z "$url" ] && [ -f "$HOME/.pm2/logs/${PM2_NAME}-out.log" ]; then
+        url=$(grep -a -oE 'https://[a-z0-9]+(-[a-z0-9]+)+\.trycloudflare\.com' "$HOME/.pm2/logs/${PM2_NAME}-out.log" 2>/dev/null | grep -v 'api\.trycloudflare\.com' | tail -n 1 | tr -d ' ' || true)
     fi
     echo "$url"
 }
 
-is_url_alive() {
-    local test_url="$1"
-    if [ -z "$test_url" ]; then return 1; fi
-    local status
-    status=$(curl -k -s -o /dev/null -w "%{http_code}" "$test_url/api/courses" --max-time 5 2>/dev/null || echo "000")
-    if [ "$status" = "200" ] || [ "$status" = "404" ] || [ "$status" = "401" ]; then
-        return 0
-    fi
-    return 1
+is_tunnel_process_alive() {
+    pm2 jlist 2>/dev/null | grep -q "\"name\":\"$PM2_NAME\".*\"status\":\"online\""
 }
 
 echo "Checking active trycloudflare.com URL for DSVV..."
 NEW_URL=$(get_url)
 
-# 5. Check if URL is detected and live; if stale or dead, restart tunnel cleanly
-if [ -z "$NEW_URL" ] || ! is_url_alive "$NEW_URL"; then
-    echo "Stale or inactive tunnel detected. Restarting $PM2_NAME with clean logs..."
+if [ -z "$NEW_URL" ] || ! is_tunnel_process_alive; then
+    echo "Starting / Refreshing DSVV tunnel..."
     pm2 flush "$PM2_NAME" > /dev/null 2>&1 || true
     pm2 restart "$PM2_NAME" > /dev/null 2>&1 || true
     echo "Waiting for fresh tunnel connection to establish..."
+    NEW_URL=""
     for i in {1..20}; do
         sleep 2
         NEW_URL=$(get_url)
-        if [ -n "$NEW_URL" ] && is_url_alive "$NEW_URL"; then
+        if [ -n "$NEW_URL" ]; then
             break
         fi
     done
@@ -86,14 +92,12 @@ fi
 if [ -z "$NEW_URL" ]; then
     echo ""
     echo "[ERROR] Could not obtain an active trycloudflare.com URL."
-    echo "Status of PM2 processes:"
     pm2 list
-    echo "Last logs:"
     pm2 logs "$PM2_NAME" --lines 20 --nostream
     exit 1
 fi
 
-echo "[OK] Active Live DSVV Tunnel Detected and Verified: $NEW_URL"
+echo "[OK] Active Live DSVV Tunnel: $NEW_URL"
 
 # Sync latest changes from remote before updating
 git fetch origin main > /dev/null 2>&1 || true
