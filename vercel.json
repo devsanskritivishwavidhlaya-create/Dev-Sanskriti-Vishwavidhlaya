@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://chi-says-earthquake-sit.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://chi-says-earthquake-sit.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://protest-wilderness-java-collective.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://protest-wilderness-java-collective.trycloudflare.com/uploads/:path*" }
   ]
 }
