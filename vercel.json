@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://buck-julian-entertaining-brass.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://buck-julian-entertaining-brass.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://argument-viewing-universe-silicon.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://argument-viewing-universe-silicon.trycloudflare.com/uploads/:path*" }
   ]
 }
