@@ -120,7 +120,7 @@ if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 const dbPath = path.join(dataDir, 'db.json');
 
 function normalizeText(val) {
-  return String(val ?? '').trim().replace(/\s+/g, ' ');
+  return String(val ?? '').replace(/[\u200B-\u200D\uFEFF]/g, '').trim().replace(/\s+/g, ' ');
 }
 
 function sanitizeStudentRecord(s) {
@@ -148,6 +148,9 @@ function readDB() {
         writeDB(bParsed);
         return bParsed;
       }
+    }
+    if (parsed.students && Array.isArray(parsed.students)) {
+      parsed.students = parsed.students.map(sanitizeStudentRecord);
     }
     return parsed;
   } catch {
@@ -656,20 +659,47 @@ app.post('/api/students/:id/publish', requireAdmin, (req, res) => {
   }
 });
 
+// Helper for flexible and robust student name matching
+function matchNames(input, record) {
+  if (!input) return true;
+  if (!record) return false;
+  const norm = (str) =>
+    String(str ?? '')
+      .replace(/[\u200B-\u200D\uFEFF]/g, '')
+      .toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+
+  const n1 = norm(input);
+  const n2 = norm(record);
+  if (n1 === n2) return true;
+
+  const stripPrefix = (s) => s.replace(/^(km|kumari|ms|miss|mr|smt|shri|dr|prof)\s+/i, '').trim();
+  const s1 = stripPrefix(n1);
+  const s2 = stripPrefix(n2);
+  if (s1 === s2) return true;
+  if (s1 && s2 && s1.length >= 3 && (s2.includes(s1) || s1.includes(s2))) return true;
+
+  const words1 = s1.split(/\s+/).filter(w => w.length > 1);
+  const words2 = s2.split(/\s+/).filter(w => w.length > 1);
+  if (words1.length > 0 && words1.every(w => words2.includes(w))) return true;
+
+  return false;
+}
+
 // Public Portal Search (Public, Rate Limited)
 app.get('/api/public/student', publicSearchLimiter, (req, res) => {
   try {
     const { name, searchVal } = req.query;
     if (!name && !searchVal) return res.status(400).json({ error: 'Name and Roll/Enrollment required' });
     const db = readDB();
-    const cleanName = normalizeText(name).toLowerCase();
     const cleanSearch = normalizeText(searchVal).replace(/\s+/g, '').toLowerCase();
     const student = db.students.find(s => {
       if (!s.isPublished) return false;
-      const sName = normalizeText(s.name).toLowerCase();
       const sRoll = normalizeText(s.rollNo).replace(/\s+/g, '').toLowerCase();
       const sEnroll = normalizeText(s.enrollmentNo).replace(/\s+/g, '').toLowerCase();
-      const nameMatch = cleanName ? sName === cleanName : true;
+      const nameMatch = matchNames(name, s.name);
       const valMatch = cleanSearch ? (sRoll === cleanSearch || sEnroll === cleanSearch) : true;
       return nameMatch && valMatch;
     });

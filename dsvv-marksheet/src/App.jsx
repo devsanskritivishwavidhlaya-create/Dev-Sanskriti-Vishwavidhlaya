@@ -65,7 +65,35 @@ export default function App() {
     });
   };
 
-  const normalizeSpace = (val) => String(val ?? '').trim().replace(/\s+/g, ' ');
+  const normalizeSpace = (val) => String(val ?? '').replace(/[\u200B-\u200D\uFEFF]/g, '').trim().replace(/\s+/g, ' ');
+
+  const matchNames = (input, record) => {
+    if (!input) return true;
+    if (!record) return false;
+    const norm = (str) =>
+      String(str ?? '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ' ')
+        .trim()
+        .replace(/\s+/g, ' ');
+
+    const n1 = norm(input);
+    const n2 = norm(record);
+    if (n1 === n2) return true;
+
+    const stripPrefix = (s) => s.replace(/^(km|kumari|ms|miss|mr|smt|shri|dr|prof)\s+/i, '').trim();
+    const s1 = stripPrefix(n1);
+    const s2 = stripPrefix(n2);
+    if (s1 === s2) return true;
+    if (s1 && s2 && s1.length >= 3 && (s2.includes(s1) || s1.includes(s2))) return true;
+
+    const words1 = s1.split(/\s+/).filter(w => w.length > 1);
+    const words2 = s2.split(/\s+/).filter(w => w.length > 1);
+    if (words1.length > 0 && words1.every(w => words2.includes(w))) return true;
+
+    return false;
+  };
 
   const sanitizeStudents = (studentList) => {
     if (!Array.isArray(studentList)) return [];
@@ -1278,10 +1306,9 @@ export default function App() {
       if (!Array.isArray(list)) return null;
       return list.find(s => {
         if (s.isPublished === false) return false;
-        const sName = normalizeSpace(s.name).toLowerCase();
         const sRoll = normalizeSpace(s.rollNo).replace(/\s+/g, '').toLowerCase();
         const sEnroll = normalizeSpace(s.enrollmentNo).replace(/\s+/g, '').toLowerCase();
-        const nameOk = cleanName ? sName === cleanName.toLowerCase() : true;
+        const nameOk = matchNames(cleanName, s.name);
         const valOk = cleanVal ? (sRoll === cleanVal.toLowerCase() || sEnroll === cleanVal.toLowerCase()) : true;
         return nameOk && valOk;
       });
@@ -1304,11 +1331,24 @@ export default function App() {
           setPortalError('No student record found matching the provided credentials. Please check the spelling and Roll/Enrollment Number.');
         }
       }
-    }).catch(err => {
+    }).catch(async (err) => {
       if (!serverOnline || err.message?.includes('Failed to fetch') || err.message?.includes('NetworkError') || err.message?.includes('502') || err.message?.includes('503') || err.message?.includes('500') || err.message?.includes('530')) {
         setPortalError('Server Error: University server is currently offline. Please contact the administrator.');
         return;
       }
+
+      // If search with name failed (e.g. backend exact-name mismatch or invisible whitespace),
+      // and roll/enrollment number was provided, query by roll/enrollment and verify name client-side!
+      if (cleanVal) {
+        try {
+          const fallbackRes = await api.searchPublic('', cleanVal);
+          if (fallbackRes && fallbackRes.student && matchNames(cleanName, fallbackRes.student.name)) {
+            setupPortalStudent(fallbackRes.student, fallbackRes.course);
+            return;
+          }
+        } catch (_) {}
+      }
+
       const localMatch = findMatchingStudent(students);
       if (localMatch) {
         setupPortalStudent(localMatch);
