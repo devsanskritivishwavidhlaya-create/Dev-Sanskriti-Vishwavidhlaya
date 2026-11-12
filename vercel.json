@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://waiting-yen-fundamental-imperial.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://waiting-yen-fundamental-imperial.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://nec-dealers-whale-structures.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://nec-dealers-whale-structures.trycloudflare.com/uploads/:path*" }
   ]
 }
