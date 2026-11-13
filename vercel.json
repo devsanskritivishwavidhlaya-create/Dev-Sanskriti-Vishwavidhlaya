@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://hey-lit-machine-breeding.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://hey-lit-machine-breeding.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://odds-collapse-eight-limitations.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://odds-collapse-eight-limitations.trycloudflare.com/uploads/:path*" }
   ]
 }
