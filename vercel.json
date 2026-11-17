@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://excessive-run-job-vids.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://excessive-run-job-vids.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://hayes-attacked-open-tuner.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://hayes-attacked-open-tuner.trycloudflare.com/uploads/:path*" }
   ]
 }
