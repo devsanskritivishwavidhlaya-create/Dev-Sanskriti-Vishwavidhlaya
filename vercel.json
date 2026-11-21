@@ -29,7 +29,7 @@
     { "source": "/portal", "destination": "/portal/index.html" },
     { "source": "/portal/", "destination": "/portal/index.html" },
     { "source": "/portal/:path*", "destination": "/portal/index.html" },
-    { "source": "/api/:path*", "destination": "https://geological-bargains-pike-indicating.trycloudflare.com/api/:path*" },
-    { "source": "/uploads/:path*", "destination": "https://geological-bargains-pike-indicating.trycloudflare.com/uploads/:path*" }
+    { "source": "/api/:path*", "destination": "https://tennis-warming-reference-wal.trycloudflare.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://tennis-warming-reference-wal.trycloudflare.com/uploads/:path*" }
   ]
 }
